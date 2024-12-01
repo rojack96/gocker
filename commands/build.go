@@ -22,6 +22,10 @@ func (b *Build) ServiceName(serviceName ...string) *Build {
 	return b
 }
 
+func (b *Build) GetCommand() string {
+	return b.Command
+}
+
 func (b *Build) Exec() {
-	return
+	helpers.GeneralExec(b.Command)
 }

@@ -28,6 +28,10 @@ func (up *Up) ServiceName(serviceName ...string) *Up {
 	return up
 }
 
+func (up *Up) GetCommand() string {
+	return up.Command
+}
+
 func (up *Up) Exec() {
-	return
+	helpers.GeneralExec(up.Command)
 }
