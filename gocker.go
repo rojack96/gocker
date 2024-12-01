@@ -1,16 +1,20 @@
 package gocker
 
+import (
+	"gocker/commands/compose"
+	"gocker/commands/run"
+)
+
 const (
-	DockerCompose = "docker compose"
-	DockerRun     = "docker run"
+	Docker = "docker"
 )
 
 type Gocker struct{}
 
-func (g *Gocker) Run() *Run {
-	return &Run{Command: DockerRun}
+func (g *Gocker) Run() *run.Run {
+	return &run.Run{Command: Docker + " run"}
 }
 
-func (g *Gocker) Compose() *Compose {
-	return &Compose{Command: DockerCompose}
+func (g *Gocker) Compose() *compose.Compose {
+	return &compose.Compose{Command: Docker + " compose"}
 }

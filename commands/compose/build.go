@@ -1,4 +1,4 @@
-package commands
+package compose
 
 import (
 	"gocker/helpers"

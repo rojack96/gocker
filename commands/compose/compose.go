@@ -1,7 +1,6 @@
-package gocker
+package compose
 
 import (
-	"gocker/commands"
 	"gocker/helpers"
 )
 
@@ -27,13 +26,13 @@ func (c *Compose) EnvFile(fileName string) *Compose {
 /* Commands */
 
 // Build or rebuild services
-func (c *Compose) Build() *commands.Build {
-	return &commands.Build{Command: c.Command + " build"}
+func (c *Compose) Build() *Build {
+	return &Build{Command: c.Command + " build"}
 }
 
 // Up Create and start containers
-func (c *Compose) Up() *commands.Up {
-	return &commands.Up{Command: c.Command + " up"}
+func (c *Compose) Up() *Up {
+	return &Up{Command: c.Command + " up"}
 }
 
 // TODO implement all Commands
