@@ -7,6 +7,17 @@ import (
 	"runtime"
 )
 
+func ServiceName(services ...string) string {
+	var cmd string
+	if len(services) != 0 {
+		for _, service := range services {
+			cmd += AppendString(service)
+		}
+	}
+
+	return cmd
+}
+
 func AppendString(cmd string) string {
 	return " " + cmd
 }
