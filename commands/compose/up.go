@@ -150,12 +150,7 @@ func (up *Up) Watch() *Up {
 }
 
 func (up *Up) ServiceName(serviceName ...string) *Up {
-	if len(serviceName) != 0 {
-		for _, service := range serviceName {
-			up.Command += helpers.AppendString(service)
-		}
-	}
-
+	up.Command = helpers.ServiceName(serviceName...)
 	return up
 }
 
