@@ -1,6 +1,8 @@
 package compose
 
 import (
+	"gocker/commands/compose/command"
+	"gocker/commands/compose/option"
 	"gocker/helpers"
 )
 
@@ -9,7 +11,6 @@ const (
 	allResources     = "--all-resources"
 	ansi             = "--ansi"
 	compatibility    = "--compatibility"
-	dryRun           = "--dry-run"
 	envFile          = "--env-file"
 	file             = "--file"
 	parallelism      = "--parallel"
@@ -20,7 +21,7 @@ const (
 
 	// Commands:
 	attach  = "attach"
-	build   = "build"
+	build   = "command"
 	config  = "config"
 	cp      = "cp"
 	create  = "create"
@@ -52,7 +53,7 @@ const (
 	/*
 		Commands:
 		attach      Attach local standard input, output, and error streams to a service's running container
-		build       Build or rebuild services
+		command       Build or rebuild services
 		config      Parse, resolve and render compose file in canonical format
 		cp          Copy files/folders between a service container and the local filesystem
 		create      Creates containers for a service
@@ -80,7 +81,7 @@ const (
 		up          Create and start containers
 		version     Show the Docker Compose version information
 		wait        Block until the first service container stops
-		watch       Watch build context for service and rebuild/refresh containers when files are updated
+		watch       Watch command context for service and rebuild/refresh containers when files are updated
 	*/
 )
 
@@ -110,7 +111,7 @@ func (c *Compose) Compatibility() *Compose {
 
 // DryRun - Execute command in dry run mode
 func (c *Compose) DryRun() *Compose {
-	c.Command += helpers.Option(dryRun)
+	c.Command += option.DryRun()
 	return c
 }
 
@@ -160,13 +161,13 @@ func (c *Compose) ProjectName(pn string) *Compose {
 /* Commands */
 
 // Build or rebuild services
-func (c *Compose) Build() *Build {
-	return &Build{Command: c.Command + helpers.Command(build)}
+func (c *Compose) Build() *command.Build {
+	return &command.Build{Command: c.Command + helpers.Command(build)}
 }
 
 // Up Create and start containers
-func (c *Compose) Up() *Up {
-	return &Up{Command: c.Command + helpers.Command(up)}
+func (c *Compose) Up() *command.Up {
+	return &command.Up{Command: c.Command + helpers.Command(up)}
 }
 
 // TODO implement all Commands

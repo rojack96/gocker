@@ -7,4 +7,6 @@ import (
 func main() {
 	g := gocker.Gocker{}
 	g.Compose().FileName("compose.yml").Up().Exec()
+
+	g.Compose().Up().AbortOnContainerExit()
 }
