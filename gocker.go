@@ -1,8 +1,8 @@
 package gocker
 
 import (
-	"gocker/commands/compose"
-	"gocker/commands/run"
+	"github.com/rojack96/gocker/commands/compose"
+	"github.com/rojack96/gocker/commands/run"
 )
 
 const (

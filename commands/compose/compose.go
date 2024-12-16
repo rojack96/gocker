@@ -1,9 +1,9 @@
 package compose
 
 import (
-	"gocker/commands/compose/command"
-	"gocker/commands/compose/option"
-	"gocker/helpers"
+	"github.com/rojack96/gocker/commands/compose/command"
+	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/helpers"
 )
 
 const (

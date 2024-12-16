@@ -1,6 +1,6 @@
 package option
 
-import "gocker/helpers"
+import "github.com/rojack96/gocker/helpers"
 
 const (
 	dryRun = "--dry-run"

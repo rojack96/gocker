@@ -2,8 +2,8 @@ package command
 
 import (
 	"fmt"
-	"gocker/commands/compose/option"
-	"gocker/helpers"
+	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/helpers"
 )
 
 const (

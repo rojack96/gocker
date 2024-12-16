@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gocker"
+	"github.com/rojack96/gocker"
 )
 
 func main() {
