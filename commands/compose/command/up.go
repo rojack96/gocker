@@ -7,7 +7,9 @@ import (
 )
 
 const (
-	abortOnContainerExit = "--abort-on-container-exit"
+	abortOnContainerExit    = "--abort-on-container-exit"
+	abortOnContainerFailure = "--abort-on-container-failure"
+	alwaysRecreateDeps      = "--always-recreate-deps"
 	/*Options:
 	      --abort-on-container-exit
 	      --abort-on-container-failure   Stops all containers if any container exited with failure. Incompatible with -d
@@ -49,17 +51,17 @@ func (up *Up) AbortOnContainerExit() *Up {
 	return up
 }
 
-// TODO continue from here
-
 func (up *Up) AbortOnContainerFailure() *Up {
-	up.Command += " --abort-on-container-failure"
+	up.Command += helpers.Option(abortOnContainerFailure)
 	return up
 }
 
 func (up *Up) AlwaysRecreateDeps() *Up {
-	up.Command += " --always-recreate-deps"
+	up.Command += helpers.Option(alwaysRecreateDeps)
 	return up
 }
+
+// TODO continue from here
 
 func (up *Up) Attach(services []string) *Up {
 	for _, service := range services {
