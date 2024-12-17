@@ -1,190 +1,206 @@
 package command
 
 import (
-	"fmt"
 	"github.com/rojack96/gocker/commands/compose/option"
 	"github.com/rojack96/gocker/helpers"
+	"strconv"
 )
 
 const (
 	abortOnContainerExit    = "--abort-on-container-exit"
 	abortOnContainerFailure = "--abort-on-container-failure"
 	alwaysRecreateDeps      = "--always-recreate-deps"
-	/*Options:
-	      --abort-on-container-exit
-	      --abort-on-container-failure   Stops all containers if any container exited with failure. Incompatible with -d
-	      --always-recreate-deps         Recreate dependent containers. Incompatible with --no-recreate.
-	      --attach stringArray           Restrict attaching to the specified services. Incompatible with --attach-dependencies.
-	      --attach-dependencies          Automatically attach to log output of dependent services
-	      --build                        Build images before starting containers
-	  -d, --detach                       Detached mode: Run containers in the background
-	      --dry-run                      Execute command in dry run mode
-	      --exit-code-from string        Return the exit code of the selected service container. Implies --abort-on-container-exit
-	      --force-recreate               Recreate containers even if their configuration and image haven't changed
-	      --no-attach stringArray        Do not attach (stream logs) to the specified services
-	      --no-build                     Don't build an image, even if it's policy
-	      --no-color                     Produce monochrome output
-	      --no-deps                      Don't start linked services
-	      --no-log-prefix                Don't print prefix in logs
-	      --no-recreate                  If containers already exist, don't recreate them. Incompatible with --force-recreate.
-	      --no-start                     Don't start the services after creating them
-	      --pull string                  Pull image before running ("always"|"missing"|"never") (default "policy")
-	      --quiet-pull                   Pull without printing progress information
-	      --remove-orphans               Remove containers for services not defined in the Compose file
-	  -V, --renew-anon-volumes           Recreate anonymous volumes instead of retrieving data from the previous containers
-	      --scale scale                  Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
-	  -t, --timeout int                  Use this timeout in seconds for container shutdown when attached or when containers are already running
-	      --timestamps                   Show timestamps
-	      --wait                         Wait for services to be running|healthy. Implies detached mode.
-	      --wait-timeout int             Maximum duration to wait for the project to be running|healthy
-	  -w, --watch                        Watch source code and rebuild/refresh containers when files are updated.*/
+	attach                  = "--attach"
+	attachDependencies      = "--attach-dependencies"
+	build                   = "--build"
+	detach                  = "--detach"
+	exitCodeFrom            = "--exit-code-from"
+	forceRecreate           = "--force-recreate"
+	noAttach                = "--no-attach"
+	noBuild                 = "--no-build"
+	noColor                 = "--no-color"
+	noDeps                  = "--no-deps"
+	noLogPrefix             = "--no-log-prefix"
+	noRecreate              = "--no-recreate"
+	noStart                 = "--no-start"
+	quietPull               = "--quiet-pull"
+	removeOrphans           = "--remove-orphans"
+	renewAnonVolumes        = "--renew-anon-volumes"
+	scale                   = "--scale"
+	timeout                 = "--timeout"
+	timestamps              = "--timestamps"
+	wait                    = "--wait"
+	waitTimeout             = "--wait-timeout"
+	watch                   = "--watch"
 )
 
 type Up struct {
 	Command string
 }
 
-// AbortOnContainerExit Stops all containers if any container was stopped. Incompatible with -d
 // TODO Implement the possibility to make it incompatible with Detach
+
+// AbortOnContainerExit - Stops all containers if any container was stopped. Incompatible with -d
 func (up *Up) AbortOnContainerExit() *Up {
 	up.Command += helpers.Option(abortOnContainerExit)
 	return up
 }
 
+// AbortOnContainerFailure - Stops all containers if any container exited with failure. Incompatible with -d
 func (up *Up) AbortOnContainerFailure() *Up {
 	up.Command += helpers.Option(abortOnContainerFailure)
 	return up
 }
 
+// AlwaysRecreateDeps - Recreate dependent containers. Incompatible with --no-recreate.
 func (up *Up) AlwaysRecreateDeps() *Up {
 	up.Command += helpers.Option(alwaysRecreateDeps)
 	return up
 }
 
-// TODO continue from here
-
+// Attach - Restrict attaching to the specified services. Incompatible with --attach-dependencies.
 func (up *Up) Attach(services []string) *Up {
-	for _, service := range services {
-		up.Command += " --attach " + service
-	}
+	up.Command += helpers.StringArray(attach, services...)
 	return up
 }
 
+// AttachDependencies - Automatically attach to log output of dependent services
 func (up *Up) AttachDependencies() *Up {
-	up.Command += " --attach-dependencies"
+	up.Command += helpers.StringArray(attachDependencies)
 	return up
 }
 
+// Build - Build images before starting containers
 func (up *Up) Build() *Up {
-	up.Command += " --command"
+	up.Command += helpers.Option(build)
 	return up
 }
 
+// Detach - Detached mode: Run containers in the background
 func (up *Up) Detach() *Up {
-	up.Command += " -d"
+	up.Command += helpers.Option(detach)
 	return up
 }
 
+// DryRun - Execute command in dry run mode
 func (up *Up) DryRun() *Up {
 	up.Command += option.DryRun()
 	return up
 }
 
+// ExitCodeFrom - Return the exit code of the selected service container. Implies --abort-on-container-exit
 func (up *Up) ExitCodeFrom(service string) *Up {
-	up.Command += " --exit-code-from " + service
+	up.Command += helpers.String(exitCodeFrom, service)
 	return up
 }
 
+// ForceRecreate - Recreate containers even if their configuration and image haven't changed
 func (up *Up) ForceRecreate() *Up {
-	up.Command += " --force-recreate"
+	up.Command += helpers.Option(forceRecreate)
 	return up
 }
 
+// NoAttach - Do not attach (stream logs) to the specified services
 func (up *Up) NoAttach(services []string) *Up {
-	for _, service := range services {
-		up.Command += " --no-attach " + service
-	}
+	up.Command += helpers.StringArray(noAttach, services...)
 	return up
 }
 
+// NoBuild - Don't build an image, even if it's policy
 func (up *Up) NoBuild() *Up {
-	up.Command += " --no-command"
+	up.Command += helpers.Option(noBuild)
 	return up
 }
 
+// NoColor - Produce monochrome output
 func (up *Up) NoColor() *Up {
-	up.Command += " --no-color"
+	up.Command += helpers.Option(noColor)
 	return up
 }
 
+// NoDeps - Don't start linked services
 func (up *Up) NoDeps() *Up {
-	up.Command += " --no-deps"
+	up.Command += helpers.Option(noDeps)
 	return up
 }
 
+// NoLogPrefix - Don't print prefix in logs
 func (up *Up) NoLogPrefix() *Up {
-	up.Command += " --no-log-prefix"
+	up.Command += helpers.Option(noLogPrefix)
 	return up
 }
 
+// NoRecreate -  If containers already exist, don't recreate them. Incompatible with --force-recreate.
 func (up *Up) NoRecreate() *Up {
-	up.Command += " --no-recreate"
+	up.Command += helpers.Option(noRecreate)
 	return up
 }
 
+// NoStart - Don't start the services after creating them
 func (up *Up) NoStart() *Up {
-	up.Command += " --no-start"
+	up.Command += helpers.Option(noStart)
 	return up
 }
 
+// Pull - Pull image before running ("always"|"missing"|"never") (default "policy")
 func (up *Up) Pull(pullPolicy string) *Up {
-	up.Command += " --pull " + pullPolicy
+	up.Command += helpers.String(pull, pullPolicy)
 	return up
 }
 
+// QuietPull - Pull without printing progress information
 func (up *Up) QuietPull() *Up {
-	up.Command += " --quiet-pull"
+	up.Command += helpers.Option(quietPull)
 	return up
 }
 
+// RemoveOrphans - Remove containers for services not defined in the Compose file
 func (up *Up) RemoveOrphans() *Up {
-	up.Command += " --remove-orphans"
+	up.Command += helpers.Option(removeOrphans)
 	return up
 }
 
+// RenewAnonVolumes - Recreate anonymous volumes instead of retrieving data from the previous containers
 func (up *Up) RenewAnonVolumes() *Up {
-	up.Command += " -V"
+	up.Command += helpers.Option(renewAnonVolumes)
 	return up
 }
 
+// Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
 func (up *Up) Scale(service string, instances int) *Up {
-	up.Command += " --scale " + fmt.Sprintf("%s=%d", service, instances)
+	serviceScale := service + "=" + strconv.Itoa(instances)
+	up.Command += helpers.String(scale, serviceScale)
 	return up
 }
 
+// Timeout - Use this timeout in seconds for container shutdown when attached or when containers are already running
 func (up *Up) Timeout(seconds int) *Up {
-	up.Command += " -t " + fmt.Sprintf("%d", seconds)
+	up.Command += helpers.Int(timeout, seconds)
 	return up
 }
 
+// Timestamps - Show timestamps
 func (up *Up) Timestamps() *Up {
-	up.Command += " --timestamps"
+	up.Command += helpers.Option(timestamps)
 	return up
 }
 
+// Wait - Wait for services to be running|healthy. Implies detached mode.
 func (up *Up) Wait() *Up {
-	up.Command += " --wait"
+	up.Command += helpers.Option(wait)
 	return up
 }
 
+// WaitTimeout - Maximum duration to wait for the project to be running|healthy
 func (up *Up) WaitTimeout(seconds int) *Up {
-	up.Command += " --wait-timeout " + fmt.Sprintf("%d", seconds)
+	up.Command += helpers.Int(waitTimeout, seconds)
 	return up
 
 }
 
+// Watch - Watch source code and rebuild/refresh containers when files are updated.
 func (up *Up) Watch() *Up {
-	up.Command += " -w"
+	up.Command += helpers.Option(watch)
 	return up
 }
 
@@ -198,5 +214,9 @@ func (up *Up) GetCommand() string {
 }
 
 func (up *Up) Exec() {
-	helpers.GeneralExec(up.Command)
+	helpers.GeneralExec(up.Command, false)
+}
+
+func (up *Up) ExecWithPrivileges() {
+	helpers.GeneralExec(up.Command, true)
 }

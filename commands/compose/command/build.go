@@ -118,5 +118,9 @@ func (b *Build) GetCommand() string {
 }
 
 func (b *Build) Exec() {
-	helpers.GeneralExec(b.Command)
+	helpers.GeneralExec(b.Command, false)
+}
+
+func (b *Build) ExecWithPrivileges() {
+	helpers.GeneralExec(b.Command, true)
 }
