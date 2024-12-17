@@ -69,8 +69,6 @@ func (b *Build) Memory(bytes string, unitByte UnitByte) *Build {
 	return b
 }
 
-// TODO continue from here
-
 // NoCache - Do not use cache when building the image
 func (b *Build) NoCache() *Build {
 	b.Command += helpers.Option(noCache)
