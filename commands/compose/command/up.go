@@ -32,15 +32,19 @@ const (
 	wait                    = "--wait"
 	waitTimeout             = "--wait-timeout"
 	watch                   = "--watch"
+	/*Options:
+
+
+	    --wait-timeout int
+	-w, --watch                        Watch source code and rebuild/refresh containers when files are updated.*/
 )
 
 type Up struct {
 	Command string
 }
 
-// TODO Implement the possibility to make it incompatible with Detach
-
 // AbortOnContainerExit - Stops all containers if any container was stopped. Incompatible with -d
+// TODO Implement the possibility to make it incompatible with Detach
 func (up *Up) AbortOnContainerExit() *Up {
 	up.Command += helpers.Option(abortOnContainerExit)
 	return up
