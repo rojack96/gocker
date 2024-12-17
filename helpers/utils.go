@@ -59,17 +59,14 @@ func GeneralExec(command string, privileges bool) {
 		return
 	}
 
-	// Aggiungi "sudo" se richiesto e non su Windows
 	if privileges && runtime.GOOS != "windows" {
 		command = "sudo " + command
 	}
 
-	// Comando da eseguire
 	cmd := exec.Command(shell, "-c", command)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-	// Esegui il comando
 	if err := cmd.Run(); err != nil {
 		fmt.Println("Error in execution of command:", err)
 	}
@@ -78,7 +75,6 @@ func GeneralExec(command string, privileges bool) {
 func detectShell() string {
 	switch runtime.GOOS {
 	case "windows":
-		// Usa PowerShell per supportare privilegi amministrativi
 		return "powershell"
 	default:
 		if _, err := exec.LookPath("bash"); err == nil {
