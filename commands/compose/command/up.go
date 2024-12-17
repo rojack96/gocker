@@ -32,11 +32,6 @@ const (
 	wait                    = "--wait"
 	waitTimeout             = "--wait-timeout"
 	watch                   = "--watch"
-	/*Options:
-
-
-	    --wait-timeout int
-	-w, --watch                        Watch source code and rebuild/refresh containers when files are updated.*/
 )
 
 type Up struct {
