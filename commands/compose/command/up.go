@@ -18,9 +18,7 @@ const (
 	forceRecreate           = "--force-recreate"
 	noAttach                = "--no-attach"
 	noBuild                 = "--no-build"
-	noColor                 = "--no-color"
 	noDeps                  = "--no-deps"
-	noLogPrefix             = "--no-log-prefix"
 	noRecreate              = "--no-recreate"
 	noStart                 = "--no-start"
 	quietPull               = "--quiet-pull"
@@ -28,7 +26,6 @@ const (
 	renewAnonVolumes        = "--renew-anon-volumes"
 	scale                   = "--scale"
 	timeout                 = "--timeout"
-	timestamps              = "--timestamps"
 	wait                    = "--wait"
 	waitTimeout             = "--wait-timeout"
 	watch                   = "--watch"
@@ -113,7 +110,7 @@ func (up *Up) NoBuild() *Up {
 
 // NoColor - Produce monochrome output
 func (up *Up) NoColor() *Up {
-	up.Command += helpers.Option(noColor)
+	up.Command += option.NoColor()
 	return up
 }
 
@@ -125,7 +122,7 @@ func (up *Up) NoDeps() *Up {
 
 // NoLogPrefix - Don't print prefix in logs
 func (up *Up) NoLogPrefix() *Up {
-	up.Command += helpers.Option(noLogPrefix)
+	up.Command += option.NoLogPrefix()
 	return up
 }
 
@@ -180,7 +177,7 @@ func (up *Up) Timeout(seconds int) *Up {
 
 // Timestamps - Show timestamps
 func (up *Up) Timestamps() *Up {
-	up.Command += helpers.Option(timestamps)
+	up.Command += option.Timestamps()
 	return up
 }
 

@@ -62,7 +62,6 @@ const (
 		exec        Execute a command in a running container
 		images      List images used by the created containers
 		kill        Force stop service containers
-		logs        View output from containers
 		ls          List running compose projects
 		pause       Pause services
 		port        Print the public port for a port binding
@@ -78,7 +77,6 @@ const (
 		stop        Stop services
 		top         Display the running processes
 		unpause     Unpause services
-		up          Create and start containers
 		version     Show the Docker Compose version information
 		wait        Block until the first service container stops
 		watch       Watch command context for service and rebuild/refresh containers when files are updated
@@ -160,14 +158,19 @@ func (c *Compose) ProjectName(pn string) *Compose {
 
 /* Commands */
 
-// Build or rebuild services
+// Build - Build or rebuild services
 func (c *Compose) Build() *command.Build {
 	return &command.Build{Command: c.Command + helpers.Command(build)}
 }
 
-// Up Create and start containers
+// Up - Create and start containers
 func (c *Compose) Up() *command.Up {
 	return &command.Up{Command: c.Command + helpers.Command(up)}
+}
+
+// Logs - View output from containers
+func (c *Compose) Logs() *command.Logs {
+	return &command.Logs{Command: c.Command + helpers.Command(logs)}
 }
 
 // TODO implement all Commands
