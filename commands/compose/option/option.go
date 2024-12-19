@@ -7,6 +7,7 @@ const (
 	noColor     = "--no-color"
 	noLogPrefix = "--no-log-prefix"
 	timestamps  = "--timestamps"
+	quiet       = "--quiet"
 )
 
 // DryRun - Execute command in dry run mode
@@ -27,4 +28,9 @@ func NoLogPrefix() string {
 // Timestamps - Show timestamps
 func Timestamps() string {
 	return helpers.Option(timestamps)
+}
+
+// Quiet - Don't print anything to STDOUT
+func Quiet() string {
+	return helpers.Option(quiet)
 }

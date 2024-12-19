@@ -12,7 +12,6 @@ const (
 	noCache          = "--no-cache"
 	pull             = "--pull"
 	push             = "--push"
-	quiet            = "--quiet"
 	ssh              = "--ssh"
 	withDependencies = "--with-dependencies"
 )
@@ -89,7 +88,7 @@ func (b *Build) Push() *Build {
 
 // Quiet - Don't print anything to STDOUT
 func (b *Build) Quiet() *Build {
-	b.Command += helpers.Option(quiet)
+	b.Command += option.Quiet()
 	return b
 }
 
