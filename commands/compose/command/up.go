@@ -1,6 +1,7 @@
 package command
 
 import (
+	"github.com/rojack96/gocker/commands/compose/common"
 	"github.com/rojack96/gocker/commands/compose/option"
 	"github.com/rojack96/gocker/helpers"
 	"strconv"
@@ -200,19 +201,7 @@ func (up *Up) Watch() *Up {
 	return up
 }
 
-func (up *Up) ServiceName(serviceName ...string) *Up {
-	up.Command += helpers.ServiceName(serviceName...)
-	return up
-}
-
-func (up *Up) GetCommand() string {
-	return up.Command
-}
-
-func (up *Up) Exec() {
-	helpers.GeneralExec(up.Command, false)
-}
-
-func (up *Up) ExecWithPrivileges() {
-	helpers.GeneralExec(up.Command, true)
+func (up *Up) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	up.Command += helpers.ServiceName(serviceNames...)
+	return &common.CommandExecutor{Command: up.Command}
 }

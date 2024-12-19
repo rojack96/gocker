@@ -116,17 +116,7 @@ func (c *Config) Volumes() *Config {
 	return c
 }
 
-// GetCommand - Get the complete command string
-func (c *Config) GetCommand() string {
-	return c.Command
-}
-
-// Exec - Execute the command
-func (c *Config) Exec() {
-	helpers.GeneralExec(c.Command, false)
-}
-
-// ExecWithPrivileges - Execute the command with elevated privileges
-func (c *Config) ExecWithPrivileges() {
-	helpers.GeneralExec(c.Command, true)
+func (c *Config) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	c.Command += helpers.ServiceName(serviceNames...)
+	return &common.CommandExecutor{Command: c.Command}
 }

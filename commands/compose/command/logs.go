@@ -71,14 +71,7 @@ func (l *Logs) Until(date string) *Logs {
 	return l
 }
 
-func (l *Logs) GetCommand() string {
-	return l.Command
-}
-
-func (l *Logs) Exec() {
-	helpers.GeneralExec(l.Command, false)
-}
-
-func (l *Logs) ExecWithPrivileges() {
-	helpers.GeneralExec(l.Command, true)
+func (l *Logs) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	l.Command += helpers.ServiceName(serviceNames...)
+	return &common.CommandExecutor{Command: l.Command}
 }

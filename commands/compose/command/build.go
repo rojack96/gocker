@@ -1,6 +1,7 @@
 package command
 
 import (
+	"github.com/rojack96/gocker/commands/compose/common"
 	"github.com/rojack96/gocker/commands/compose/option"
 	"github.com/rojack96/gocker/helpers"
 )
@@ -105,19 +106,7 @@ func (b *Build) WithDependencies() *Build {
 	return b
 }
 
-func (b *Build) ServiceName(serviceName ...string) *Build {
-	b.Command = helpers.ServiceName(serviceName...)
-	return b
-}
-
-func (b *Build) GetCommand() string {
-	return b.Command
-}
-
-func (b *Build) Exec() {
-	helpers.GeneralExec(b.Command, false)
-}
-
-func (b *Build) ExecWithPrivileges() {
-	helpers.GeneralExec(b.Command, true)
+func (b *Build) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	b.Command += helpers.ServiceName(serviceNames...)
+	return &common.CommandExecutor{Command: b.Command}
 }

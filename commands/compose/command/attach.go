@@ -46,14 +46,7 @@ func (a *Attach) SigProxy() *Attach {
 	return a
 }
 
-func (a *Attach) GetCommand() string {
-	return a.Command
-}
-
-func (a *Attach) Exec() {
-	helpers.GeneralExec(a.Command, false)
-}
-
-func (a *Attach) ExecWithPrivileges() {
-	helpers.GeneralExec(a.Command, true)
+func (a *Attach) ServiceName(serviceName string) *common.CommandExecutor {
+	a.Command += helpers.ServiceName(serviceName)
+	return &common.CommandExecutor{Command: a.Command}
 }
