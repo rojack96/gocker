@@ -6,15 +6,16 @@ import (
 )
 
 const (
-	Docker = "docker"
+	docker = "docker"
 )
 
 type Gocker struct{}
 
 func (g *Gocker) Run() *run.Run {
-	return &run.Run{Command: Docker + " run"}
+	return &run.Run{Command: docker + " run"}
 }
 
+// Compose - Define and run multi-container applications with Docker
 func (g *Gocker) Compose() *compose.Compose {
-	return &compose.Compose{Command: Docker + " compose"}
+	return &compose.Compose{Command: docker + " compose"}
 }

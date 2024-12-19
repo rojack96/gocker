@@ -1,13 +1,13 @@
 package command
 
 import (
+	"github.com/rojack96/gocker/commands/compose/common"
 	"github.com/rojack96/gocker/commands/compose/option"
 	"github.com/rojack96/gocker/helpers"
 )
 
 const (
 	follow = "--follow"
-	index  = "--index"
 	since  = "--since"
 	tail   = "--tail"
 	until  = "--until"
@@ -31,7 +31,7 @@ func (l *Logs) Follow() *Logs {
 
 // Index - index of the container if service has multiple replicas
 func (l *Logs) Index(indexOfContainer int) *Logs {
-	l.Command += helpers.Int(index, indexOfContainer)
+	l.Command += common.Index(indexOfContainer)
 	return l
 }
 

@@ -52,8 +52,6 @@ const (
 	watch   = "watch"
 	/*
 		Commands:
-		attach      Attach local standard input, output, and error streams to a service's running container
-		command       Build or rebuild services
 		config      Parse, resolve and render compose file in canonical format
 		cp          Copy files/folders between a service container and the local filesystem
 		create      Creates containers for a service
@@ -87,7 +85,11 @@ type Compose struct {
 	Command string
 }
 
-/* Options */
+/*
+	------------------------------
+	|          OPTIONS           |
+	------------------------------
+*/
 
 // AllResources - Include all resources, even those not used by services
 func (c *Compose) AllResources() *Compose {
@@ -156,7 +158,16 @@ func (c *Compose) ProjectName(pn string) *Compose {
 	return c
 }
 
-/* Commands */
+/*
+	------------------------------
+	|          COMMANDS          |
+	------------------------------
+*/
+
+// Attach - Attach local standard input, output, and error streams to a service's running container
+func (c *Compose) Attach() *command.Attach {
+	return &command.Attach{Command: c.Command + helpers.Command(attach)}
+}
 
 // Build - Build or rebuild services
 func (c *Compose) Build() *command.Build {

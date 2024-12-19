@@ -1,8 +1,8 @@
 package command
 
 import (
+	"github.com/rojack96/gocker/commands/compose/common"
 	"github.com/rojack96/gocker/commands/compose/option"
-	"github.com/rojack96/gocker/helpers"
 )
 
 const (
@@ -21,7 +21,7 @@ func (i *Images) DryRun() *Images {
 
 // Format - Format the output. Values: [table | json] (default "table")
 func (i *Images) Format(value string) *Images {
-	i.Command += helpers.String(format, value)
+	i.Command += common.Format(value)
 	return i
 }
 
