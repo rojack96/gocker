@@ -85,13 +85,6 @@ const (
 
 type Compose struct {
 	Command string
-	Cmd
-}
-
-type Cmd interface {
-	GetCommand() string
-	Exec()
-	ExecWithPrivileges()
 }
 
 /* Options */
