@@ -21,7 +21,7 @@ const (
 
 	// Commands:
 	attach  = "attach"
-	build   = "command"
+	build   = "build"
 	config  = "config"
 	cp      = "cp"
 	create  = "create"
@@ -85,6 +85,13 @@ const (
 
 type Compose struct {
 	Command string
+	Cmd
+}
+
+type Cmd interface {
+	GetCommand() string
+	Exec()
+	ExecWithPrivileges()
 }
 
 /* Options */

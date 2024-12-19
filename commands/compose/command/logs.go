@@ -70,3 +70,15 @@ func (l *Logs) Until(date string) *Logs {
 	l.Command += helpers.String(until, date)
 	return l
 }
+
+func (l *Logs) GetCommand() string {
+	return l.Command
+}
+
+func (l *Logs) Exec() {
+	helpers.GeneralExec(l.Command, false)
+}
+
+func (l *Logs) ExecWithPrivileges() {
+	helpers.GeneralExec(l.Command, true)
+}
