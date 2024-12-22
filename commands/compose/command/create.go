@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/compose/common"
 	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/helpers"
 )
 
 type Create struct {
@@ -52,4 +53,8 @@ func (c *Create) RemoveOrphans() *Create {
 // Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
 func (c *Create) Scale(service string, instances int) *Create {
 	return &Create{Command: c.Command + common.Scale(service, instances)}
+}
+
+func (c *Create) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	return &common.CommandExecutor{Command: c.Command + helpers.ServiceName(serviceNames...)}
 }

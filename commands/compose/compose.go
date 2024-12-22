@@ -184,6 +184,11 @@ func (c *Compose) Create() *command.Create {
 	return &command.Create{Command: c.Command + helpers.Command(create)}
 }
 
+// Down - Creates containers for a service
+func (c *Compose) Down() *command.Down {
+	return &command.Down{Command: c.Command + helpers.Command(down)}
+}
+
 // Images - List images used by the created containers
 func (c *Compose) Images() *command.Images {
 	return &command.Images{Command: c.Command + helpers.Command(images)}

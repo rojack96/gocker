@@ -37,3 +37,10 @@ func (d *Down) Timeout(seconds int) *Down {
 func (d *Down) Volumes() *Down {
 	return &Down{Command: d.Command + option.Volumes()}
 }
+
+func (d *Down) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	if len(serviceNames) > 1 {
+		return nil
+	}
+	return &common.CommandExecutor{Command: d.Command + helpers.ServiceName(serviceNames...)}
+}

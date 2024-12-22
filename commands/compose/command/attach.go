@@ -41,9 +41,6 @@ func (a *Attach) SigProxy() *Attach {
 	return &Attach{Command: a.Command + helpers.Option(sigProxy)}
 }
 
-func (a *Attach) ServiceName(serviceName ...string) *common.CommandExecutor {
-	if len(serviceName) == 0 {
-		return &common.CommandExecutor{Command: a.Command + helpers.ServiceName()}
-	}
-	return &common.CommandExecutor{Command: a.Command + helpers.ServiceName(serviceName[0])}
+func (a *Attach) ServiceName(serviceName string) *common.CommandExecutor {
+	return &common.CommandExecutor{Command: a.Command + helpers.ServiceName(serviceName)}
 }
