@@ -68,69 +68,59 @@ type Compose struct {
 
 // AllResources - Include all resources, even those not used by services
 func (c *Compose) AllResources() *Compose {
-	c.Command += helpers.Option(allResources)
-	return c
+	return &Compose{Command: c.Command + helpers.Option(allResources)}
 }
 
 // Ansi - Control when to print ANSI control characters ("never"|"always"|"auto") (default "auto")
 func (c *Compose) Ansi(ansiString string) *Compose {
-	c.Command += helpers.String(ansi, ansiString)
-	return c
+	return &Compose{Command: c.Command + helpers.String(ansi, ansiString)}
+
 }
 
 // Compatibility - Run compose in backward compatibility mode
 func (c *Compose) Compatibility() *Compose {
-	c.Command += helpers.Option(compatibility)
-	return c
+	return &Compose{Command: c.Command + helpers.Option(compatibility)}
 }
 
 // DryRun - Execute command in dry run mode
 func (c *Compose) DryRun() *Compose {
-	c.Command += option.DryRun()
-	return c
+	return &Compose{Command: c.Command + option.DryRun()}
 }
 
 // EnvFile - Specify an alternate environment file
 func (c *Compose) EnvFile(files ...string) *Compose {
-	c.Command += helpers.StringArray(envFile, files...)
-	return c
+	return &Compose{Command: c.Command + helpers.StringArray(envFile, files...)}
 }
 
 // FileName Compose - configuration files
 func (c *Compose) FileName(files ...string) *Compose {
-	c.Command += helpers.StringArray(file, files...)
-	return c
+	return &Compose{Command: c.Command + helpers.StringArray(file, files...)}
 }
 
 // Parallelism - Control max parallelism, -1 for unlimited (default -1)
 func (c *Compose) Parallelism(parallelismValue int) *Compose {
-	c.Command += helpers.Int(parallelism, parallelismValue)
-	return c
+	return &Compose{Command: c.Command + helpers.Int(parallelism, parallelismValue)}
 }
 
 // Profile - Specify a profile to enable
 func (c *Compose) Profile(profiles ...string) *Compose {
-	c.Command += helpers.StringArray(profile, profiles...)
-	return c
+	return &Compose{Command: c.Command + helpers.StringArray(profile, profiles...)}
 }
 
 // Progress - Set type of progress output (auto, tty, plain, quiet) (default "auto")
 func (c *Compose) Progress(prog string) *Compose {
-	c.Command += helpers.String(progress, prog)
-	return c
+	return &Compose{Command: c.Command + helpers.String(progress, prog)}
 }
 
 // ProjectDirectory - Specify an alternate working directory
 // (default: the path of the first specified, Compose file)
 func (c *Compose) ProjectDirectory(pd string) *Compose {
-	c.Command += helpers.String(projectDirectory, pd)
-	return c
+	return &Compose{Command: c.Command + helpers.String(projectDirectory, pd)}
 }
 
 // ProjectName - Project name
 func (c *Compose) ProjectName(pn string) *Compose {
-	c.Command += helpers.String(projectName, pn)
-	return c
+	return &Compose{Command: c.Command + helpers.String(projectName, pn)}
 }
 
 /*
