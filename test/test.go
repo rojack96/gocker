@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	g := gocker.Gocker{}
+	g := gocker.Compose()
 	//res := g.Compose().FileName("compose.yml").Up().GetCommand()
 
-	res := g.Compose().FileName("compose.yml").Attach().ServiceName("hello-world").GetCommand()
+	res := g.FileName().Attach().DryRun().Index(5).ServiceName().GetCommand()
 	fmt.Println(res)
 }
