@@ -6,10 +6,6 @@ import (
 	"github.com/rojack96/gocker/helpers"
 )
 
-const (
-	format = "--format"
-)
-
 type Images struct {
 	Command string
 }

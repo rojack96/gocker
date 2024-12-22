@@ -8,6 +8,11 @@ import (
 	"strconv"
 )
 
+type KeyValueParameters struct {
+	Key   string
+	Value string
+}
+
 func ServiceName(services ...string) string {
 	var cmd string
 	if len(services) != 0 {

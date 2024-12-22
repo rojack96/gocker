@@ -53,9 +53,6 @@ const (
 	/*
 		Commands:
 
-		kill        Force stop service containers
-		ls          List running compose projects
-		pause       Pause services
 		port        Print the public port for a port binding
 		ps          List containers
 		pull        Pull service images
@@ -199,6 +196,21 @@ func (c *Compose) Exec() *command.Exec {
 // Images - List images used by the created containers
 func (c *Compose) Images() *command.Images {
 	return &command.Images{Command: c.Command + helpers.Command(images)}
+}
+
+// Kill - Force stop service containers
+func (c *Compose) Kill() *command.Kill {
+	return &command.Kill{Command: c.Command + helpers.Command(kill)}
+}
+
+// Ls - List running compose projects
+func (c *Compose) Ls() *command.Ls {
+	return &command.Ls{Command: c.Command + helpers.Command(ls)}
+}
+
+// Pause - Pause services
+func (c *Compose) Pause() *command.Pause {
+	return &command.Pause{Command: c.Command + helpers.Command(pause)}
 }
 
 // Up - Create and start containers

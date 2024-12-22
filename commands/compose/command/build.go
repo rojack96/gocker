@@ -21,11 +21,6 @@ type Build struct {
 	Command string
 }
 
-type BuildArg struct {
-	Key   string
-	Value string
-}
-
 type UnitByte string
 
 const (
@@ -37,7 +32,7 @@ const (
 // Options
 
 // BuildArg - Set command-time variables for services
-func (b *Build) BuildArg(args ...BuildArg) *Build {
+func (b *Build) BuildArg(args ...helpers.KeyValueParameters) *Build {
 	var arguments []string
 
 	if len(args) > 0 {

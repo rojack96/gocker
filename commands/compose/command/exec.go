@@ -18,12 +18,6 @@ type Exec struct {
 	Command string
 }
 
-// ToDo move to utils with build arg
-type EnvArg struct {
-	Key   string
-	Value string
-}
-
 const (
 	env = "--env"
 )
@@ -46,7 +40,7 @@ func (e *Exec) DryRun() *Exec {
 }
 
 // Env - Set environment variables
-func (e *Exec) Env(envs ...EnvArg) *Exec {
+func (e *Exec) Env(envs ...helpers.KeyValueParameters) *Exec {
 	var arguments []string
 
 	if len(envs) > 0 {
