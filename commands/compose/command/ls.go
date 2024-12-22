@@ -6,18 +6,13 @@ import (
 	"github.com/rojack96/gocker/helpers"
 )
 
-const (
-	all    = "--all"
-	filter = "--filter"
-)
-
 type Ls struct {
 	Command string
 }
 
 // All - Show all stopped Compose projects
 func (l *Ls) All() *Ls {
-	return &Ls{Command: l.Command + helpers.Option(all)}
+	return &Ls{Command: l.Command + option.All()}
 }
 
 // DryRun - Execute command in dry run mode
@@ -27,7 +22,7 @@ func (l *Ls) DryRun() *Ls {
 
 // Filter - Filter output based on conditions provided
 func (l *Ls) Filter(condition string) *Ls {
-	return &Ls{Command: l.Command + helpers.String(filter, condition)}
+	return &Ls{Command: l.Command + common.Filter(condition)}
 }
 
 // Format - Format the output. Values: [table | json] (default "table")

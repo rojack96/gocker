@@ -17,7 +17,6 @@ const (
 	profiles            = "--profiles"
 	quiet               = "--quiet"
 	resolveImageDigests = "--resolve-image-digests"
-	services            = "--services"
 	variables           = "--variables"
 )
 
@@ -83,19 +82,16 @@ func (c *Config) Quiet() *Config {
 // ResolveImageDigests - Pin image tags to digests
 func (c *Config) ResolveImageDigests() *Config {
 	return &Config{Command: c.Command + helpers.Option(resolveImageDigests)}
-
 }
 
 // Services - Print the service names, one per line
 func (c *Config) Services() *Config {
-	return &Config{Command: c.Command + helpers.Option(services)}
-
+	return &Config{Command: c.Command + option.Services()}
 }
 
 // Variables - Print model variables and default values
 func (c *Config) Variables() *Config {
 	return &Config{Command: c.Command + helpers.Option(variables)}
-
 }
 
 // Volumes - Print the volume names, one per line

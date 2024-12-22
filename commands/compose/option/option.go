@@ -5,6 +5,7 @@ import (
 )
 
 const (
+	all           = "--all"
 	build         = "--build"
 	dryRun        = "--dry-run"
 	detach        = "--detach"
@@ -18,7 +19,13 @@ const (
 	quietPull     = "--quiet-pull"
 	removeOrphans = "--remove-orphans"
 	volumes       = "--volumes"
+	services      = "--services"
+	includeDeps   = "--include-deps"
 )
+
+func All() string {
+	return helpers.Option(all)
+}
 
 func Build() string {
 	return helpers.Option(build)
@@ -70,4 +77,12 @@ func Volumes() string {
 
 func Detach() string {
 	return helpers.Option(detach)
+}
+
+func Services() string {
+	return helpers.Option(services)
+}
+
+func IncludeDeps() string {
+	return helpers.Option(includeDeps)
 }

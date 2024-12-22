@@ -6,6 +6,7 @@ import (
 )
 
 const (
+	filter  = "--filter"
 	format  = "--format"
 	index   = "--index"
 	pull    = "--pull"
@@ -58,4 +59,8 @@ func Timeout(seconds int) string {
 func Scale(service string, instances int) string {
 	serviceScale := service + "=" + strconv.Itoa(instances)
 	return helpers.String(scale, serviceScale)
+}
+
+func Filter(condition string) string {
+	return helpers.String(filter, condition)
 }

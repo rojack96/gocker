@@ -53,10 +53,6 @@ const (
 	/*
 		Commands:
 
-		port        Print the public port for a port binding
-		ps          List containers
-		pull        Pull service images
-		push        Push service images
 		restart     Restart service containers
 		rm          Removes stopped service containers
 		run         Run a one-off command on a service
@@ -211,6 +207,26 @@ func (c *Compose) Ls() *command.Ls {
 // Pause - Pause services
 func (c *Compose) Pause() *command.Pause {
 	return &command.Pause{Command: c.Command + helpers.Command(pause)}
+}
+
+// Port - Print the public port for a port binding
+func (c *Compose) Port() *command.Port {
+	return &command.Port{Command: c.Command + helpers.Command(port)}
+}
+
+// Ps - List containers
+func (c *Compose) Ps() *command.Ps {
+	return &command.Ps{Command: c.Command + helpers.Command(ps)}
+}
+
+// Pull - Pull service images
+func (c *Compose) Pull() *command.Pull {
+	return &command.Pull{Command: c.Command + helpers.Command(pull)}
+}
+
+// Push - Push service images
+func (c *Compose) Push() *command.Push {
+	return &command.Push{Command: c.Command + helpers.Command(push)}
 }
 
 // Up - Create and start containers
