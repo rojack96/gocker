@@ -52,13 +52,11 @@ const (
 	watch   = "watch"
 	/*
 		Commands:
-		config      Parse, resolve and render compose file in canonical format
-		cp          Copy files/folders between a service container and the local filesystem
+
 		create      Creates containers for a service
 		down        Stop and remove containers, networks
 		events      Receive real time events from containers
 		exec        Execute a command in a running container
-		images      List images used by the created containers
 		kill        Force stop service containers
 		ls          List running compose projects
 		pause       Pause services
@@ -174,10 +172,21 @@ func (c *Compose) Build() *command.Build {
 	return &command.Build{Command: c.Command + helpers.Command(build)}
 }
 
-// Up - Create and start containers
-func (c *Compose) Up() *command.Up {
-	return &command.Up{Command: c.Command + helpers.Command(up)}
+// Cp - Copy files/folders between a service container and the local filesystem
+func (c *Compose) Cp() *command.Cp { return &command.Cp{Command: c.Command + helpers.Command(cp)} }
+
+// Config - Parse, resolve and render compose file in canonical format
+func (c *Compose) Config() *command.Config {
+	return &command.Config{Command: c.Command + helpers.Command(config)}
 }
+
+// Images - List images used by the created containers
+func (c *Compose) Images() *command.Images {
+	return &command.Images{Command: c.Command + helpers.Command(images)}
+}
+
+// Up - Create and start containers
+func (c *Compose) Up() *command.Up { return &command.Up{Command: c.Command + helpers.Command(up)} }
 
 // Logs - View output from containers
 func (c *Compose) Logs() *command.Logs {

@@ -23,12 +23,14 @@ func (ce *CommandExecutor) GetCommand() string {
 	return ce.Command
 }
 
-func (ce *CommandExecutor) Exec() {
-	helpers.GeneralExec(ce.Command, false)
+/*
+func (ce *CommandExecutor) GetCommandWithPrivileges() string {
+	return ce.Command
 }
+*/
 
-func (ce *CommandExecutor) ExecWithPrivileges() {
-	helpers.GeneralExec(ce.Command, true)
+func (ce *CommandExecutor) Exec(withPrivileges bool) {
+	helpers.GeneralExec(ce.Command, withPrivileges)
 }
 
 // Index - index of the container if service has multiple replicas
