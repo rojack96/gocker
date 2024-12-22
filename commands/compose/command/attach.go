@@ -18,35 +18,32 @@ type Attach struct {
 
 // DetachKeys -  Override the key sequence for detaching from a container.
 func (a *Attach) DetachKeys(value string) *Attach {
-	a.Command += helpers.String(detachKeys, value)
-	return a
+	return &Attach{Command: a.Command + helpers.String(detachKeys, value)}
 }
 
 // DryRun - Execute command in dry run mode
 func (a *Attach) DryRun() *Attach {
-	a.Command += option.DryRun()
-	return a
+	return &Attach{Command: a.Command + option.DryRun()}
 }
 
 // Index - index of the container if service has multiple replicas
 func (a *Attach) Index(indexOfContainer int) *Attach {
-	a.Command += common.Index(indexOfContainer)
-	return a
+	return &Attach{a.Command + common.Index(indexOfContainer)}
 }
 
 // NoStdin - Do not attach STDIN
 func (a *Attach) NoStdin() *Attach {
-	a.Command += helpers.Option(noStdin)
-	return a
+	return &Attach{Command: a.Command + helpers.Option(noStdin)}
 }
 
 // SigProxy - Proxy all received signals to the process (default true)
 func (a *Attach) SigProxy() *Attach {
-	a.Command += helpers.Option(sigProxy)
-	return a
+	return &Attach{Command: a.Command + helpers.Option(sigProxy)}
 }
 
-func (a *Attach) ServiceName(serviceName string) *common.CommandExecutor {
-	a.Command += helpers.ServiceName(serviceName)
-	return &common.CommandExecutor{Command: a.Command}
+func (a *Attach) ServiceName(serviceName ...string) *common.CommandExecutor {
+	if len(serviceName) == 0 {
+		return &common.CommandExecutor{Command: a.Command + helpers.ServiceName()}
+	}
+	return &common.CommandExecutor{Command: a.Command + helpers.ServiceName(serviceName[0])}
 }

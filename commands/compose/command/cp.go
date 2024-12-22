@@ -24,26 +24,22 @@ type Copy struct {
 
 // Archive - Archive mode (copy all uid/gid information)
 func (cp *Cp) Archive() *Cp {
-	cp.Command += helpers.Option(archive)
-	return cp
+	return &Cp{Command: cp.Command + helpers.Option(archive)}
 }
 
 // DryRun - Execute command in dry run mode
 func (cp *Cp) DryRun() *Cp {
-	cp.Command += option.DryRun()
-	return cp
+	return &Cp{Command: cp.Command + option.DryRun()}
 }
 
 // FollowLink - Always follow symbol link in SRC_PATH
 func (cp *Cp) FollowLink() *Cp {
-	cp.Command += helpers.Option(followLink)
-	return cp
+	return &Cp{Command: cp.Command + helpers.Option(followLink)}
 }
 
 // Index - Index of the container if service has multiple replicas
 func (cp *Cp) Index(idx int) *Cp {
-	cp.Command += common.Index(idx)
-	return cp
+	return &Cp{Command: cp.Command + common.Index(idx)}
 }
 
 func (cp *Cp) Copy(copy Copy) *common.CommandExecutor {
@@ -55,5 +51,4 @@ func (cp *Cp) Copy(copy Copy) *common.CommandExecutor {
 	}
 
 	return &common.CommandExecutor{Command: cp.Command + " " + localToService}
-
 }

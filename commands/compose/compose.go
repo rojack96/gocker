@@ -53,7 +53,6 @@ const (
 	/*
 		Commands:
 
-		create      Creates containers for a service
 		down        Stop and remove containers, networks
 		events      Receive real time events from containers
 		exec        Execute a command in a running container
@@ -172,12 +171,17 @@ func (c *Compose) Build() *command.Build {
 	return &command.Build{Command: c.Command + helpers.Command(build)}
 }
 
-// Cp - Copy files/folders between a service container and the local filesystem
-func (c *Compose) Cp() *command.Cp { return &command.Cp{Command: c.Command + helpers.Command(cp)} }
-
 // Config - Parse, resolve and render compose file in canonical format
 func (c *Compose) Config() *command.Config {
 	return &command.Config{Command: c.Command + helpers.Command(config)}
+}
+
+// Cp - Copy files/folders between a service container and the local filesystem
+func (c *Compose) Cp() *command.Cp { return &command.Cp{Command: c.Command + helpers.Command(cp)} }
+
+// Create - Creates containers for a service
+func (c *Compose) Create() *command.Create {
+	return &command.Create{Command: c.Command + helpers.Command(create)}
 }
 
 // Images - List images used by the created containers
@@ -192,5 +196,3 @@ func (c *Compose) Up() *command.Up { return &command.Up{Command: c.Command + hel
 func (c *Compose) Logs() *command.Logs {
 	return &command.Logs{Command: c.Command + helpers.Command(logs)}
 }
-
-// TODO implement all Commands

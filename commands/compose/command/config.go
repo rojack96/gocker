@@ -28,95 +28,83 @@ type Config struct {
 
 // DryRun - Execute command in dry run mode
 func (c *Config) DryRun() *Config {
-	c.Command += option.DryRun()
-	return c
+	return &Config{Command: c.Command + option.DryRun()}
 }
 
 // Format - Format the output. Values: [yaml | json] (default "yaml")
 func (c *Config) Format(value string) *Config {
-	c.Command += common.Format(value)
-	return c
+	return &Config{Command: c.Command + common.Format(value)}
 }
 
 // Hash - Print the service config hash, one per line
 func (c *Config) Hash(value string) *Config {
-	c.Command += helpers.String(hash, value)
-	return c
+	return &Config{Command: c.Command + helpers.String(hash, value)}
 }
 
 // Images - Print the image names, one per line
 func (c *Config) Images() *Config {
-	c.Command += helpers.Option(images)
-	return c
+	return &Config{Command: c.Command + helpers.Option(images)}
 }
 
 // NoConsistency - Don't check model consistency
 func (c *Config) NoConsistency() *Config {
-	c.Command += helpers.Option(noConsistency)
-	return c
+	return &Config{Command: c.Command + helpers.Option(noConsistency)}
 }
 
 // NoInterpolate - Don't interpolate environment variables
 func (c *Config) NoInterpolate() *Config {
-	c.Command += helpers.Option(noInterpolate)
-	return c
+	return &Config{Command: c.Command + helpers.Option(noInterpolate)}
 }
 
 // NoNormalize - Don't normalize compose model
 func (c *Config) NoNormalize() *Config {
-	c.Command += helpers.Option(noNormalize)
-	return c
+	return &Config{Command: c.Command + helpers.Option(noNormalize)}
 }
 
 // NoPathResolution - Don't resolve file paths
 func (c *Config) NoPathResolution() *Config {
-	c.Command += helpers.Option(noPathResolution)
-	return c
+	return &Config{Command: c.Command + helpers.Option(noPathResolution)}
 }
 
 // Output - Save to file (default to stdout)
 func (c *Config) Output(value string) *Config {
-	c.Command += helpers.String(output, value)
-	return c
+	return &Config{Command: c.Command + helpers.String(output, value)}
 }
 
 // Profiles - Print the profile names, one per line
 func (c *Config) Profiles() *Config {
-	c.Command += helpers.Option(profiles)
-	return c
+	return &Config{Command: c.Command + helpers.Option(profiles)}
 }
 
 // Quiet - Only validate the configuration, don't print anything
 func (c *Config) Quiet() *Config {
-	c.Command += helpers.Option(quiet)
-	return c
+	return &Config{Command: c.Command + helpers.Option(quiet)}
 }
 
 // ResolveImageDigests - Pin image tags to digests
 func (c *Config) ResolveImageDigests() *Config {
-	c.Command += helpers.Option(resolveImageDigests)
-	return c
+	return &Config{Command: c.Command + helpers.Option(resolveImageDigests)}
+
 }
 
 // Services - Print the service names, one per line
 func (c *Config) Services() *Config {
-	c.Command += helpers.Option(services)
-	return c
+	return &Config{Command: c.Command + helpers.Option(services)}
+
 }
 
 // Variables - Print model variables and default values
 func (c *Config) Variables() *Config {
-	c.Command += helpers.Option(variables)
-	return c
+	return &Config{Command: c.Command + helpers.Option(variables)}
+
 }
 
 // Volumes - Print the volume names, one per line
 func (c *Config) Volumes() *Config {
-	c.Command += helpers.Option(volumes)
-	return c
+	return &Config{Command: c.Command + helpers.Option(volumes)}
+
 }
 
 func (c *Config) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	c.Command += helpers.ServiceName(serviceNames...)
-	return &common.CommandExecutor{Command: c.Command}
+	return &common.CommandExecutor{Command: c.Command + helpers.ServiceName(serviceNames...)}
 }

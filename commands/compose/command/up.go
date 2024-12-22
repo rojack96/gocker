@@ -32,110 +32,92 @@ type Up struct {
 // AbortOnContainerExit - Stops all containers if any container was stopped. Incompatible with -d
 // TODO Implement the possibility to make it incompatible with Detach
 func (up *Up) AbortOnContainerExit() *Up {
-	up.Command += helpers.Option(abortOnContainerExit)
-	return up
+	return &Up{Command: up.Command + helpers.Option(abortOnContainerExit)}
 }
 
 // AbortOnContainerFailure - Stops all containers if any container exited with failure. Incompatible with -d
 func (up *Up) AbortOnContainerFailure() *Up {
-	up.Command += helpers.Option(abortOnContainerFailure)
-	return up
+	return &Up{Command: up.Command + helpers.Option(abortOnContainerFailure)}
 }
 
 // AlwaysRecreateDeps - Recreate dependent containers. Incompatible with --no-recreate.
 func (up *Up) AlwaysRecreateDeps() *Up {
-	up.Command += helpers.Option(alwaysRecreateDeps)
-	return up
+	return &Up{Command: up.Command + helpers.Option(alwaysRecreateDeps)}
 }
 
 // Attach - Restrict attaching to the specified services. Incompatible with --attach-dependencies.
 func (up *Up) Attach(services []string) *Up {
-	up.Command += helpers.StringArray(attach, services...)
-	return up
+	return &Up{Command: up.Command + helpers.StringArray(attach, services...)}
 }
 
 // AttachDependencies - Automatically attach to log output of dependent services
 func (up *Up) AttachDependencies() *Up {
-	up.Command += helpers.StringArray(attachDependencies)
-	return up
+	return &Up{Command: up.Command + helpers.StringArray(attachDependencies)}
 }
 
 // Build - Build images before starting containers
 func (up *Up) Build() *Up {
-	up.Command += option.Build()
-	return up
+	return &Up{Command: up.Command + option.Build()}
 }
 
 // Detach - Detached mode: Run containers in the background
 func (up *Up) Detach() *Up {
-	up.Command += helpers.Option(detach)
-	return up
+	return &Up{Command: up.Command + helpers.Option(detach)}
 }
 
 // DryRun - Execute command in dry run mode
 func (up *Up) DryRun() *Up {
-	up.Command += option.DryRun()
-	return up
+	return &Up{Command: up.Command + option.DryRun()}
 }
 
 // ExitCodeFrom - Return the exit code of the selected service container. Implies --abort-on-container-exit
 func (up *Up) ExitCodeFrom(service string) *Up {
-	up.Command += helpers.String(exitCodeFrom, service)
-	return up
+	return &Up{Command: up.Command + helpers.String(exitCodeFrom, service)}
 }
 
 // ForceRecreate - Recreate containers even if their configuration and image haven't changed
 func (up *Up) ForceRecreate() *Up {
-	up.Command += option.ForceRecreate()
-	return up
+	return &Up{Command: up.Command + option.ForceRecreate()}
 }
 
 // NoAttach - Do not attach (stream logs) to the specified services
 func (up *Up) NoAttach(services []string) *Up {
-	up.Command += helpers.StringArray(noAttach, services...)
-	return up
+	return &Up{Command: up.Command + helpers.StringArray(noAttach, services...)}
 }
 
 // NoBuild - Don't build an image, even if it's policy
 func (up *Up) NoBuild() *Up {
-	up.Command += option.NoBuild()
-	return up
+	return &Up{Command: up.Command + option.NoBuild()}
 }
 
 // NoColor - Produce monochrome output
 func (up *Up) NoColor() *Up {
-	up.Command += option.NoColor()
-	return up
+	return &Up{Command: up.Command + option.NoColor()}
 }
 
 // NoDeps - Don't start linked services
 func (up *Up) NoDeps() *Up {
-	up.Command += helpers.Option(noDeps)
-	return up
+	return &Up{Command: up.Command + helpers.Option(noDeps)}
 }
 
 // NoLogPrefix - Don't print prefix in logs
 func (up *Up) NoLogPrefix() *Up {
-	up.Command += option.NoLogPrefix()
-	return up
+	return &Up{Command: up.Command + option.NoLogPrefix()}
 }
 
 // NoRecreate -  If containers already exist, don't recreate them. Incompatible with --force-recreate.
 func (up *Up) NoRecreate() *Up {
-	up.Command += option.NoRecreate()
-	return up
+	return &Up{Command: up.Command + option.NoRecreate()}
 }
 
 // NoStart - Don't start the services after creating them
 func (up *Up) NoStart() *Up {
-	up.Command += helpers.Option(noStart)
-	return up
+	return &Up{Command: up.Command + helpers.Option(noStart)}
 }
 
 // Pull - Pull image before running ("always"|"missing"|"never") (default "policy")
 func (up *Up) Pull(pullPolicy string) *Up {
-	up.Command += helpers.String(pull, pullPolicy)
-	return up
+	return &Up{Command: up.Command + helpers.String(pull, pullPolicy)}
 }
 
 // QuietPull - Pull without printing progress information
@@ -150,8 +132,8 @@ func (up *Up) RemoveOrphans() *Up {
 
 // RenewAnonVolumes - Recreate anonymous volumes instead of retrieving data from the previous containers
 func (up *Up) RenewAnonVolumes() *Up {
-	up.Command += helpers.Option(renewAnonVolumes)
-	return up
+	return &Up{Command: up.Command + helpers.Option(renewAnonVolumes)}
+
 }
 
 // Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
@@ -162,36 +144,29 @@ func (up *Up) Scale(service string, instances int) *Up {
 
 // Timeout - Use this timeout in seconds for container shutdown when attached or when containers are already running
 func (up *Up) Timeout(seconds int) *Up {
-	up.Command += helpers.Int(timeout, seconds)
-	return up
+	return &Up{Command: up.Command + helpers.Int(timeout, seconds)}
 }
 
 // Timestamps - Show timestamps
 func (up *Up) Timestamps() *Up {
-	up.Command += option.Timestamps()
-	return up
+	return &Up{Command: up.Command + option.Timestamps()}
 }
 
 // Wait - Wait for services to be running|healthy. Implies detached mode.
 func (up *Up) Wait() *Up {
-	up.Command += helpers.Option(wait)
-	return up
+	return &Up{Command: up.Command + helpers.Option(wait)}
 }
 
 // WaitTimeout - Maximum duration to wait for the project to be running|healthy
 func (up *Up) WaitTimeout(seconds int) *Up {
-	up.Command += helpers.Int(waitTimeout, seconds)
-	return up
-
+	return &Up{Command: up.Command + helpers.Int(waitTimeout, seconds)}
 }
 
 // Watch - Watch source code and rebuild/refresh containers when files are updated.
 func (up *Up) Watch() *Up {
-	up.Command += helpers.Option(watch)
-	return up
+	return &Up{Command: up.Command + helpers.Option(watch)}
 }
 
 func (up *Up) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	up.Command += helpers.ServiceName(serviceNames...)
-	return &common.CommandExecutor{Command: up.Command}
+	return &common.CommandExecutor{Command: up.Command + helpers.ServiceName(serviceNames...)}
 }

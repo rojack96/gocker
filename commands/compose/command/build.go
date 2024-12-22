@@ -46,67 +46,56 @@ func (b *Build) BuildArg(args ...BuildArg) *Build {
 		}
 	}
 
-	b.Command += helpers.StringArray(buildArg, arguments...)
-	return b
+	return &Build{Command: b.Command + helpers.StringArray(buildArg, arguments...)}
 }
 
 // Builder - Set builder to use
 func (b *Build) Builder(builderName string) *Build {
-	b.Command += helpers.String(builder, builderName)
-	return b
+	return &Build{Command: b.Command + helpers.String(builder, builderName)}
 }
 
 // DryRun - Execute command in dry run mode
 func (b *Build) DryRun() *Build {
-	b.Command += option.DryRun()
-	return b
+	return &Build{Command: b.Command + option.DryRun()}
 }
 
 // Memory - Set memory limit for the command container. Not supported by BuildKit.
 func (b *Build) Memory(bytes string, unitByte UnitByte) *Build {
 	bytes += string(unitByte)
-	b.Command += helpers.String(memory, bytes)
-	return b
+	return &Build{Command: b.Command + helpers.String(memory, bytes)}
 }
 
 // NoCache - Do not use cache when building the image
 func (b *Build) NoCache() *Build {
-	b.Command += helpers.Option(noCache)
-	return b
+	return &Build{Command: b.Command + helpers.Option(noCache)}
 }
 
 // Pull - Always attempt to pull a newer version of the image
 func (b *Build) Pull() *Build {
-	b.Command += helpers.Option(pull)
-	return b
+	return &Build{Command: b.Command + helpers.Option(pull)}
 }
 
 // Push - Push service images
 func (b *Build) Push() *Build {
-	b.Command += helpers.Option(push)
-	return b
+	return &Build{Command: b.Command + helpers.Option(push)}
 }
 
 // Quiet - Don't print anything to STDOUT
 func (b *Build) Quiet() *Build {
-	b.Command += option.Quiet()
-	return b
+	return &Build{Command: b.Command + option.Quiet()}
 }
 
 // Ssh - Set SSH authentications used when building service images.
 // (use 'default' for using your default SSH Agent)
 func (b *Build) Ssh(agent string) *Build {
-	b.Command += helpers.String(ssh, agent)
-	return b
+	return &Build{Command: b.Command + helpers.String(ssh, agent)}
 }
 
 // WithDependencies - Also command dependencies (transitively)
 func (b *Build) WithDependencies() *Build {
-	b.Command += helpers.Option(withDependencies)
-	return b
+	return &Build{Command: b.Command + helpers.Option(withDependencies)}
 }
 
 func (b *Build) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	b.Command += helpers.ServiceName(serviceNames...)
-	return &common.CommandExecutor{Command: b.Command}
+	return &common.CommandExecutor{Command: b.Command + helpers.ServiceName(serviceNames...)}
 }

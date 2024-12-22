@@ -22,17 +22,14 @@ func (i *Images) DryRun() *Images {
 
 // Format - Format the output. Values: [table | json] (default "table")
 func (i *Images) Format(value string) *Images {
-	i.Command += common.Format(value)
-	return i
+	return &Images{Command: i.Command + common.Format(value)}
 }
 
 // Quiet - Only display IDs
 func (i *Images) Quiet() *Images {
-	i.Command += option.Quiet()
-	return i
+	return &Images{Command: i.Command + option.Quiet()}
 }
 
 func (i *Images) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	i.Command += helpers.ServiceName(serviceNames...)
-	return &common.CommandExecutor{Command: i.Command}
+	return &common.CommandExecutor{Command: i.Command + helpers.ServiceName(serviceNames...)}
 }
