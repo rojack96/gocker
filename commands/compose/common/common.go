@@ -12,6 +12,9 @@ const (
 	pull    = "--pull"
 	timeout = "--timeout"
 	scale   = "--scale"
+	env     = "--env"
+	user    = "--user"
+	workdir = "--workdir"
 )
 
 type Service interface {
@@ -63,4 +66,26 @@ func Scale(service string, instances int) string {
 
 func Filter(condition string) string {
 	return helpers.String(filter, condition)
+}
+
+func Env(envs ...helpers.KeyValueParameters) string {
+	var arguments []string
+
+	if len(envs) > 0 {
+		for _, a := range envs {
+			arguments = append(arguments, a.Key+"="+a.Value)
+		}
+	}
+
+	return helpers.StringArray(env, arguments...)
+}
+
+// User - Run the command as this user
+func User(usr string) string {
+	return helpers.String(user, usr)
+}
+
+// Workdir - ath to workdir directory for this command
+func Workdir(path string) string {
+	return helpers.String(workdir, path)
 }

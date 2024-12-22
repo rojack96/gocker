@@ -8,19 +8,12 @@ import (
 )
 
 const (
-	noTty      = "--no-TTY"
 	privileged = "--privileged"
-	user       = "--user"
-	workdir    = "--workdir"
 )
 
 type Exec struct {
 	Command string
 }
-
-const (
-	env = "--env"
-)
 
 /*
   -T, --no-TTY docker compose exec
@@ -41,15 +34,7 @@ func (e *Exec) DryRun() *Exec {
 
 // Env - Set environment variables
 func (e *Exec) Env(envs ...helpers.KeyValueParameters) *Exec {
-	var arguments []string
-
-	if len(envs) > 0 {
-		for _, a := range envs {
-			arguments = append(arguments, a.Key+"="+a.Value)
-		}
-	}
-
-	return &Exec{Command: e.Command + helpers.StringArray(env, arguments...)}
+	return &Exec{Command: e.Command + common.Env(envs...)}
 }
 
 // Index - Index of the container if service has multiple replicas
@@ -59,7 +44,7 @@ func (e *Exec) Index(indexOfContainer int) *Exec {
 
 // NoTty - Disable pseudo-TTY allocation. By default docker compose exec allocates a TTY.
 func (e *Exec) NoTty() *Exec {
-	return &Exec{Command: e.Command + helpers.Option(noTty)}
+	return &Exec{Command: e.Command + option.NoTty()}
 }
 
 // Privileged - Give extended privileges to the process
@@ -69,12 +54,12 @@ func (e *Exec) Privileged() *Exec {
 
 // User - Run the command as this user
 func (e *Exec) User(usr string) *Exec {
-	return &Exec{Command: e.Command + helpers.String(user, usr)}
+	return &Exec{Command: e.Command + common.User(usr)}
 }
 
 // Workdir - ath to workdir directory for this command
 func (e *Exec) Workdir(path string) *Exec {
-	return &Exec{Command: e.Command + helpers.String(workdir, path)}
+	return &Exec{Command: e.Command + common.Workdir(path)}
 }
 
 func (e *Exec) ServiceCommandArgs(serviceName, command string, args ...string) *common.CommandExecutor {

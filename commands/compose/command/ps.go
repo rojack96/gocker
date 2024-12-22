@@ -63,6 +63,6 @@ func (p *Ps) Quiet() *Ps {
 }
 
 // ServiceNames - Specify services to list
-func (p *Ps) ServiceNames(serviceNames ...string) *Ps {
-	return &Ps{Command: p.Command + helpers.ServiceName(serviceNames...)}
+func (p *Ps) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	return &common.CommandExecutor{Command: p.Command + helpers.ServiceName(serviceNames...)}
 }

@@ -1,6 +1,7 @@
 package command
 
 import (
+	"github.com/rojack96/gocker/commands/compose/common"
 	"github.com/rojack96/gocker/commands/compose/option"
 	"github.com/rojack96/gocker/helpers"
 )
@@ -34,6 +35,6 @@ func (p *Push) Quiet() *Push {
 }
 
 // ServiceNames - Specify services to push
-func (p *Push) ServiceNames(serviceNames ...string) *Push {
-	return &Push{Command: p.Command + helpers.ServiceName(serviceNames...)}
+func (p *Push) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	return &common.CommandExecutor{Command: p.Command + helpers.ServiceName(serviceNames...)}
 }

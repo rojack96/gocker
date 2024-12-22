@@ -1,6 +1,7 @@
 package command
 
 import (
+	"github.com/rojack96/gocker/commands/compose/common"
 	"github.com/rojack96/gocker/commands/compose/option"
 	"github.com/rojack96/gocker/helpers"
 )
@@ -35,6 +36,6 @@ func (r *Rm) Volumes() *Rm {
 }
 
 // ServiceNames - Specify services to remove
-func (r *Rm) ServiceNames(serviceNames ...string) *Rm {
-	return &Rm{Command: r.Command + helpers.ServiceName(serviceNames...)}
+func (r *Rm) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	return &common.CommandExecutor{Command: r.Command + helpers.ServiceName(serviceNames...)}
 }

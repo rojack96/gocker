@@ -53,9 +53,6 @@ const (
 	/*
 		Commands:
 
-		run         Run a one-off command on a service
-		scale       Scale services
-		start       Start services
 		stats       Display a live stream of container(s) resource usage statistics
 		stop        Stop services
 		top         Display the running processes
@@ -235,6 +232,20 @@ func (c *Compose) Restart() *command.Restart {
 // Rm - Removes stopped service containers
 func (c *Compose) Rm() *command.Rm {
 	return &command.Rm{Command: c.Command + helpers.Command(rm)}
+}
+
+// Run - Run a one-off command on a service
+func (c *Compose) Run() *command.Run {
+	return &command.Run{Command: c.Command + helpers.Command(run)}
+}
+
+// Scale - Scale services
+func (c *Compose) Scale() *command.Scale {
+	return &command.Scale{Command: c.Command + helpers.Command(scale)}
+}
+
+func (c *Compose) Start() *command.Start {
+	return &command.Start{Command: c.Command + helpers.Command(start)}
 }
 
 // Up - Create and start containers

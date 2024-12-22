@@ -15,6 +15,7 @@ const (
 	noColor       = "--no-color"
 	noLogPrefix   = "--no-log-prefix"
 	noDeps        = "--no-deps"
+	noTty         = "--no-tty"
 	timestamps    = "--timestamps"
 	quiet         = "--quiet"
 	quietPull     = "--quiet-pull"
@@ -90,4 +91,8 @@ func IncludeDeps() string {
 
 func NoDeps() string {
 	return helpers.Option(noDeps)
+}
+
+func NoTty() string {
+	return helpers.Option(noTty)
 }

@@ -26,6 +26,6 @@ func (r *Restart) Timeout(seconds int) *Restart {
 }
 
 // ServiceNames - Specify services to push
-func (r *Restart) ServiceNames(serviceNames ...string) *Restart {
-	return &Restart{Command: r.Command + helpers.ServiceName(serviceNames...)}
+func (r *Restart) ServiceNames(serviceNames ...string) *common.CommandExecutor {
+	return &common.CommandExecutor{Command: r.Command + helpers.ServiceName(serviceNames...)}
 }
