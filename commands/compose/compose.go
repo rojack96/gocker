@@ -53,9 +53,6 @@ const (
 	/*
 		Commands:
 
-		down        Stop and remove containers, networks
-		events      Receive real time events from containers
-		exec        Execute a command in a running container
 		kill        Force stop service containers
 		ls          List running compose projects
 		pause       Pause services
@@ -184,9 +181,19 @@ func (c *Compose) Create() *command.Create {
 	return &command.Create{Command: c.Command + helpers.Command(create)}
 }
 
-// Down - Creates containers for a service
+// Down - Stop and remove containers, networks
 func (c *Compose) Down() *command.Down {
 	return &command.Down{Command: c.Command + helpers.Command(down)}
+}
+
+// Events - Receive real time events from containers
+func (c *Compose) Events() *command.Events {
+	return &command.Events{Command: c.Command + helpers.Command(events)}
+}
+
+// Exec - Receive real time events from containers
+func (c *Compose) Exec() *command.Exec {
+	return &command.Exec{Command: c.Command + helpers.Command(exec)}
 }
 
 // Images - List images used by the created containers

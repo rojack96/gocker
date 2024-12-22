@@ -13,7 +13,6 @@ const (
 	alwaysRecreateDeps      = "--always-recreate-deps"
 	attach                  = "--attach"
 	attachDependencies      = "--attach-dependencies"
-	detach                  = "--detach"
 	exitCodeFrom            = "--exit-code-from"
 	noAttach                = "--no-attach"
 	noDeps                  = "--no-deps"
@@ -61,7 +60,7 @@ func (up *Up) Build() *Up {
 
 // Detach - Detached mode: Run containers in the background
 func (up *Up) Detach() *Up {
-	return &Up{Command: up.Command + helpers.Option(detach)}
+	return &Up{Command: up.Command + option.Detach()}
 }
 
 // DryRun - Execute command in dry run mode

@@ -7,6 +7,7 @@ import (
 const (
 	build         = "--build"
 	dryRun        = "--dry-run"
+	detach        = "--detach"
 	forceRecreate = "--force-recreate"
 	noBuild       = "--no-build"
 	noRecreate    = "--no-recreate"
@@ -65,4 +66,8 @@ func RemoveOrphans() string {
 
 func Volumes() string {
 	return helpers.Option(volumes)
+}
+
+func Detach() string {
+	return helpers.Option(detach)
 }
