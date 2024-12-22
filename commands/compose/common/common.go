@@ -5,6 +5,7 @@ import "github.com/rojack96/gocker/helpers"
 const (
 	format = "--format"
 	index  = "--index"
+	pull   = "--pull"
 )
 
 type Service interface {
@@ -33,11 +34,14 @@ func (ce *CommandExecutor) Exec(withPrivileges bool) {
 	helpers.GeneralExec(ce.Command, withPrivileges)
 }
 
-// Index - index of the container if service has multiple replicas
 func Index(indexOfContainer int) string {
 	return helpers.Int(index, indexOfContainer)
 }
 
 func Format(value string) string {
 	return helpers.String(format, value)
+}
+
+func Pull(pullPolicy string) string {
+	return helpers.String(pull, pullPolicy)
 }

@@ -13,19 +13,12 @@ const (
 	alwaysRecreateDeps      = "--always-recreate-deps"
 	attach                  = "--attach"
 	attachDependencies      = "--attach-dependencies"
-	build                   = "--build"
 	detach                  = "--detach"
 	exitCodeFrom            = "--exit-code-from"
-	forceRecreate           = "--force-recreate"
 	noAttach                = "--no-attach"
-	noBuild                 = "--no-build"
 	noDeps                  = "--no-deps"
-	noRecreate              = "--no-recreate"
 	noStart                 = "--no-start"
-	quietPull               = "--quiet-pull"
-	removeOrphans           = "--remove-orphans"
 	renewAnonVolumes        = "--renew-anon-volumes"
-	scale                   = "--scale"
 	timeout                 = "--timeout"
 	wait                    = "--wait"
 	waitTimeout             = "--wait-timeout"
@@ -69,7 +62,7 @@ func (up *Up) AttachDependencies() *Up {
 
 // Build - Build images before starting containers
 func (up *Up) Build() *Up {
-	up.Command += helpers.Option(build)
+	up.Command += option.Build()
 	return up
 }
 
@@ -93,7 +86,7 @@ func (up *Up) ExitCodeFrom(service string) *Up {
 
 // ForceRecreate - Recreate containers even if their configuration and image haven't changed
 func (up *Up) ForceRecreate() *Up {
-	up.Command += helpers.Option(forceRecreate)
+	up.Command += option.ForceRecreate()
 	return up
 }
 
@@ -105,7 +98,7 @@ func (up *Up) NoAttach(services []string) *Up {
 
 // NoBuild - Don't build an image, even if it's policy
 func (up *Up) NoBuild() *Up {
-	up.Command += helpers.Option(noBuild)
+	up.Command += option.NoBuild()
 	return up
 }
 
@@ -129,7 +122,7 @@ func (up *Up) NoLogPrefix() *Up {
 
 // NoRecreate -  If containers already exist, don't recreate them. Incompatible with --force-recreate.
 func (up *Up) NoRecreate() *Up {
-	up.Command += helpers.Option(noRecreate)
+	up.Command += option.NoRecreate()
 	return up
 }
 
@@ -147,14 +140,12 @@ func (up *Up) Pull(pullPolicy string) *Up {
 
 // QuietPull - Pull without printing progress information
 func (up *Up) QuietPull() *Up {
-	up.Command += helpers.Option(quietPull)
-	return up
+	return &Up{Command: up.Command + option.QuietPull()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (up *Up) RemoveOrphans() *Up {
-	up.Command += helpers.Option(removeOrphans)
-	return up
+	return &Up{Command: up.Command + option.RemoveOrphans()}
 }
 
 // RenewAnonVolumes - Recreate anonymous volumes instead of retrieving data from the previous containers
@@ -166,8 +157,7 @@ func (up *Up) RenewAnonVolumes() *Up {
 // Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
 func (up *Up) Scale(service string, instances int) *Up {
 	serviceScale := service + "=" + strconv.Itoa(instances)
-	up.Command += helpers.String(scale, serviceScale)
-	return up
+	return &Up{Command: up.Command + serviceScale}
 }
 
 // Timeout - Use this timeout in seconds for container shutdown when attached or when containers are already running
