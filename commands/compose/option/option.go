@@ -14,6 +14,7 @@ const (
 	noRecreate    = "--no-recreate"
 	noColor       = "--no-color"
 	noLogPrefix   = "--no-log-prefix"
+	noDeps        = "--no-deps"
 	timestamps    = "--timestamps"
 	quiet         = "--quiet"
 	quietPull     = "--quiet-pull"
@@ -85,4 +86,8 @@ func Services() string {
 
 func IncludeDeps() string {
 	return helpers.Option(includeDeps)
+}
+
+func NoDeps() string {
+	return helpers.Option(noDeps)
 }

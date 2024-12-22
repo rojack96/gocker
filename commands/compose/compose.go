@@ -53,7 +53,6 @@ const (
 	/*
 		Commands:
 
-		restart     Restart service containers
 		rm          Removes stopped service containers
 		run         Run a one-off command on a service
 		scale       Scale services
@@ -227,6 +226,11 @@ func (c *Compose) Pull() *command.Pull {
 // Push - Push service images
 func (c *Compose) Push() *command.Push {
 	return &command.Push{Command: c.Command + helpers.Command(push)}
+}
+
+// Restart - Restart service containers
+func (c *Compose) Restart() *command.Restart {
+	return &command.Restart{Command: c.Command + helpers.Command(restart)}
 }
 
 // Up - Create and start containers

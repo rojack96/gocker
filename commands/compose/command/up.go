@@ -15,7 +15,6 @@ const (
 	attachDependencies      = "--attach-dependencies"
 	exitCodeFrom            = "--exit-code-from"
 	noAttach                = "--no-attach"
-	noDeps                  = "--no-deps"
 	noStart                 = "--no-start"
 	renewAnonVolumes        = "--renew-anon-volumes"
 	wait                    = "--wait"
@@ -95,7 +94,7 @@ func (up *Up) NoColor() *Up {
 
 // NoDeps - Don't start linked services
 func (up *Up) NoDeps() *Up {
-	return &Up{Command: up.Command + helpers.Option(noDeps)}
+	return &Up{Command: up.Command + option.NoDeps()}
 }
 
 // NoLogPrefix - Don't print prefix in logs
