@@ -52,7 +52,7 @@ const (
 	watch   = "watch"
 	/*
 		Commands:
-		watch       Watch command context for service and rebuild/refresh containers when files are updated
+		watch
 	*/
 )
 
@@ -277,4 +277,9 @@ func (c *Compose) Version() *command.Version {
 // Wait - Block until the first service container stops
 func (c *Compose) Wait() *command.Wait {
 	return &command.Wait{Command: c.Command + helpers.Command(wait)}
+}
+
+// Watch - Watch command context for service and rebuild/refresh containers when files are updated
+func (c *Compose) Watch() *command.Watch {
+	return &command.Watch{Command: c.Command + helpers.Command(watch)}
 }
