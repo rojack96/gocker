@@ -42,7 +42,7 @@ func (e *Exec) Index(indexOfContainer int) *Exec {
 	return &Exec{Command: e.Command + common.Index(indexOfContainer)}
 }
 
-// NoTty - Disable pseudo-TTY allocation. By default docker compose exec allocates a TTY.
+// NoTty - Disable pseudo-TTY allocation. By default, docker compose exec allocates a TTY.
 func (e *Exec) NoTty() *Exec {
 	return &Exec{Command: e.Command + option.NoTty()}
 }

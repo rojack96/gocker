@@ -52,13 +52,6 @@ const (
 	watch   = "watch"
 	/*
 		Commands:
-
-		stats       Display a live stream of container(s) resource usage statistics
-		stop        Stop services
-		top         Display the running processes
-		unpause     Unpause services
-		version     Show the Docker Compose version information
-		wait        Block until the first service container stops
 		watch       Watch command context for service and rebuild/refresh containers when files are updated
 	*/
 )
@@ -194,6 +187,11 @@ func (c *Compose) Kill() *command.Kill {
 	return &command.Kill{Command: c.Command + helpers.Command(kill)}
 }
 
+// Logs - View output from containers
+func (c *Compose) Logs() *command.Logs {
+	return &command.Logs{Command: c.Command + helpers.Command(logs)}
+}
+
 // Ls - List running compose projects
 func (c *Compose) Ls() *command.Ls {
 	return &command.Ls{Command: c.Command + helpers.Command(ls)}
@@ -244,14 +242,39 @@ func (c *Compose) Scale() *command.Scale {
 	return &command.Scale{Command: c.Command + helpers.Command(scale)}
 }
 
+// Start - Start services
 func (c *Compose) Start() *command.Start {
 	return &command.Start{Command: c.Command + helpers.Command(start)}
+}
+
+// Stats - Display a live stream of container(s) resource usage statistics
+func (c *Compose) Stats() *command.Stats {
+	return &command.Stats{Command: c.Command + helpers.Command(stats)}
+}
+
+// Stop - Stop services
+func (c *Compose) Stop() *command.Stop {
+	return &command.Stop{Command: c.Command + helpers.Command(stop)}
+}
+
+// Top - Display the running processes
+func (c *Compose) Top() *command.Top {
+	return &command.Top{Command: c.Command + helpers.Command(top)}
+}
+
+func (c *Compose) Unpause() *command.Unpause {
+	return &command.Unpause{Command: c.Command + helpers.Command(unpause)}
 }
 
 // Up - Create and start containers
 func (c *Compose) Up() *command.Up { return &command.Up{Command: c.Command + helpers.Command(up)} }
 
-// Logs - View output from containers
-func (c *Compose) Logs() *command.Logs {
-	return &command.Logs{Command: c.Command + helpers.Command(logs)}
+// Version - Show the Docker Compose version information
+func (c *Compose) Version() *command.Version {
+	return &command.Version{Command: c.Command + helpers.Command(version)}
+}
+
+// Wait - Block until the first service container stops
+func (c *Compose) Wait() *command.Wait {
+	return &command.Wait{Command: c.Command + helpers.Command(wait)}
 }

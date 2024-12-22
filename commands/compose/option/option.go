@@ -16,6 +16,7 @@ const (
 	noLogPrefix   = "--no-log-prefix"
 	noDeps        = "--no-deps"
 	noTty         = "--no-tty"
+	noTrunc       = "--no-trunc"
 	timestamps    = "--timestamps"
 	quiet         = "--quiet"
 	quietPull     = "--quiet-pull"
@@ -95,4 +96,8 @@ func NoDeps() string {
 
 func NoTty() string {
 	return helpers.Option(noTty)
+}
+
+func NoTrunc() string {
+	return helpers.Option(noTrunc)
 }

@@ -26,8 +26,8 @@ func (p *Port) Index(indexOfContainer int) *Port {
 }
 
 // Protocol - tcp or udp (default "tcp")
-func (p *Port) Protocol(prtcl string) *Port {
-	return &Port{p.Command + helpers.String(protocol, prtcl)}
+func (p *Port) Protocol(value string) *Port {
+	return &Port{p.Command + helpers.String(protocol, value)}
 }
 
 func (e *Exec) ServiceAndPort(serviceName string, privatePort int) *common.CommandExecutor {

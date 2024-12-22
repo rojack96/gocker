@@ -7,8 +7,6 @@ import (
 )
 
 const (
-	format  = "--format"
-	noTrunc = "--no-trunc"
 	orphans = "--orphans"
 	status  = "--status"
 )
@@ -39,7 +37,7 @@ func (p *Ps) Format(formatValue string) *Ps {
 
 // NoTrunc - Don't truncate output
 func (p *Ps) NoTrunc() *Ps {
-	return &Ps{Command: p.Command + helpers.Option(noTrunc)}
+	return &Ps{Command: p.Command + option.NoTrunc()}
 }
 
 // Orphans - Include orphaned services (not declared by project) (default true)
