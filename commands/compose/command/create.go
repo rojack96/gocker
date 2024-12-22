@@ -51,5 +51,5 @@ func (c *Create) RemoveOrphans() *Create {
 
 // Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
 func (c *Create) Scale(service string, instances int) *Create {
-	return &Create{Command: c.Command + option.Scale(service, instances)}
+	return &Create{Command: c.Command + common.Scale(service, instances)}
 }

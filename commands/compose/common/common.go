@@ -1,11 +1,16 @@
 package common
 
-import "github.com/rojack96/gocker/helpers"
+import (
+	"github.com/rojack96/gocker/helpers"
+	"strconv"
+)
 
 const (
-	format = "--format"
-	index  = "--index"
-	pull   = "--pull"
+	format  = "--format"
+	index   = "--index"
+	pull    = "--pull"
+	timeout = "--timeout"
+	scale   = "--scale"
 )
 
 type Service interface {
@@ -44,4 +49,13 @@ func Format(value string) string {
 
 func Pull(pullPolicy string) string {
 	return helpers.String(pull, pullPolicy)
+}
+
+func Timeout(seconds int) string {
+	return helpers.Int(timeout, seconds)
+}
+
+func Scale(service string, instances int) string {
+	serviceScale := service + "=" + strconv.Itoa(instances)
+	return helpers.String(scale, serviceScale)
 }

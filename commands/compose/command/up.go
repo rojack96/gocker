@@ -19,7 +19,6 @@ const (
 	noDeps                  = "--no-deps"
 	noStart                 = "--no-start"
 	renewAnonVolumes        = "--renew-anon-volumes"
-	timeout                 = "--timeout"
 	wait                    = "--wait"
 	waitTimeout             = "--wait-timeout"
 	watch                   = "--watch"
@@ -144,7 +143,7 @@ func (up *Up) Scale(service string, instances int) *Up {
 
 // Timeout - Use this timeout in seconds for container shutdown when attached or when containers are already running
 func (up *Up) Timeout(seconds int) *Up {
-	return &Up{Command: up.Command + helpers.Int(timeout, seconds)}
+	return &Up{Command: up.Command + common.Timeout(seconds)}
 }
 
 // Timestamps - Show timestamps

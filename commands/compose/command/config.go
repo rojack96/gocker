@@ -19,7 +19,6 @@ const (
 	resolveImageDigests = "--resolve-image-digests"
 	services            = "--services"
 	variables           = "--variables"
-	volumes             = "--volumes"
 )
 
 type Config struct {
@@ -101,8 +100,7 @@ func (c *Config) Variables() *Config {
 
 // Volumes - Print the volume names, one per line
 func (c *Config) Volumes() *Config {
-	return &Config{Command: c.Command + helpers.Option(volumes)}
-
+	return &Config{Command: c.Command + option.Volumes()}
 }
 
 func (c *Config) ServiceNames(serviceNames ...string) *common.CommandExecutor {

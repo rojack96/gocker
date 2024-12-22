@@ -2,7 +2,6 @@ package option
 
 import (
 	"github.com/rojack96/gocker/helpers"
-	"strconv"
 )
 
 const (
@@ -17,7 +16,7 @@ const (
 	quiet         = "--quiet"
 	quietPull     = "--quiet-pull"
 	removeOrphans = "--remove-orphans"
-	scale         = "--scale"
+	volumes       = "--volumes"
 )
 
 func Build() string {
@@ -64,7 +63,6 @@ func RemoveOrphans() string {
 	return helpers.Option(removeOrphans)
 }
 
-func Scale(service string, instances int) string {
-	serviceScale := service + "=" + strconv.Itoa(instances)
-	return helpers.String(scale, serviceScale)
+func Volumes() string {
+	return helpers.Option(volumes)
 }
