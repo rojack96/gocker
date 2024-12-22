@@ -6,8 +6,11 @@ import (
 )
 
 func main() {
-	g := gocker.Compose()
-	// TODO write tests
-	res := g.FileName().Attach().DryRun().Index(5).ServiceName("hello-world").GetCommand()
-	fmt.Println(res)
+	compose := gocker.Compose()
+
+	result := compose.FileName("compose.yml").Up().Build().ServiceNames()
+
+	fmt.Println(result.GetCommand())
+
+	result.Exec(false)
 }
