@@ -7,15 +7,19 @@ import (
 )
 
 type Start struct {
-	Command string
+	command string
+}
+
+func NewStart(cmd string) *Start {
+	return &Start{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (s *Start) DryRun() *Start {
-	return &Start{Command: s.Command + option.DryRun()}
+	return &Start{command: s.command + option.DryRun()}
 }
 
 // ServiceNames - Specify services to remove
 func (s *Start) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: s.Command + helpers.ServiceName(serviceNames...)}
+	return &common.CommandExecutor{Command: s.command + helpers.ServiceName(serviceNames...)}
 }

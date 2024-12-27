@@ -35,7 +35,7 @@ func (ce *CommandExecutor) GetCommand() string {
 
 /*
 func (ce *CommandExecutor) GetCommandWithPrivileges() string {
-	return ce.Command
+	return ce.command
 }
 */
 

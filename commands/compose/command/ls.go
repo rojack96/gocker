@@ -7,38 +7,42 @@ import (
 )
 
 type Ls struct {
-	Command string
+	command string
+}
+
+func NewLs(cmd string) *Ls {
+	return &Ls{command: cmd}
 }
 
 // All - Show all stopped Compose projects
 func (l *Ls) All() *Ls {
-	return &Ls{Command: l.Command + option.All()}
+	return &Ls{command: l.command + option.All()}
 }
 
 // DryRun - Execute command in dry run mode
 func (l *Ls) DryRun() *Ls {
-	return &Ls{Command: l.Command + option.DryRun()}
+	return &Ls{command: l.command + option.DryRun()}
 }
 
 // Filter - Filter output based on conditions provided
 func (l *Ls) Filter(condition string) *Ls {
-	return &Ls{Command: l.Command + common.Filter(condition)}
+	return &Ls{command: l.command + common.Filter(condition)}
 }
 
 // Format - Format the output. Values: [table | json] (default "table")
 func (l *Ls) Format(value string) *Ls {
-	return &Ls{Command: l.Command + common.Format(value)}
+	return &Ls{command: l.command + common.Format(value)}
 }
 
 // Quiet - Only display IDs
 func (l *Ls) Quiet() *Ls {
-	return &Ls{Command: l.Command + option.Quiet()}
+	return &Ls{command: l.command + option.Quiet()}
 }
 
 func (l *Ls) GetCommand() string {
-	return l.Command
+	return l.command
 }
 
 func (l *Ls) Exec(withPrivileges bool) {
-	helpers.GeneralExec(l.Command, withPrivileges)
+	helpers.GeneralExec(l.command, withPrivileges)
 }

@@ -7,25 +7,29 @@ import (
 )
 
 type Images struct {
-	Command string
+	command string
+}
+
+func NewImages(cmd string) *Images {
+	return &Images{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (i *Images) DryRun() *Images {
-	i.Command += option.DryRun()
+	i.command += option.DryRun()
 	return i
 }
 
 // Format - Format the output. Values: [table | json] (default "table")
 func (i *Images) Format(value string) *Images {
-	return &Images{Command: i.Command + common.Format(value)}
+	return &Images{command: i.command + common.Format(value)}
 }
 
 // Quiet - Only display IDs
 func (i *Images) Quiet() *Images {
-	return &Images{Command: i.Command + option.Quiet()}
+	return &Images{command: i.command + option.Quiet()}
 }
 
 func (i *Images) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: i.Command + helpers.ServiceName(serviceNames...)}
+	return &common.CommandExecutor{Command: i.command + helpers.ServiceName(serviceNames...)}
 }

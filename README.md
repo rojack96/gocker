@@ -40,7 +40,7 @@ Gocker supports Docker commands for version 26.1.3.
 
 Currently, all `compose` commands are implemented, and support for other Docker commands is coming soon.
 
-### Create a Command
+### Create a command
 
 ```go
 // Create compose instance
@@ -55,7 +55,7 @@ fmt.Println(result.GetCommand())
 // output: "docker compose --file compose.yml up --build hello-world"
 ```
 
-### Execute a Command
+### Execute a command
 
 ```go
 // Create compose instance

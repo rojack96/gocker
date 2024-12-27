@@ -11,17 +11,21 @@ const (
 )
 
 type Scale struct {
-	Command string
+	command string
+}
+
+func NewScale(cmd string) *Scale {
+	return &Scale{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (s *Scale) DryRun() *Scale {
-	return &Scale{Command: s.Command + option.DryRun()}
+	return &Scale{command: s.command + option.DryRun()}
 }
 
 // NoDeps - Don't start linked services
 func (s *Scale) NoDeps() *Scale {
-	return &Scale{Command: s.Command + option.NoDeps()}
+	return &Scale{command: s.command + option.NoDeps()}
 }
 
 // ServiceNames - Specify services to scale (SERVICE=REPLICAS...)
@@ -34,5 +38,5 @@ func (s *Scale) ServiceNames(serviceReplicas ...helpers.KeyValueParameters) *com
 		}
 	}
 
-	return &common.CommandExecutor{Command: s.Command + helpers.StringArray(scale, arguments...)}
+	return &common.CommandExecutor{Command: s.command + helpers.StringArray(scale, arguments...)}
 }

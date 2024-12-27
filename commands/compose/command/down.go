@@ -11,36 +11,40 @@ const (
 )
 
 type Down struct {
-	Command string
+	command string
+}
+
+func NewDown(cmd string) *Down {
+	return &Down{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (d *Down) DryRun() *Down {
-	return &Down{Command: d.Command + option.DryRun()}
+	return &Down{command: d.command + option.DryRun()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (d *Down) RemoveOrphans() *Down {
-	return &Down{Command: d.Command + option.RemoveOrphans()}
+	return &Down{command: d.command + option.RemoveOrphans()}
 }
 
 // Rmi - Remove images used by services. "local" remove only images that don't have a custom tag ("local"|"all")
 func (d *Down) Rmi(value string) *Down {
-	return &Down{Command: d.Command + helpers.String(rim, value)}
+	return &Down{command: d.command + helpers.String(rim, value)}
 }
 
 func (d *Down) Timeout(seconds int) *Down {
-	return &Down{Command: d.Command + common.Timeout(seconds)}
+	return &Down{command: d.command + common.Timeout(seconds)}
 }
 
 // Volumes - Remove named volumes declared in the "volumes" section of the Compose file and anonymous volumes attached to containers
 func (d *Down) Volumes() *Down {
-	return &Down{Command: d.Command + option.Volumes()}
+	return &Down{command: d.command + option.Volumes()}
 }
 
 func (d *Down) ServiceNames(serviceNames ...string) *common.CommandExecutor {
 	if len(serviceNames) > 1 {
 		return nil
 	}
-	return &common.CommandExecutor{Command: d.Command + helpers.ServiceName(serviceNames...)}
+	return &common.CommandExecutor{Command: d.command + helpers.ServiceName(serviceNames...)}
 }

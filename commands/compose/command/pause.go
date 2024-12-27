@@ -7,15 +7,19 @@ import (
 )
 
 type Pause struct {
-	Command string
+	command string
+}
+
+func NewPause(cmd string) *Pause {
+	return &Pause{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (p *Pause) DryRun() *Pause {
-	return &Pause{Command: p.Command + option.DryRun()}
+	return &Pause{command: p.command + option.DryRun()}
 }
 
 // ServiceNames - Specify services to list
 func (p *Pause) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: p.Command + helpers.ServiceName(serviceNames...)}
+	return &common.CommandExecutor{Command: p.command + helpers.ServiceName(serviceNames...)}
 }

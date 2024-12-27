@@ -13,40 +13,44 @@ const (
 )
 
 type Pull struct {
-	Command string
+	command string
+}
+
+func NewPull(cmd string) *Pull {
+	return &Pull{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (p *Pull) DryRun() *Pull {
-	return &Pull{Command: p.Command + option.DryRun()}
+	return &Pull{command: p.command + option.DryRun()}
 }
 
 // IgnoreBuildable - Ignore images that can be built
 func (p *Pull) IgnoreBuildable() *Pull {
-	return &Pull{Command: p.Command + helpers.Option(ignoreBuildable)}
+	return &Pull{command: p.command + helpers.Option(ignoreBuildable)}
 }
 
 // IgnorePullFailures - Pull what it can and ignore images with pull failures
 func (p *Pull) IgnorePullFailures() *Pull {
-	return &Pull{Command: p.Command + helpers.Option(ignorePullFailures)}
+	return &Pull{command: p.command + helpers.Option(ignorePullFailures)}
 }
 
 // IncludeDeps - Also pull services declared as dependencies
 func (p *Pull) IncludeDeps() *Pull {
-	return &Pull{Command: p.Command + option.IncludeDeps()}
+	return &Pull{command: p.command + option.IncludeDeps()}
 }
 
 // Policy - Apply pull policy ("missing"|"always")
 func (p *Pull) Policy(value string) *Pull {
-	return &Pull{Command: p.Command + helpers.String(policy, value)}
+	return &Pull{command: p.command + helpers.String(policy, value)}
 }
 
 // Quiet - Pull without printing progress information
 func (p *Pull) Quiet() *Pull {
-	return &Pull{Command: p.Command + option.Quiet()}
+	return &Pull{command: p.command + option.Quiet()}
 }
 
 // ServiceNames - Specify services to pull
 func (p *Pull) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: p.Command + helpers.ServiceName(serviceNames...)}
+	return &common.CommandExecutor{Command: p.command + helpers.ServiceName(serviceNames...)}
 }

@@ -7,15 +7,19 @@ import (
 )
 
 type Top struct {
-	Command string
+	command string
+}
+
+func NewTop(cmd string) *Top {
+	return &Top{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (t *Top) DryRun() *Top {
-	return &Top{Command: t.Command + option.DryRun()}
+	return &Top{command: t.command + option.DryRun()}
 }
 
 // ServiceNames - Specify services to remove
 func (t *Top) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: t.Command + helpers.ServiceName(serviceNames...)}
+	return &common.CommandExecutor{Command: t.command + helpers.ServiceName(serviceNames...)}
 }

@@ -11,28 +11,32 @@ const (
 )
 
 type Version struct {
-	Command string
+	command string
+}
+
+func NewVersion(cmd string) *Version {
+	return &Version{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (v *Version) DryRun() *Version {
-	return &Version{Command: v.Command + option.DryRun()}
+	return &Version{command: v.command + option.DryRun()}
 }
 
 // Format - Format the output. Values: [pretty | json]. (Default: pretty)
 func (v *Version) Format(value string) *Version {
-	return &Version{Command: v.Command + common.Format(value)}
+	return &Version{command: v.command + common.Format(value)}
 }
 
 // Short - Shows only Composes version number
 func (v *Version) Short() *Version {
-	return &Version{Command: v.Command + helpers.Option(short)}
+	return &Version{command: v.command + helpers.Option(short)}
 }
 
 func (v *Version) GetCommand() string {
-	return v.Command
+	return v.command
 }
 
 func (v *Version) Exec(withPrivileges bool) {
-	helpers.GeneralExec(v.Command, withPrivileges)
+	helpers.GeneralExec(v.command, withPrivileges)
 }
