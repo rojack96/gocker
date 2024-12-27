@@ -169,5 +169,5 @@ func (up *Up) Watch() *Up {
 }
 
 func (up *Up) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: up.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(up.command + helpers.ServiceName(serviceNames...))
 }

@@ -30,5 +30,5 @@ func (w *Wait) DryRun() *Wait {
 
 // ServiceNames - Specify services to remove
 func (w *Wait) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: w.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(w.command + helpers.ServiceName(serviceNames...))
 }

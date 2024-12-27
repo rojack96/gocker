@@ -51,5 +51,5 @@ func (s *Stats) ServiceNames(serviceNames ...string) *common.CommandExecutor {
 	if len(serviceNames) > 1 {
 		return nil
 	}
-	return &common.CommandExecutor{Command: s.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(s.command + helpers.ServiceName(serviceNames...))
 }

@@ -26,5 +26,5 @@ func (s *Stop) Timeout(seconds int) *Stop {
 
 // ServiceNames - Specify services to remove
 func (s *Stop) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: s.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(s.command + helpers.ServiceName(serviceNames...))
 }

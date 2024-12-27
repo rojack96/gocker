@@ -40,5 +40,5 @@ func (p *Push) Quiet() *Push {
 
 // ServiceNames - Specify services to push
 func (p *Push) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: p.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(p.command + helpers.ServiceName(serviceNames...))
 }

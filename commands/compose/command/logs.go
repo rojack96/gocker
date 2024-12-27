@@ -67,5 +67,5 @@ func (l *Logs) Until(date string) *Logs {
 }
 
 func (l *Logs) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: l.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(l.command + helpers.ServiceName(serviceNames...))
 }

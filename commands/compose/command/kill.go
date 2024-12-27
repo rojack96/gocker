@@ -33,5 +33,5 @@ func (k *Kill) Signal(value string) *Kill {
 }
 
 func (k *Kill) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: k.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(k.command + helpers.ServiceName(serviceNames...))
 }

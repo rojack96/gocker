@@ -38,5 +38,5 @@ func (s *Scale) ServiceNames(serviceReplicas ...helpers.KeyValueParameters) *com
 		}
 	}
 
-	return &common.CommandExecutor{Command: s.command + helpers.StringArray(scale, arguments...)}
+	return common.SetCommand(s.command + helpers.StringArray(scale, arguments...))
 }

@@ -21,5 +21,5 @@ func (p *Pause) DryRun() *Pause {
 
 // ServiceNames - Specify services to list
 func (p *Pause) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: p.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(p.command + helpers.ServiceName(serviceNames...))
 }

@@ -46,5 +46,5 @@ func (a *Attach) SigProxy() *Attach {
 }
 
 func (a *Attach) ServiceName(serviceName string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: a.command + helpers.ServiceName(serviceName)}
+	return common.SetCommand(a.command + helpers.ServiceName(serviceName))
 }

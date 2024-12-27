@@ -34,5 +34,6 @@ func (w *Watch) Quiet() *Watch {
 
 // ServiceNames - Specify services to remove
 func (w *Watch) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: w.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(w.command + helpers.ServiceName(serviceNames...))
+
 }

@@ -26,11 +26,15 @@ type Services interface {
 }
 
 type CommandExecutor struct {
-	Command string
+	command string
+}
+
+func SetCommand(cmd string) *CommandExecutor {
+	return &CommandExecutor{command: cmd}
 }
 
 func (ce *CommandExecutor) GetCommand() string {
-	return ce.Command
+	return ce.command
 }
 
 /*
@@ -40,7 +44,7 @@ func (ce *CommandExecutor) GetCommandWithPrivileges() string {
 */
 
 func (ce *CommandExecutor) Exec(withPrivileges bool) {
-	helpers.GeneralExec(ce.Command, withPrivileges)
+	helpers.GeneralExec(ce.command, withPrivileges)
 }
 
 func Index(indexOfContainer int) string {

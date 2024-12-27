@@ -34,9 +34,9 @@ func (p *Port) Protocol(value string) *Port {
 	return &Port{p.command + helpers.String(protocol, value)}
 }
 
-func (e *Exec) ServiceAndPort(serviceName string, privatePort int) *common.CommandExecutor {
+func (p *Port) ServiceAndPort(serviceName string, privatePort int) *common.CommandExecutor {
 	service := helpers.ServiceName(serviceName)
 	cmd := service + " " + strconv.Itoa(privatePort)
 
-	return &common.CommandExecutor{Command: e.command + cmd}
+	return common.SetCommand(p.command + cmd)
 }

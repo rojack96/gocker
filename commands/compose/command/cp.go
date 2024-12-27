@@ -51,8 +51,7 @@ func (cp *Cp) Copy(copy Copy) *common.CommandExecutor {
 	serviceToLocal := copy.Service + ":" + copy.ServiceFile + " " + copy.LocalFile
 
 	if copy.Reverse {
-		return &common.CommandExecutor{Command: cp.command + " " + serviceToLocal}
+		return common.SetCommand(cp.command + " " + serviceToLocal)
 	}
-
-	return &common.CommandExecutor{Command: cp.command + " " + localToService}
+	return common.SetCommand(cp.command + " " + localToService)
 }

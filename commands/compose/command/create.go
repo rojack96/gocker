@@ -60,5 +60,5 @@ func (c *Create) Scale(service string, instances int) *Create {
 }
 
 func (c *Create) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: c.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(c.command + helpers.ServiceName(serviceNames...))
 }

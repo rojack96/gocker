@@ -21,5 +21,5 @@ func (u *Unpause) DryRun() *Unpause {
 
 // ServiceNames - Specify services to remove
 func (u *Unpause) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: u.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(u.command + helpers.ServiceName(serviceNames...))
 }

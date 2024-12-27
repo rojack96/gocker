@@ -67,5 +67,5 @@ func (e *Exec) ServiceCommandArgs(serviceName, command string, args ...string) *
 		cmd = cmd + " " + strings.Join(args, " ")
 	}
 
-	return &common.CommandExecutor{Command: e.command + cmd}
+	return common.SetCommand(e.command + cmd)
 }

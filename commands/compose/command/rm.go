@@ -41,5 +41,5 @@ func (r *Rm) Volumes() *Rm {
 
 // ServiceNames - Specify services to remove
 func (r *Rm) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: r.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(r.command + helpers.ServiceName(serviceNames...))
 }

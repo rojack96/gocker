@@ -29,5 +29,5 @@ func (e *Events) Json() *Events {
 }
 
 func (e *Events) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: e.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(e.command + helpers.ServiceName(serviceNames...))
 }

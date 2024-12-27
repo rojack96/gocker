@@ -52,5 +52,5 @@ func (p *Pull) Quiet() *Pull {
 
 // ServiceNames - Specify services to pull
 func (p *Pull) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: p.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(p.command + helpers.ServiceName(serviceNames...))
 }

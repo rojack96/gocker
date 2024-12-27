@@ -146,5 +146,5 @@ func (r *Run) ServiceCommandArgs(serviceNames string, command *string, args ...s
 		}
 	}
 
-	return &common.CommandExecutor{Command: r.command + helpers.ServiceName(serviceNames)}
+	return common.SetCommand(r.command + helpers.ServiceName(serviceNames))
 }

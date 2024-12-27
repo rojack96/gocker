@@ -96,5 +96,5 @@ func (b *Build) WithDependencies() *Build {
 }
 
 func (b *Build) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: b.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(b.command + helpers.ServiceName(serviceNames...))
 }

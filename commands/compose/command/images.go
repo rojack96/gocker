@@ -31,5 +31,5 @@ func (i *Images) Quiet() *Images {
 }
 
 func (i *Images) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: i.command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(i.command + helpers.ServiceName(serviceNames...))
 }
