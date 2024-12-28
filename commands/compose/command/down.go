@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -20,12 +19,12 @@ func NewDown(cmd string) *Down {
 
 // DryRun - Execute command in dry run mode
 func (d *Down) DryRun() *Down {
-	return &Down{command: d.command + option.DryRun()}
+	return &Down{command: d.command + common.DryRun()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (d *Down) RemoveOrphans() *Down {
-	return &Down{command: d.command + option.RemoveOrphans()}
+	return &Down{command: d.command + common.RemoveOrphans()}
 }
 
 // Rmi - Remove images used by services. "local" remove only images that don't have a custom tag ("local"|"all")
@@ -39,7 +38,7 @@ func (d *Down) Timeout(seconds int) *Down {
 
 // Volumes - Remove named volumes declared in the "volumes" section of the Compose file and anonymous volumes attached to containers
 func (d *Down) Volumes() *Down {
-	return &Down{command: d.command + option.Volumes()}
+	return &Down{command: d.command + common.Volumes()}
 }
 
 func (d *Down) ServiceNames(serviceNames ...string) *common.CommandExecutor {

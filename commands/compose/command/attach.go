@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -27,7 +26,7 @@ func (a *Attach) DetachKeys(value string) *Attach {
 
 // DryRun - Execute command in dry run mode
 func (a *Attach) DryRun() *Attach {
-	return &Attach{command: a.command + option.DryRun()}
+	return &Attach{command: a.command + common.DryRun()}
 }
 
 // Index - index of the container if service has multiple replicas

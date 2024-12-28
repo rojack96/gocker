@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -20,12 +19,12 @@ func NewKill(cmd string) *Kill {
 
 // DryRun - Execute command in dry run mode
 func (k *Kill) DryRun() *Kill {
-	return &Kill{command: k.command + option.DryRun()}
+	return &Kill{command: k.command + common.DryRun()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (k *Kill) RemoveOrphans() *Kill {
-	return &Kill{command: k.command + option.RemoveOrphans()}
+	return &Kill{command: k.command + common.RemoveOrphans()}
 }
 
 func (k *Kill) Signal(value string) *Kill {

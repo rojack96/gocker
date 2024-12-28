@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -16,7 +15,7 @@ func NewTop(cmd string) *Top {
 
 // DryRun - Execute command in dry run mode
 func (t *Top) DryRun() *Top {
-	return &Top{command: t.command + option.DryRun()}
+	return &Top{command: t.command + common.DryRun()}
 }
 
 // ServiceNames - Specify services to remove

@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -20,12 +19,12 @@ func NewStats(cmd string) *Stats {
 
 // All - Show all containers (including stopped ones)
 func (s *Stats) All() *Stats {
-	return &Stats{command: s.command + option.All()}
+	return &Stats{command: s.command + common.All()}
 }
 
 // DryRun - Execute command in dry run mode
 func (s *Stats) DryRun() *Stats {
-	return &Stats{command: s.command + option.DryRun()}
+	return &Stats{command: s.command + common.DryRun()}
 }
 
 // Format - Format the output using a custom template
@@ -44,7 +43,7 @@ func (s *Stats) NoStream() *Stats {
 
 // NoTrunc - Do not truncate output
 func (s *Stats) NoTrunc() *Stats {
-	return &Stats{command: s.command + option.NoTrunc()}
+	return &Stats{command: s.command + common.NoTrunc()}
 }
 
 func (s *Stats) ServiceNames(serviceNames ...string) *common.CommandExecutor {

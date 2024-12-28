@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 	"strconv"
 )
@@ -21,7 +20,7 @@ func NewPort(cmd string) *Port {
 
 // DryRun - Execute command in dry run mode
 func (p *Port) DryRun() *Port {
-	return &Port{command: p.command + option.DryRun()}
+	return &Port{command: p.command + common.DryRun()}
 }
 
 // Index - index of the container if service has multiple replicas

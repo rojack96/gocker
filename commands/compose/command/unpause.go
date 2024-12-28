@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -16,7 +15,7 @@ func NewUnpause(cmd string) *Unpause {
 
 // DryRun - Execute command in dry run mode
 func (u *Unpause) DryRun() *Unpause {
-	return &Unpause{command: u.command + option.DryRun()}
+	return &Unpause{command: u.command + common.DryRun()}
 }
 
 // ServiceNames - Specify services to remove

@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -16,12 +15,12 @@ func NewLs(cmd string) *Ls {
 
 // All - Show all stopped Compose projects
 func (l *Ls) All() *Ls {
-	return &Ls{command: l.command + option.All()}
+	return &Ls{command: l.command + common.All()}
 }
 
 // DryRun - Execute command in dry run mode
 func (l *Ls) DryRun() *Ls {
-	return &Ls{command: l.command + option.DryRun()}
+	return &Ls{command: l.command + common.DryRun()}
 }
 
 // Filter - Filter output based on conditions provided
@@ -36,7 +35,7 @@ func (l *Ls) Format(value string) *Ls {
 
 // Quiet - Only display IDs
 func (l *Ls) Quiet() *Ls {
-	return &Ls{command: l.command + option.Quiet()}
+	return &Ls{command: l.command + common.Quiet()}
 }
 
 func (l *Ls) GetCommand() string {

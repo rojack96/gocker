@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 	"strconv"
 )
@@ -58,17 +57,17 @@ func (up *Up) AttachDependencies() *Up {
 
 // Build - Build images before starting containers
 func (up *Up) Build() *Up {
-	return &Up{command: up.command + option.Build()}
+	return &Up{command: up.command + common.Build()}
 }
 
 // Detach - Detached mode: Run containers in the background
 func (up *Up) Detach() *Up {
-	return &Up{command: up.command + option.Detach()}
+	return &Up{command: up.command + common.Detach()}
 }
 
 // DryRun - Execute command in dry run mode
 func (up *Up) DryRun() *Up {
-	return &Up{command: up.command + option.DryRun()}
+	return &Up{command: up.command + common.DryRun()}
 }
 
 // ExitCodeFrom - Return the exit code of the selected service container. Implies --abort-on-container-exit
@@ -78,7 +77,7 @@ func (up *Up) ExitCodeFrom(service string) *Up {
 
 // ForceRecreate - Recreate containers even if their configuration and image haven't changed
 func (up *Up) ForceRecreate() *Up {
-	return &Up{command: up.command + option.ForceRecreate()}
+	return &Up{command: up.command + common.ForceRecreate()}
 }
 
 // NoAttach - Do not attach (stream logs) to the specified services
@@ -88,27 +87,27 @@ func (up *Up) NoAttach(services []string) *Up {
 
 // NoBuild - Don't build an image, even if it's policy
 func (up *Up) NoBuild() *Up {
-	return &Up{command: up.command + option.NoBuild()}
+	return &Up{command: up.command + common.NoBuild()}
 }
 
 // NoColor - Produce monochrome output
 func (up *Up) NoColor() *Up {
-	return &Up{command: up.command + option.NoColor()}
+	return &Up{command: up.command + common.NoColor()}
 }
 
 // NoDeps - Don't start linked services
 func (up *Up) NoDeps() *Up {
-	return &Up{command: up.command + option.NoDeps()}
+	return &Up{command: up.command + common.NoDeps()}
 }
 
 // NoLogPrefix - Don't print prefix in logs
 func (up *Up) NoLogPrefix() *Up {
-	return &Up{command: up.command + option.NoLogPrefix()}
+	return &Up{command: up.command + common.NoLogPrefix()}
 }
 
 // NoRecreate -  If containers already exist, don't recreate them. Incompatible with --force-recreate.
 func (up *Up) NoRecreate() *Up {
-	return &Up{command: up.command + option.NoRecreate()}
+	return &Up{command: up.command + common.NoRecreate()}
 }
 
 // NoStart - Don't start the services after creating them
@@ -123,12 +122,12 @@ func (up *Up) Pull(pullPolicy string) *Up {
 
 // QuietPull - Pull without printing progress information
 func (up *Up) QuietPull() *Up {
-	return &Up{command: up.command + option.QuietPull()}
+	return &Up{command: up.command + common.QuietPull()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (up *Up) RemoveOrphans() *Up {
-	return &Up{command: up.command + option.RemoveOrphans()}
+	return &Up{command: up.command + common.RemoveOrphans()}
 }
 
 // RenewAnonVolumes - Recreate anonymous volumes instead of retrieving data from the previous containers
@@ -150,7 +149,7 @@ func (up *Up) Timeout(seconds int) *Up {
 
 // Timestamps - Show timestamps
 func (up *Up) Timestamps() *Up {
-	return &Up{command: up.command + option.Timestamps()}
+	return &Up{command: up.command + common.Timestamps()}
 }
 
 // Wait - Wait for services to be running|healthy. Implies detached mode.

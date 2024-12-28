@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -22,7 +21,7 @@ func NewPull(cmd string) *Pull {
 
 // DryRun - Execute command in dry run mode
 func (p *Pull) DryRun() *Pull {
-	return &Pull{command: p.command + option.DryRun()}
+	return &Pull{command: p.command + common.DryRun()}
 }
 
 // IgnoreBuildable - Ignore images that can be built
@@ -37,7 +36,7 @@ func (p *Pull) IgnorePullFailures() *Pull {
 
 // IncludeDeps - Also pull services declared as dependencies
 func (p *Pull) IncludeDeps() *Pull {
-	return &Pull{command: p.command + option.IncludeDeps()}
+	return &Pull{command: p.command + common.IncludeDeps()}
 }
 
 // Policy - Apply pull policy ("missing"|"always")
@@ -47,7 +46,7 @@ func (p *Pull) Policy(value string) *Pull {
 
 // Quiet - Pull without printing progress information
 func (p *Pull) Quiet() *Pull {
-	return &Pull{command: p.command + option.Quiet()}
+	return &Pull{command: p.command + common.Quiet()}
 }
 
 // ServiceNames - Specify services to pull

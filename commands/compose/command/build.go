@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -55,7 +54,7 @@ func (b *Build) Builder(builderName string) *Build {
 
 // DryRun - Execute command in dry run mode
 func (b *Build) DryRun() *Build {
-	return &Build{command: b.command + option.DryRun()}
+	return &Build{command: b.command + common.DryRun()}
 }
 
 // Memory - Set memory limit for the command container. Not supported by BuildKit.
@@ -81,7 +80,7 @@ func (b *Build) Push() *Build {
 
 // Quiet - Don't print anything to STDOUT
 func (b *Build) Quiet() *Build {
-	return &Build{command: b.command + option.Quiet()}
+	return &Build{command: b.command + common.Quiet()}
 }
 
 // Ssh - Set SSH authentications used when building service images.

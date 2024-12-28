@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -30,7 +29,7 @@ func NewConfig(cmd string) *Config {
 
 // DryRun - Execute command in dry run mode
 func (c *Config) DryRun() *Config {
-	return &Config{command: c.command + option.DryRun()}
+	return &Config{command: c.command + common.DryRun()}
 }
 
 // Format - Format the output. Values: [yaml | json] (default "yaml")
@@ -90,7 +89,7 @@ func (c *Config) ResolveImageDigests() *Config {
 
 // Services - Print the service names, one per line
 func (c *Config) Services() *Config {
-	return &Config{command: c.command + option.Services()}
+	return &Config{command: c.command + common.ServicesOption()}
 }
 
 // Variables - Print model variables and default values
@@ -100,7 +99,7 @@ func (c *Config) Variables() *Config {
 
 // Volumes - Print the volume names, one per line
 func (c *Config) Volumes() *Config {
-	return &Config{command: c.command + option.Volumes()}
+	return &Config{command: c.command + common.Volumes()}
 }
 
 func (c *Config) ServiceNames(serviceNames ...string) *common.CommandExecutor {

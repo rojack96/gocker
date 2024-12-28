@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -20,7 +19,7 @@ func NewVersion(cmd string) *Version {
 
 // DryRun - Execute command in dry run mode
 func (v *Version) DryRun() *Version {
-	return &Version{command: v.command + option.DryRun()}
+	return &Version{command: v.command + common.DryRun()}
 }
 
 // Format - Format the output. Values: [pretty | json]. (Default: pretty)

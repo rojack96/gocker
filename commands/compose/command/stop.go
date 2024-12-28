@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -16,7 +15,7 @@ func NewStop(cmd string) *Stop {
 
 // DryRun - Execute command in dry run mode
 func (s *Stop) DryRun() *Stop {
-	return &Stop{command: s.command + option.DryRun()}
+	return &Stop{command: s.command + common.DryRun()}
 }
 
 // Timeout - Specify a shutdown timeout in seconds

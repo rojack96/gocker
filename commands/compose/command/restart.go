@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -16,12 +15,12 @@ func NewRestart(cmd string) *Restart {
 
 // DryRun - Execute command in dry run mode
 func (r *Restart) DryRun() *Restart {
-	return &Restart{command: r.command + option.DryRun()}
+	return &Restart{command: r.command + common.DryRun()}
 }
 
 // NoDeps - Don't restart dependent services
 func (r *Restart) NoDeps() *Restart {
-	return &Restart{command: r.command + option.NoDeps()}
+	return &Restart{command: r.command + common.NoDeps()}
 }
 
 // Timeout - Specify a shutdown timeout in seconds

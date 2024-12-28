@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -20,7 +19,7 @@ func NewWatch(cmd string) *Watch {
 
 // DryRun - Execute command in dry run mode
 func (w *Watch) DryRun() *Watch {
-	return &Watch{command: w.command + option.DryRun()}
+	return &Watch{command: w.command + common.DryRun()}
 }
 
 // NoUp - Do not build & start services before watching
@@ -29,7 +28,7 @@ func (w *Watch) NoUp() *Watch {
 }
 
 func (w *Watch) Quiet() *Watch {
-	return &Watch{command: w.command + option.Quiet()}
+	return &Watch{command: w.command + common.Quiet()}
 }
 
 // ServiceNames - Specify services to remove

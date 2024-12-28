@@ -84,12 +84,10 @@ func Env(envs ...helpers.KeyValueParameters) string {
 	return helpers.StringArray(env, arguments...)
 }
 
-// User - Run the command as this user
 func User(usr string) string {
 	return helpers.String(user, usr)
 }
 
-// Workdir - ath to workdir directory for this command
 func Workdir(path string) string {
 	return helpers.String(workdir, path)
 }

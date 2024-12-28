@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -16,27 +15,27 @@ func NewCreate(cmd string) *Create {
 
 // Build - Build images before starting containers
 func (c *Create) Build() *Create {
-	return &Create{command: c.command + option.Build()}
+	return &Create{command: c.command + common.Build()}
 }
 
 // DryRun - Execute command in dry run mode
 func (c *Create) DryRun() *Create {
-	return &Create{command: c.command + option.DryRun()}
+	return &Create{command: c.command + common.DryRun()}
 }
 
 // ForceRecreate - Recreate containers even if their configuration and image haven't changed
 func (c *Create) ForceRecreate() *Create {
-	return &Create{command: c.command + option.ForceRecreate()}
+	return &Create{command: c.command + common.ForceRecreate()}
 }
 
 // NoBuild - Don't build an image, even if it's policy
 func (c *Create) NoBuild() *Create {
-	return &Create{command: c.command + option.NoBuild()}
+	return &Create{command: c.command + common.NoBuild()}
 }
 
 // NoRecreate - If containers already exist, don't recreate them. Incompatible with --force-recreate.
 func (c *Create) NoRecreate() *Create {
-	return &Create{command: c.command + option.NoRecreate()}
+	return &Create{command: c.command + common.NoRecreate()}
 }
 
 // Pull - Pull image before running ("always"|"missing"|"never"|"build") (default "policy")
@@ -46,12 +45,12 @@ func (c *Create) Pull(pullPolicy string) *Create {
 
 // QuietPull - Pull without printing progress information
 func (c *Create) QuietPull() *Create {
-	return &Create{command: c.command + option.QuietPull()}
+	return &Create{command: c.command + common.QuietPull()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (c *Create) RemoveOrphans() *Create {
-	return &Create{command: c.command + option.RemoveOrphans()}
+	return &Create{command: c.command + common.RemoveOrphans()}
 }
 
 // Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.

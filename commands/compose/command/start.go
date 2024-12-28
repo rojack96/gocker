@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -16,7 +15,7 @@ func NewStart(cmd string) *Start {
 
 // DryRun - Execute command in dry run mode
 func (s *Start) DryRun() *Start {
-	return &Start{command: s.command + option.DryRun()}
+	return &Start{command: s.command + common.DryRun()}
 }
 
 // ServiceNames - Specify services to remove
