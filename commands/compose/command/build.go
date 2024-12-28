@@ -58,8 +58,15 @@ func (b *Build) DryRun() *Build {
 }
 
 // Memory - Set memory limit for the command container. Not supported by BuildKit.
+// If unitByte is empty use Kilobytes by default
 func (b *Build) Memory(bytes string, unitByte UnitByte) *Build {
-	bytes += string(unitByte)
+	switch unitByte {
+	case Kilobytes, Megabytes, Gigabytes:
+		bytes += string(unitByte)
+	default:
+		bytes += string(Kilobytes)
+	}
+
 	return &Build{command: b.command + helpers.String(memory, bytes)}
 }
 
