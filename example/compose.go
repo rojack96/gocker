@@ -12,7 +12,5 @@ func main() {
 
 	fmt.Println(result.GetCommand())
 
-	fmt.Println(gocker.ConcatCommands(result.GetCommand(), result.GetCommand()))
-
 	result.Exec(false)
 }
