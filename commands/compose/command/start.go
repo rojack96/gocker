@@ -1,21 +1,24 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
 type Start struct {
-	Command string
+	command string
+}
+
+func NewStart(cmd string) *Start {
+	return &Start{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (s *Start) DryRun() *Start {
-	return &Start{Command: s.Command + option.DryRun()}
+	return &Start{command: s.command + common.DryRun()}
 }
 
 // ServiceNames - Specify services to remove
 func (s *Start) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: s.Command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(s.command + helpers.ServiceName(serviceNames...))
 }

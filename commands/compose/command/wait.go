@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -11,20 +10,24 @@ const (
 )
 
 type Wait struct {
-	Command string
+	command string
+}
+
+func NewWait(cmd string) *Wait {
+	return &Wait{command: cmd}
 }
 
 // DownProject - Drops project when the first container stops
 func (w *Wait) DownProject() *Wait {
-	return &Wait{Command: w.Command + helpers.Option(downProject)}
+	return &Wait{command: w.command + helpers.Option(downProject)}
 }
 
 // DryRun - Execute command in dry run mode
 func (w *Wait) DryRun() *Wait {
-	return &Wait{Command: w.Command + option.DryRun()}
+	return &Wait{command: w.command + common.DryRun()}
 }
 
 // ServiceNames - Specify services to remove
 func (w *Wait) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: w.Command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(w.command + helpers.ServiceName(serviceNames...))
 }

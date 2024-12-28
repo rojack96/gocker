@@ -26,21 +26,25 @@ type Services interface {
 }
 
 type CommandExecutor struct {
-	Command string
+	command string
+}
+
+func SetCommand(cmd string) *CommandExecutor {
+	return &CommandExecutor{command: cmd}
 }
 
 func (ce *CommandExecutor) GetCommand() string {
-	return ce.Command
+	return ce.command
 }
 
 /*
 func (ce *CommandExecutor) GetCommandWithPrivileges() string {
-	return ce.Command
+	return ce.command
 }
 */
 
 func (ce *CommandExecutor) Exec(withPrivileges bool) {
-	helpers.GeneralExec(ce.Command, withPrivileges)
+	helpers.GeneralExec(ce.command, withPrivileges)
 }
 
 func Index(indexOfContainer int) string {
@@ -80,12 +84,10 @@ func Env(envs ...helpers.KeyValueParameters) string {
 	return helpers.StringArray(env, arguments...)
 }
 
-// User - Run the command as this user
 func User(usr string) string {
 	return helpers.String(user, usr)
 }
 
-// Workdir - ath to workdir directory for this command
 func Workdir(path string) string {
 	return helpers.String(workdir, path)
 }

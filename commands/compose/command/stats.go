@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -11,17 +10,21 @@ const (
 )
 
 type Stats struct {
-	Command string
+	command string
+}
+
+func NewStats(cmd string) *Stats {
+	return &Stats{command: cmd}
 }
 
 // All - Show all containers (including stopped ones)
 func (s *Stats) All() *Stats {
-	return &Stats{Command: s.Command + option.All()}
+	return &Stats{command: s.command + common.All()}
 }
 
 // DryRun - Execute command in dry run mode
 func (s *Stats) DryRun() *Stats {
-	return &Stats{Command: s.Command + option.DryRun()}
+	return &Stats{command: s.command + common.DryRun()}
 }
 
 // Format - Format the output using a custom template
@@ -30,22 +33,22 @@ func (s *Stats) DryRun() *Stats {
 // 'json':             Print in JSON format
 // 'TEMPLATE':         Print output using the given Go template.
 func (s *Stats) Format(formatValue string) *Stats {
-	return &Stats{Command: s.Command + common.Format(formatValue)}
+	return &Stats{command: s.command + common.Format(formatValue)}
 }
 
 // NoStream - Disable streaming stats and only pull the first result
 func (s *Stats) NoStream() *Stats {
-	return &Stats{Command: s.Command + helpers.Option(noStream)}
+	return &Stats{command: s.command + helpers.Option(noStream)}
 }
 
 // NoTrunc - Do not truncate output
 func (s *Stats) NoTrunc() *Stats {
-	return &Stats{Command: s.Command + option.NoTrunc()}
+	return &Stats{command: s.command + common.NoTrunc()}
 }
 
 func (s *Stats) ServiceNames(serviceNames ...string) *common.CommandExecutor {
 	if len(serviceNames) > 1 {
 		return nil
 	}
-	return &common.CommandExecutor{Command: s.Command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(s.command + helpers.ServiceName(serviceNames...))
 }

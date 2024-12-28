@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -11,19 +10,23 @@ const (
 )
 
 type Events struct {
-	Command string
+	command string
+}
+
+func NewEvents(cmd string) *Events {
+	return &Events{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (e *Events) DryRun() *Events {
-	return &Events{Command: e.Command + option.DryRun()}
+	return &Events{command: e.command + common.DryRun()}
 }
 
 // Json - Output events as a stream of json objects
 func (e *Events) Json() *Events {
-	return &Events{Command: e.Command + helpers.Option(json)}
+	return &Events{command: e.command + helpers.Option(json)}
 }
 
 func (e *Events) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: e.Command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(e.command + helpers.ServiceName(serviceNames...))
 }
