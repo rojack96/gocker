@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -11,30 +10,34 @@ const (
 )
 
 type Push struct {
-	Command string
+	command string
+}
+
+func NewPush(cmd string) *Push {
+	return &Push{command: cmd}
 }
 
 // DryRun - Execute command in dry run mode
 func (p *Push) DryRun() *Push {
-	return &Push{Command: p.Command + option.DryRun()}
+	return &Push{command: p.command + common.DryRun()}
 }
 
 // IgnorePushFailures - Push what it can and ignore images with push failures
 func (p *Push) IgnorePushFailures() *Push {
-	return &Push{Command: p.Command + helpers.Option(ignorePushFailures)}
+	return &Push{command: p.command + helpers.Option(ignorePushFailures)}
 }
 
 // IncludeDeps - Also push images of services declared as dependencies
 func (p *Push) IncludeDeps() *Push {
-	return &Push{Command: p.Command + option.IncludeDeps()}
+	return &Push{command: p.command + common.IncludeDeps()}
 }
 
 // Quiet - Push without printing progress information
 func (p *Push) Quiet() *Push {
-	return &Push{Command: p.Command + option.Quiet()}
+	return &Push{command: p.command + common.Quiet()}
 }
 
 // ServiceNames - Specify services to push
 func (p *Push) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: p.Command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(p.command + helpers.ServiceName(serviceNames...))
 }

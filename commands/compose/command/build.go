@@ -1,8 +1,7 @@
 package command
 
 import (
-	"github.com/rojack96/gocker/commands/compose/common"
-	"github.com/rojack96/gocker/commands/compose/option"
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 )
 
@@ -18,7 +17,11 @@ const (
 )
 
 type Build struct {
-	Command string
+	command string
+}
+
+func NewBuild(cmd string) *Build {
+	return &Build{command: cmd}
 }
 
 type UnitByte string
@@ -41,56 +44,63 @@ func (b *Build) BuildArg(args ...helpers.KeyValueParameters) *Build {
 		}
 	}
 
-	return &Build{Command: b.Command + helpers.StringArray(buildArg, arguments...)}
+	return &Build{command: b.command + helpers.StringArray(buildArg, arguments...)}
 }
 
 // Builder - Set builder to use
 func (b *Build) Builder(builderName string) *Build {
-	return &Build{Command: b.Command + helpers.String(builder, builderName)}
+	return &Build{command: b.command + helpers.String(builder, builderName)}
 }
 
 // DryRun - Execute command in dry run mode
 func (b *Build) DryRun() *Build {
-	return &Build{Command: b.Command + option.DryRun()}
+	return &Build{command: b.command + common.DryRun()}
 }
 
 // Memory - Set memory limit for the command container. Not supported by BuildKit.
+// If unitByte is empty use Kilobytes by default
 func (b *Build) Memory(bytes string, unitByte UnitByte) *Build {
-	bytes += string(unitByte)
-	return &Build{Command: b.Command + helpers.String(memory, bytes)}
+	switch unitByte {
+	case Kilobytes, Megabytes, Gigabytes:
+		bytes += string(unitByte)
+	default:
+		bytes += string(Kilobytes)
+	}
+
+	return &Build{command: b.command + helpers.String(memory, bytes)}
 }
 
 // NoCache - Do not use cache when building the image
 func (b *Build) NoCache() *Build {
-	return &Build{Command: b.Command + helpers.Option(noCache)}
+	return &Build{command: b.command + helpers.Option(noCache)}
 }
 
 // Pull - Always attempt to pull a newer version of the image
 func (b *Build) Pull() *Build {
-	return &Build{Command: b.Command + helpers.Option(pull)}
+	return &Build{command: b.command + helpers.Option(pull)}
 }
 
 // Push - Push service images
 func (b *Build) Push() *Build {
-	return &Build{Command: b.Command + helpers.Option(push)}
+	return &Build{command: b.command + helpers.Option(push)}
 }
 
 // Quiet - Don't print anything to STDOUT
 func (b *Build) Quiet() *Build {
-	return &Build{Command: b.Command + option.Quiet()}
+	return &Build{command: b.command + common.Quiet()}
 }
 
 // Ssh - Set SSH authentications used when building service images.
 // (use 'default' for using your default SSH Agent)
 func (b *Build) Ssh(agent string) *Build {
-	return &Build{Command: b.Command + helpers.String(ssh, agent)}
+	return &Build{command: b.command + helpers.String(ssh, agent)}
 }
 
 // WithDependencies - Also command dependencies (transitively)
 func (b *Build) WithDependencies() *Build {
-	return &Build{Command: b.Command + helpers.Option(withDependencies)}
+	return &Build{command: b.command + helpers.Option(withDependencies)}
 }
 
 func (b *Build) ServiceNames(serviceNames ...string) *common.CommandExecutor {
-	return &common.CommandExecutor{Command: b.Command + helpers.ServiceName(serviceNames...)}
+	return common.SetCommand(b.command + helpers.ServiceName(serviceNames...))
 }

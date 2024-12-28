@@ -1,4 +1,4 @@
-package option
+package common
 
 import (
 	"github.com/rojack96/gocker/helpers"
@@ -82,7 +82,7 @@ func Detach() string {
 	return helpers.Option(detach)
 }
 
-func Services() string {
+func ServicesOption() string {
 	return helpers.Option(services)
 }
 

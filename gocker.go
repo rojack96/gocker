@@ -15,5 +15,5 @@ func Run() *run.Run {
 
 // Compose - Define and run multi-container applications with Docker
 func Compose() *compose.Compose {
-	return &compose.Compose{Command: docker + " compose"}
+	return compose.New(docker + " compose")
 }
