@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 type Images struct {
@@ -15,7 +16,7 @@ func NewImages(cmd string) *Images {
 
 // DryRun - Execute command in dry run mode
 func (i *Images) DryRun() *Images {
-	i.command += common.DryRun()
+	i.command += options.DryRun()
 	return i
 }
 
@@ -26,7 +27,7 @@ func (i *Images) Format(value string) *Images {
 
 // Quiet - Only display IDs
 func (i *Images) Quiet() *Images {
-	return &Images{command: i.command + common.Quiet()}
+	return &Images{command: i.command + options.Quiet()}
 }
 
 func (i *Images) ServiceNames(serviceNames ...string) *common.CommandExecutor {

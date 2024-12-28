@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 type Stop struct {
@@ -15,7 +16,7 @@ func NewStop(cmd string) *Stop {
 
 // DryRun - Execute command in dry run mode
 func (s *Stop) DryRun() *Stop {
-	return &Stop{command: s.command + common.DryRun()}
+	return &Stop{command: s.command + options.DryRun()}
 }
 
 // Timeout - Specify a shutdown timeout in seconds

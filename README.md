@@ -1,5 +1,7 @@
 # Gocker
 
+<img title="" src="docs/gocker.png" alt="Descrizione dell'immagine" data-align="inline" width="256"> 
+
 **Gocker** is a CLI generator to create and execute Docker commands in Go.
 
 ## Installation

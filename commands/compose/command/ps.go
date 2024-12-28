@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -20,12 +21,12 @@ func NewPs(cmd string) *Ps {
 
 // All - Show all stopped containers (including those created by the run command)
 func (p *Ps) All() *Ps {
-	return &Ps{command: p.command + common.All()}
+	return &Ps{command: p.command + options.All()}
 }
 
 // DryRun - Execute command in dry run mode
 func (p *Ps) DryRun() *Ps {
-	return &Ps{command: p.command + common.DryRun()}
+	return &Ps{command: p.command + options.DryRun()}
 }
 
 // Filter - Filter services by a property (supported filters: status)
@@ -40,7 +41,7 @@ func (p *Ps) Format(formatValue string) *Ps {
 
 // NoTrunc - Don't truncate output
 func (p *Ps) NoTrunc() *Ps {
-	return &Ps{command: p.command + common.NoTrunc()}
+	return &Ps{command: p.command + options.NoTrunc()}
 }
 
 // Orphans - Include orphaned services (not declared by project) (default true)
@@ -50,7 +51,7 @@ func (p *Ps) Orphans() *Ps {
 
 // Services - Display services
 func (p *Ps) Services() *Ps {
-	return &Ps{command: p.command + common.ServicesOption()}
+	return &Ps{command: p.command + options.ServicesOption()}
 }
 
 // Status - Filter services by status (e.g., paused, running)
@@ -60,7 +61,7 @@ func (p *Ps) Status(statusValues ...string) *Ps {
 
 // Quiet - Only display IDs
 func (p *Ps) Quiet() *Ps {
-	return &Ps{command: p.command + common.Quiet()}
+	return &Ps{command: p.command + options.Quiet()}
 }
 
 // ServiceNames - Specify services to list

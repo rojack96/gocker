@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 	"strings"
 )
 
@@ -30,7 +31,7 @@ func NewRun(cmd string) *Run {
 
 // Build - Build image before starting container
 func (r *Run) Build() *Run {
-	return &Run{command: r.command + common.Build()}
+	return &Run{command: r.command + options.Build()}
 }
 
 // CapAdd - Add Linux capabilities
@@ -45,12 +46,12 @@ func (r *Run) CapDrop(capabilities ...string) *Run {
 
 // Detach - Run container in background and print container ID
 func (r *Run) Detach() *Run {
-	return &Run{command: r.command + common.Detach()}
+	return &Run{command: r.command + options.Detach()}
 }
 
 // DryRun - Execute command in dry run mode
 func (r *Run) DryRun() *Run {
-	return &Run{command: r.command + common.DryRun()}
+	return &Run{command: r.command + options.DryRun()}
 }
 
 // Entrypoint - Override the entrypoint of the image
@@ -80,12 +81,12 @@ func (r *Run) Name(value string) *Run {
 
 // NoTTY - Disable pseudo-TTY allocation (default: auto-detected)
 func (r *Run) NoTTY() *Run {
-	return &Run{command: r.command + common.NoTty()}
+	return &Run{command: r.command + options.NoTty()}
 }
 
 // NoDeps - Don't start linked services
 func (r *Run) NoDeps() *Run {
-	return &Run{command: r.command + common.NoDeps()}
+	return &Run{command: r.command + options.NoDeps()}
 }
 
 // Publish - Publish a container's port(s) to the host
@@ -95,12 +96,12 @@ func (r *Run) Publish(ports ...string) *Run {
 
 // QuietPull - Pull without printing progress information
 func (r *Run) QuietPull() *Run {
-	return &Run{command: r.command + common.QuietPull()}
+	return &Run{command: r.command + options.QuietPull()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (r *Run) RemoveOrphans() *Run {
-	return &Run{command: r.command + common.RemoveOrphans()}
+	return &Run{command: r.command + options.RemoveOrphans()}
 }
 
 // RM - Automatically remove the container when it exits

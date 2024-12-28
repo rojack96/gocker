@@ -1,9 +1,9 @@
 package compose
 
 import (
-	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/commands/compose/command"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -84,7 +84,7 @@ func (c *Compose) Compatibility() *Compose {
 
 // DryRun - Execute command in dry run mode
 func (c *Compose) DryRun() *Compose {
-	return &Compose{command: c.command + common.DryRun()}
+	return &Compose{command: c.command + options.DryRun()}
 }
 
 // EnvFile - Specify an alternate environment file
