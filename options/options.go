@@ -5,16 +5,10 @@ import (
 )
 
 const (
-	AddHost             = "--add-host"
-	all                 = "--all"
-	Annotation          = "--annotation"
-	Attach              = "--attach"
-	BlkioWeightDevice   = "--blkio-weight-device"
-	build               = "--build"
-	CapAdd              = "--cap-add"
-	CapDrop             = "--cap-drop"
-	CgroupParent        = "--cgroup-parent"
-	Cgroupns            = "--cgroups"
+	all    = "--all"
+	Attach = "--attach"
+	build  = "--build"
+
 	Cidfile             = "--cidfile"
 	CpuPeriod           = "--cpu-period"
 	CpuQuota            = "--cpu-quota"

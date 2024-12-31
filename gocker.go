@@ -9,11 +9,12 @@ const (
 	docker = "docker"
 )
 
+// Run - Create and run a new container from an image.
 func Run() *run.Run {
-	return &run.Run{Command: docker + " run"}
+	return run.New(docker + " run")
 }
 
-// Compose - Define and run multi-container applications with Docker
+// Compose - Define and run multi-container applications with Docker.
 func Compose() *compose.Compose {
 	return compose.New(docker + " compose")
 }

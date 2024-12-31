@@ -20,3 +20,7 @@ func StringArray(cmd string, array ...string) string {
 func Int(cmd string, value int) string {
 	return appendString(cmd) + appendString(strconv.Itoa(value))
 }
+
+func Uint(cmd string, value uint64) string {
+	return appendString(cmd) + appendString(strconv.FormatUint(value, 10))
+}

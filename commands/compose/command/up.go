@@ -11,7 +11,6 @@ const (
 	abortOnContainerExit    = "--abort-on-container-exit"
 	abortOnContainerFailure = "--abort-on-container-failure"
 	alwaysRecreateDeps      = "--always-recreate-deps"
-	attach                  = "--attach"
 	attachDependencies      = "--attach-dependencies"
 	exitCodeFrom            = "--exit-code-from"
 	noAttach                = "--no-attach"
@@ -48,7 +47,7 @@ func (up *Up) AlwaysRecreateDeps() *Up {
 
 // Attach - Restrict attaching to the specified services. Incompatible with --attach-dependencies.
 func (up *Up) Attach(services []string) *Up {
-	return &Up{command: up.command + helpers.StringArray(attach, services...)}
+	return &Up{command: up.command + helpers.StringArray(options.Attach, services...)}
 }
 
 // AttachDependencies - Automatically attach to log output of dependent services
