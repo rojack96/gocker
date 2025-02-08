@@ -37,7 +37,6 @@ const (
 	dnsSearch           = "--dns-search"
 	domainname          = "--domainname"
 	entrypoint          = "--entrypoint"
-	env                 = "--env"
 	envFile             = "--env-file"
 	expose              = "--expose"
 	gpus                = "--gpus"
@@ -50,60 +49,60 @@ const (
 	healthTimeout       = "--health-timeout"
 	help                = "--help"
 	hostname            = "--hostname"
-	//init                = "--init"
-	interactive       = "--interactive"
-	ip                = "--ip"
-	ip6               = "--ip6"
-	ipc               = "--ipc"
-	isolation         = "--isolation"
-	kernelMemory      = "--kernel-memory"
-	label             = "--label"
-	labelFile         = "--label-file"
-	link              = "--link"
-	linkLocalIp       = "--link-local-ip"
-	logDriver         = "--log-driver"
-	logOpt            = "--log-opt"
-	macAddress        = "--mac-address"
-	memory            = "--memory"
-	memoryReservation = "--memory-reservation"
-	memorySwap        = "--memory-swap"
-	memorySwappiness  = "--memory-swappiness"
-	mount             = "--mount"
-	name              = "--name"
-	network           = "--network"
-	networkAlias      = "--network-alias"
-	noHealthcheck     = "--no-healthcheck"
-	oomKillDisable    = "--oom-kill-disable"
-	oomScoreAdj       = "--oom-score-adj"
-	pid               = "--pid"
-	pidsLimit         = "--pids-limit"
-	platform          = "--platform"
-	privileged        = "--privileged"
-	publish           = "--publish"
-	publishAll        = "--publish-all"
-	pull              = "--pull"
-	quiet             = "--quiet"
-	readOnly          = "--read-only"
-	restart           = "--restart"
-	rm                = "--rm"
-	runtime           = "--runtime"
-	securityOpt       = "--security-opt"
-	shmSize           = "--shm-size"
-	sigProxy          = "--sig-proxy"
-	stopSignal        = "--stop-signal"
-	stopTimeout       = "--stop-timeout"
-	storageOpt        = "--storage-opt"
-	sysctl            = "--sysctl"
-	tmpfs             = "--tmpfs"
-	tty               = "--tty"
-	ulimit            = "--ulimit"
-	user              = "--user"
-	userns            = "--userns"
-	uts               = "--uts"
-	volume            = "--volume"
-	volumeDriver      = "--volume-driver"
-	volumesFrom       = "--volumes-from"
-	workdir           = "--workdir"
+	initConst           = "--init"
+	interactive         = "--interactive"
+	ip                  = "--ip"
+	ip6                 = "--ip6"
+	ipc                 = "--ipc"
+	isolation           = "--isolation"
+	kernelMemory        = "--kernel-memory"
+	label               = "--label"
+	labelFile           = "--label-file"
+	link                = "--link"
+	linkLocalIp         = "--link-local-ip"
+	logDriver           = "--log-driver"
+	logOpt              = "--log-opt"
+	macAddress          = "--mac-address"
+	memory              = "--memory"
+	memoryReservation   = "--memory-reservation"
+	memorySwap          = "--memory-swap"
+	memorySwappiness    = "--memory-swappiness"
+	mount               = "--mount"
+	name                = "--name"
+	network             = "--network"
+	networkAlias        = "--network-alias"
+	noHealthcheck       = "--no-healthcheck"
+	oomKillDisable      = "--oom-kill-disable"
+	oomScoreAdj         = "--oom-score-adj"
+	pid                 = "--pid"
+	pidsLimit           = "--pids-limit"
+	platform            = "--platform"
+	privileged          = "--privileged"
+	publish             = "--publish"
+	publishAll          = "--publish-all"
+	pull                = "--pull"
+	quiet               = "--quiet"
+	readOnly            = "--read-only"
+	restart             = "--restart"
+	rm                  = "--rm"
+	runtime             = "--runtime"
+	securityOpt         = "--security-opt"
+	shmSize             = "--shm-size"
+	sigProxy            = "--sig-proxy"
+	stopSignal          = "--stop-signal"
+	stopTimeout         = "--stop-timeout"
+	storageOpt          = "--storage-opt"
+	sysctl              = "--sysctl"
+	tmpfs               = "--tmpfs"
+	tty                 = "--tty"
+	ulimit              = "--ulimit"
+	user                = "--user"
+	userns              = "--userns"
+	uts                 = "--uts"
+	volume              = "--volume"
+	volumeDriver        = "--volume-driver"
+	volumesFrom         = "--volumes-from"
+	workdir             = "--workdir"
 	// Commands:
 )
 
@@ -149,6 +148,11 @@ type Iops struct {
 type DnsOpt struct {
 	Dns string
 	Opt string
+}
+
+type Duration struct {
+	Number uint
+	Period string
 }
 
 func New(cmd string) *Run {
@@ -416,4 +420,93 @@ func (r *Run) Env(envs ...helpers.KeyValueParameters) *Run {
 // EnvFile - Specify an alternate environment file
 func (r *Run) EnvFile(files ...string) *Run {
 	return &Run{command: r.command + helpers.List(envFile, files...)}
+}
+
+// Expose - Expose a port or a range of ports
+func (r *Run) Expose(list ...string) *Run {
+	return &Run{command: r.command + helpers.List(expose, list...)}
+}
+
+// Gpus - GPU devices to add to the container ('all' to pass all GPUs)
+func (r *Run) Gpus(gpu string) *Run {
+	return &Run{command: r.command + helpers.String(gpus, gpu)}
+}
+
+// GroupAdd - Add additional groups to join
+func (r *Run) GroupAdd(list ...string) *Run {
+	return &Run{command: r.command + helpers.List(groupAdd, list...)}
+}
+
+// HealthCmd -  Command to run to check health
+func (r *Run) HealthCmd(cmd string) *Run {
+	return &Run{command: r.command + helpers.String(healthCmd, cmd)}
+}
+
+// HealthInterval - Time between running the check (ms|s|m|h) (default 0s)
+func (r *Run) HealthInterval(duration Duration) *Run {
+	cmd := strconv.Itoa(int(duration.Number)) + duration.Period
+	return &Run{command: r.command + helpers.String(healthInterval, cmd)}
+}
+
+// HealthRetries - Consecutive failures needed to report unhealthy
+func (r *Run) HealthRetries(retries int) *Run {
+	return &Run{command: r.command + helpers.Int(healthRetries, retries)}
+}
+
+// HealthStartInterval - Time between running the check during the start period (ms|s|m|h) (default 0s)
+func (r *Run) HealthStartInterval(duration Duration) *Run {
+	cmd := strconv.Itoa(int(duration.Number)) + duration.Period
+	return &Run{command: r.command + helpers.String(healthStartInterval, cmd)}
+}
+
+// HealthStartPeriod - Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
+func (r *Run) HealthStartPeriod(duration Duration) *Run {
+	cmd := strconv.Itoa(int(duration.Number)) + duration.Period
+	return &Run{command: r.command + helpers.String(healthStartPeriod, cmd)}
+}
+
+// HealthTimeout - Maximum time to allow one check to run (ms|s|m|h) (default 0s)
+func (r *Run) HealthTimeout(duration Duration) *Run {
+	cmd := strconv.Itoa(int(duration.Number)) + duration.Period
+	return &Run{command: r.command + helpers.String(healthTimeout, cmd)}
+}
+
+// Help - Print usage
+func (r *Run) Help() *Run {
+	return &Run{command: r.command + helpers.Option(help)}
+}
+
+// Hostname - Container host name
+func (r *Run) Hostname(hn string) *Run {
+	return &Run{command: r.command + helpers.String(hostname, hn)}
+}
+
+// Init - Run an init inside the container that forwards signals and reaps processes
+func (r *Run) Init() *Run {
+	return &Run{command: r.command + helpers.Option(initConst)}
+}
+
+// Interactive - Keep STDIN open even if not attached
+func (r *Run) Interactive() *Run {
+	return &Run{command: r.command + helpers.Option(interactive)}
+}
+
+// Ip - IPv4 address (e.g., 172.30.100.104)
+func (r *Run) Ip(value string) *Run {
+	return &Run{command: r.command + helpers.String(ip, value)}
+}
+
+// Ip6 - IPv6 address (e.g., 2001:db8::33)
+func (r *Run) Ip6(value string) *Run {
+	return &Run{command: r.command + helpers.String(ip6, value)}
+}
+
+// Ipc - IPC mode to use
+func (r *Run) Ipc(value string) *Run {
+	return &Run{command: r.command + helpers.String(ipc, value)}
+}
+
+// Isolation - Container isolation technology
+func (r *Run) Isolation(value string) *Run {
+	return &Run{command: r.command + helpers.String(isolation, value)}
 }
