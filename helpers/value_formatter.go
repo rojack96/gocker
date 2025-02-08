@@ -24,3 +24,7 @@ func Int(cmd string, value int) string {
 func Uint(cmd string, value uint64) string {
 	return appendString(cmd) + appendString(strconv.FormatUint(value, 10))
 }
+
+func Float(cmd string, value float64) string {
+	return appendString(cmd) + appendString(strconv.FormatFloat(value, 'f', -1, 64))
+}
