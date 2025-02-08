@@ -79,9 +79,7 @@ func Volumes() string {
 	return helpers.Option(volumes)
 }
 
-func Detach() string {
-	return helpers.Option(detach)
-}
+func Detach() string { return helpers.Option(detach) }
 
 func ServicesOption() string {
 	return helpers.Option(services)
