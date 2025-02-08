@@ -1,10 +1,11 @@
 package run
 
 import (
+	"strconv"
+
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 	"github.com/rojack96/gocker/options"
-	"strconv"
 )
 
 const (
@@ -471,7 +472,7 @@ func (r *Run) HealthTimeout(duration Duration) *Run {
 	return &Run{command: r.command + helpers.String(healthTimeout, cmd)}
 }
 
-// Help - Print usage
+// Help - Print usage"--workdir"
 func (r *Run) Help() *Run {
 	return &Run{command: r.command + helpers.Option(help)}
 }
@@ -509,4 +510,116 @@ func (r *Run) Ipc(value string) *Run {
 // Isolation - Container isolation technology
 func (r *Run) Isolation(value string) *Run {
 	return &Run{command: r.command + helpers.String(isolation, value)}
+}
+
+// TODO FROM HERE
+
+// KernelMemory - Kernel memory limit
+// func (r *Run) KernelMemory(value string) *Run {
+// 	return &Run{command: r.command + helpers.String("--kernel-memory", value)}
+// }
+
+// LabelFile - Read in a line delimited file of labels
+// func (r *Run) LabelFile(value string) *Run {
+// 	return &Run{command: r.command + helpers.String("--label-file", value)}
+// }
+
+// LinkLocalIp - Container IPv4/IPv6 link-local addresses
+// func (r *Run) LinkLocalIp(value string) *Run {
+// 	return &Run{command: r.command + helpers.String("--link-local-ip", value)}
+// }
+
+// LogDriver - Logging driver for the container
+func (r *Run) LogDriver(driver string) *Run {
+	return &Run{command: r.command + helpers.String(logDriver, driver)}
+}
+
+// MacAddress - Container MAC address (e.g., 92:d0:c6:0a:29:33)
+func (r *Run) MacAddress(address string) *Run {
+	return &Run{command: r.command + helpers.String(macAddress, address)}
+}
+
+// Name - Assign a name to the container
+func (r *Run) Name(value string) *Run {
+	return &Run{command: r.command + helpers.String(name, value)}
+}
+
+// Network - Connect a container to a network
+func (r *Run) Network(value string) *Run {
+	return &Run{command: r.command + helpers.String(network, value)}
+}
+
+// Pid - PID namespace to use
+func (r *Run) Pid(value string) *Run {
+	return &Run{command: r.command + helpers.String(pid, value)}
+}
+
+// Platform - Set platform if server is multi-platform capable
+func (r *Run) Platform(value string) *Run {
+	return &Run{command: r.command + helpers.String(platform, value)}
+}
+
+// PublishAll - Publish all exposed ports to random ports
+func (r *Run) PublishAll() *Run {
+	return &Run{command: r.command + helpers.Option(publishAll)}
+}
+
+// Pull - Pull image before running ("always", "missing", "never") (default "missing")
+func (r *Run) Pull(value string) *Run {
+	return &Run{command: r.command + helpers.String(pull, value)}
+}
+
+// Quiet - Suppress the pull output
+func (r *Run) Quiet() *Run { return &Run{command: r.command + options.Quiet()} }
+
+// ReadOnly - Mount the container's root filesystem as read only
+func (r *Run) ReadOnly() *Run { return &Run{command: r.command + helpers.Option(readOnly)} }
+
+// Restart - Restart policy to apply when a container exits (default "no")
+func (r *Run) Restart(value string) *Run {
+	return &Run{command: r.command + helpers.String(restart, value)}
+}
+
+// Rm - Automatically remove the container when it exits
+func (r *Run) Rm() *Run { return &Run{command: r.command + helpers.Option(rm)} }
+
+// Runtime - Runtime to use for this container
+func (r *Run) Runtime(value string) *Run {
+	return &Run{command: r.command + helpers.String(runtime, value)}
+}
+
+// SigProxy - Proxy received signals to the process (default true)
+func (r *Run) SigProxy() *Run { return &Run{command: r.command + helpers.Option(sigProxy)} }
+
+// StopSignal - Signal to stop the container
+func (r *Run) StopSignal(value string) *Run {
+	return &Run{command: r.command + helpers.String(stopSignal, value)}
+}
+
+// Tty - Allocate a pseudo-TTY
+func (r *Run) Tty() *Run { return &Run{command: r.command + helpers.Option(tty)} }
+
+// User - Username or UID (format: <name|uid>[:<group|gid>])
+func (r *Run) User(value string) *Run {
+	return &Run{command: r.command + helpers.String(user, value)}
+}
+
+// Userns - User namespace to use
+func (r *Run) Userns(value string) *Run {
+	return &Run{command: r.command + helpers.String(userns, value)}
+}
+
+// Uts - UTS namespace to use
+func (r *Run) Uts(value string) *Run {
+	return &Run{command: r.command + helpers.String(uts, value)}
+}
+
+// VolumeDriver - Optional volume driver for the container
+func (r *Run) VolumeDriver(value string) *Run {
+	return &Run{command: r.command + helpers.String(volumeDriver, value)}
+}
+
+// Workdir - Working directory inside the container
+func (r *Run) Workdir(value string) *Run {
+	return &Run{command: r.command + helpers.String(workdir, value)}
 }
