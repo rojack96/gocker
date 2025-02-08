@@ -56,7 +56,7 @@ func (p *Ps) Services() *Ps {
 
 // Status - Filter services by status (e.g., paused, running)
 func (p *Ps) Status(statusValues ...string) *Ps {
-	return &Ps{command: p.command + helpers.StringArray(status, statusValues...)}
+	return &Ps{command: p.command + helpers.List(status, statusValues...)}
 }
 
 // Quiet - Only display IDs

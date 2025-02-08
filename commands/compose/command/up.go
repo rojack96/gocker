@@ -47,12 +47,12 @@ func (up *Up) AlwaysRecreateDeps() *Up {
 
 // Attach - Restrict attaching to the specified services. Incompatible with --attach-dependencies.
 func (up *Up) Attach(services []string) *Up {
-	return &Up{command: up.command + helpers.StringArray(options.Attach, services...)}
+	return &Up{command: up.command + helpers.List(options.Attach, services...)}
 }
 
 // AttachDependencies - Automatically attach to log output of dependent services
 func (up *Up) AttachDependencies() *Up {
-	return &Up{command: up.command + helpers.StringArray(attachDependencies)}
+	return &Up{command: up.command + helpers.List(attachDependencies)}
 }
 
 // Build - Build images before starting containers
@@ -82,7 +82,7 @@ func (up *Up) ForceRecreate() *Up {
 
 // NoAttach - Do not attach (stream logs) to the specified services
 func (up *Up) NoAttach(services []string) *Up {
-	return &Up{command: up.command + helpers.StringArray(noAttach, services...)}
+	return &Up{command: up.command + helpers.List(noAttach, services...)}
 }
 
 // NoBuild - Don't build an image, even if it's policy

@@ -89,12 +89,12 @@ func (c *Compose) DryRun() *Compose {
 
 // EnvFile - Specify an alternate environment file
 func (c *Compose) EnvFile(files ...string) *Compose {
-	return &Compose{command: c.command + helpers.StringArray(envFile, files...)}
+	return &Compose{command: c.command + helpers.List(envFile, files...)}
 }
 
 // FileName Compose - configuration files
 func (c *Compose) FileName(files ...string) *Compose {
-	return &Compose{command: c.command + helpers.StringArray(file, files...)}
+	return &Compose{command: c.command + helpers.List(file, files...)}
 }
 
 // Parallelism - Control max parallelism, -1 for unlimited (default -1)
@@ -104,7 +104,7 @@ func (c *Compose) Parallelism(parallelismValue int) *Compose {
 
 // Profile - Specify a profile to enable
 func (c *Compose) Profile(profiles ...string) *Compose {
-	return &Compose{command: c.command + helpers.StringArray(profile, profiles...)}
+	return &Compose{command: c.command + helpers.List(profile, profiles...)}
 }
 
 // Progress - Set type of progress output (auto, tty, plain, quiet) (default "auto")

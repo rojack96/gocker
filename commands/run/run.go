@@ -1,6 +1,7 @@
 package run
 
 import (
+	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
 	"github.com/rojack96/gocker/options"
 	"strconv"
@@ -127,6 +128,29 @@ type Blkio struct {
 	Weight uint16
 }
 
+type Device struct {
+	Host      string
+	Container string
+}
+
+type Bps struct {
+	Device string
+	Rate   struct {
+		Bytes    string
+		UnitByte common.UnitByte
+	}
+}
+
+type Iops struct {
+	Device    string
+	Operation uint64
+}
+
+type DnsOpt struct {
+	Dns string
+	Opt string
+}
+
 func New(cmd string) *Run {
 	return &Run{command: cmd}
 }
@@ -147,7 +171,7 @@ func (r *Run) AddHost(list ...AddHost) *Run {
 		}
 	}
 
-	return &Run{command: r.command + helpers.StringArray(addHost, hosts...)}
+	return &Run{command: r.command + helpers.List(addHost, hosts...)}
 }
 
 // Annotation - Add an annotation to the container (passed through to the OCI runtime) (default map[])
@@ -160,12 +184,12 @@ func (r *Run) Annotation(annotationMap ...helpers.KeyValueParameters) *Run {
 		}
 	}
 
-	return &Run{command: r.command + helpers.StringArray(annotation, result...)}
+	return &Run{command: r.command + helpers.List(annotation, result...)}
 }
 
 // Attach - Attach to STDIN, STDOUT or STDERR
 func (r *Run) Attach(standard []string) *Run {
-	return &Run{command: r.command + helpers.StringArray(options.Attach, standard...)}
+	return &Run{command: r.command + helpers.List(options.Attach, standard...)}
 }
 
 // BlkioWeight - Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
@@ -183,7 +207,7 @@ func (r *Run) BlkioWeightDevice(blkio ...Blkio) *Run {
 		}
 	}
 
-	return &Run{command: r.command + helpers.StringArray(blkioWeightDevice, result...)}
+	return &Run{command: r.command + helpers.List(blkioWeightDevice, result...)}
 }
 
 // Cap - Add or Drop Linux capabilities
@@ -201,7 +225,7 @@ func (r *Run) Cap(capType Cap, value ...string) *Run {
 		capString = string("--cap-" + Add)
 	}
 
-	return &Run{command: r.command + helpers.StringArray(capString, value...)}
+	return &Run{command: r.command + helpers.List(capString, value...)}
 }
 
 // CgroupParent - Optional parent cgroup for the container
@@ -274,4 +298,122 @@ func (r *Run) Detach() *Run {
 // DetachKeys -  Override the key sequence for detaching from a container.
 func (r *Run) DetachKeys(value string) *Run {
 	return &Run{command: r.command + helpers.String(detachKeys, value)}
+}
+
+// Device -  Add a host device to the container
+func (r *Run) Device(list ...Device) *Run {
+	var hosts []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			hosts = append(hosts, l.Host+":"+l.Container)
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(device, hosts...)}
+}
+
+// DeviceCgroupRule - Add a rule to the cgroup allowed devices list
+func (r *Run) DeviceCgroupRule(value string) *Run {
+	return &Run{command: r.command + helpers.String(deviceCgroupRule, value)}
+}
+
+// DeviceReadBps - Limit read rate (bytes per second) from a device (default [])
+func (r *Run) DeviceReadBps(list ...Bps) *Run {
+	var hosts []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			hosts = append(hosts, l.Device+":"+l.Rate.Bytes+string(l.Rate.UnitByte))
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(deviceReadBps, hosts...)}
+}
+
+// DeviceReadIops - Limit read rate (IO per second) from a device (default [])
+func (r *Run) DeviceReadIops(list ...Iops) *Run {
+	var hosts []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			hosts = append(hosts, l.Device+":"+strconv.Itoa(int(l.Operation)))
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(deviceReadIops, hosts...)}
+}
+
+// DeviceWriteBps - Limit write rate (bytes per second) to a device (default [])
+func (r *Run) DeviceWriteBps(list ...Bps) *Run {
+	var hosts []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			hosts = append(hosts, l.Device+":"+l.Rate.Bytes+string(l.Rate.UnitByte))
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(deviceWriteBps, hosts...)}
+}
+
+// DeviceWriteIops - Limit write rate (IO per second) to a device (default [])
+func (r *Run) DeviceWriteIops(list ...Iops) *Run {
+	var hosts []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			hosts = append(hosts, l.Device+":"+strconv.Itoa(int(l.Operation)))
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(deviceWriteIops, hosts...)}
+}
+
+// DisableContentTrust - Skip image verification (default true)
+func (r *Run) DisableContentTrust() *Run {
+	return &Run{command: r.command + helpers.Option(disableContentTrust)}
+}
+
+// Dns - Set custom DNS servers
+func (r *Run) Dns(dnsList ...string) *Run {
+	return &Run{command: r.command + helpers.List(dns, dnsList...)}
+}
+
+// DnsOption - Set DNS option
+func (r *Run) DnsOption(list ...DnsOpt) *Run {
+	var hosts []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			hosts = append(hosts, l.Dns+":"+l.Opt)
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(dnsOption, hosts...)}
+}
+
+// DnsSearch - Set custom DNS search domains
+func (r *Run) DnsSearch(dnsList ...string) *Run {
+	return &Run{command: r.command + helpers.List(dnsSearch, dnsList...)}
+}
+
+// DomainName - Container NIS domain name
+func (r *Run) DomainName(value string) *Run {
+	return &Run{command: r.command + helpers.String(domainname, value)}
+}
+
+// Entrypoint - Overwrite the default ENTRYPOINT of the image
+func (r *Run) Entrypoint(value string) *Run {
+	return &Run{command: r.command + helpers.String(entrypoint, value)}
+}
+
+// Env - Set environment variables
+func (r *Run) Env(envs ...helpers.KeyValueParameters) *Run {
+	return &Run{command: r.command + common.Env(envs...)}
+}
+
+// EnvFile - Specify an alternate environment file
+func (r *Run) EnvFile(files ...string) *Run {
+	return &Run{command: r.command + helpers.List(envFile, files...)}
 }

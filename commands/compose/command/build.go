@@ -25,14 +25,6 @@ func NewBuild(cmd string) *Build {
 	return &Build{command: cmd}
 }
 
-type UnitByte string
-
-const (
-	Kilobytes UnitByte = "k"
-	Megabytes UnitByte = "m"
-	Gigabytes UnitByte = "g"
-)
-
 // Options
 
 // BuildArg - Set command-time variables for services
@@ -45,7 +37,7 @@ func (b *Build) BuildArg(args ...helpers.KeyValueParameters) *Build {
 		}
 	}
 
-	return &Build{command: b.command + helpers.StringArray(buildArg, arguments...)}
+	return &Build{command: b.command + helpers.List(buildArg, arguments...)}
 }
 
 // Builder - Set builder to use
@@ -60,12 +52,12 @@ func (b *Build) DryRun() *Build {
 
 // Memory - Set memory limit for the command container. Not supported by BuildKit.
 // If unitByte is empty use Kilobytes by default
-func (b *Build) Memory(bytes string, unitByte UnitByte) *Build {
+func (b *Build) Memory(bytes string, unitByte common.UnitByte) *Build {
 	switch unitByte {
-	case Kilobytes, Megabytes, Gigabytes:
+	case common.Kilobytes, common.Megabytes, common.Gigabytes:
 		bytes += string(unitByte)
 	default:
-		bytes += string(Kilobytes)
+		bytes += string(common.Kilobytes)
 	}
 
 	return &Build{command: b.command + helpers.String(memory, bytes)}

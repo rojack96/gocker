@@ -6,7 +6,7 @@ func String(cmd, value string) string {
 	return appendString(cmd) + appendString(value)
 }
 
-func StringArray(cmd string, array ...string) string {
+func List(cmd string, array ...string) string {
 	var result string
 	if len(array) != 0 {
 		for _, arr := range array {
