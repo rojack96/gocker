@@ -82,7 +82,6 @@ const (
 	publish             = "--publish"
 	publishAll          = "--publish-all"
 	pull                = "--pull"
-	quiet               = "--quiet"
 	readOnly            = "--read-only"
 	restart             = "--restart"
 	rm                  = "--rm"
@@ -154,6 +153,26 @@ type DnsOpt struct {
 type Duration struct {
 	Number uint
 	Period string
+}
+
+type Label struct {
+	Label string
+	Value string
+}
+
+type Link struct {
+	Container string
+	Alias     string
+}
+
+type LogOpt struct {
+	Key   string
+	Value string
+}
+
+type Publish struct {
+	ExternalPort string
+	InternalPort string
 }
 
 func New(cmd string) *Run {
@@ -512,26 +531,132 @@ func (r *Run) Isolation(value string) *Run {
 	return &Run{command: r.command + helpers.String(isolation, value)}
 }
 
-// TODO FROM HERE
-
 // KernelMemory - Kernel memory limit
-// func (r *Run) KernelMemory(value string) *Run {
-// 	return &Run{command: r.command + helpers.String("--kernel-memory", value)}
-// }
+func (r *Run) KernelMemory(bytes string, unitByte common.UnitByte) *Run {
+	switch unitByte {
+	case common.Kilobytes, common.Megabytes, common.Gigabytes:
+		bytes += string(unitByte)
+	default:
+		bytes += string(common.Kilobytes)
+	}
+
+	return &Run{command: r.command + helpers.String(kernelMemory, bytes)}
+}
+
+// Label - Add or override a label
+func (r *Run) Label(list ...Label) *Run {
+	var result []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			result = append(result, l.Label+"="+l.Value)
+		}
+	}
+	return &Run{command: r.command + helpers.List(label, result...)}
+}
 
 // LabelFile - Read in a line delimited file of labels
-// func (r *Run) LabelFile(value string) *Run {
-// 	return &Run{command: r.command + helpers.String("--label-file", value)}
-// }
+func (r *Run) LabelFile(list ...string) *Run {
+	var result string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			result += " " + labelFile + "=" + l
+		}
+	}
+	return &Run{command: r.command + result}
+}
+
+// Link - Add link to another container
+func (r *Run) Link(list ...Link) *Run {
+	var links []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			links = append(links, l.Container+":"+l.Alias)
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(link, links...)}
+}
 
 // LinkLocalIp - Container IPv4/IPv6 link-local addresses
-// func (r *Run) LinkLocalIp(value string) *Run {
-// 	return &Run{command: r.command + helpers.String("--link-local-ip", value)}
-// }
+func (r *Run) LinkLocalIp(list ...string) *Run {
+	var result string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			result += " " + linkLocalIp + "=" + l
+		}
+	}
+	return &Run{command: r.command + result}
+}
 
 // LogDriver - Logging driver for the container
 func (r *Run) LogDriver(driver string) *Run {
 	return &Run{command: r.command + helpers.String(logDriver, driver)}
+}
+
+// LogOpt - Log driver options
+func (r *Run) LogOpt(list ...LogOpt) *Run {
+	var result []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			result = append(result, l.Key+"="+l.Value)
+		}
+	}
+	return &Run{command: r.command + helpers.List(logOpt, result...)}
+}
+
+// Memory - Memory limit
+func (r *Run) Memory(bytes string, unitByte common.UnitByte) *Run {
+	switch unitByte {
+	case common.Kilobytes, common.Megabytes, common.Gigabytes:
+		bytes += string(unitByte)
+	default:
+		bytes += string(common.Kilobytes)
+	}
+
+	return &Run{command: r.command + helpers.String(memory, bytes)}
+}
+
+// MemoryReservation - Memory soft limit
+func (r *Run) MemoryReservation(bytes string, unitByte common.UnitByte) *Run {
+	var result string
+	switch unitByte {
+	case common.Kilobytes, common.Megabytes, common.Gigabytes:
+		bytes += string(unitByte)
+	default:
+		bytes += string(common.Kilobytes)
+	}
+	result += " " + memoryReservation + "=" + bytes
+
+	return &Run{command: r.command + result}
+}
+
+// MemorySwap - Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+func (r *Run) MemorySwap(bytes string, unitByte common.UnitByte) *Run {
+	switch unitByte {
+	case common.Kilobytes, common.Megabytes, common.Gigabytes:
+		bytes += string(unitByte)
+	default:
+		bytes += string(common.Kilobytes)
+	}
+
+	return &Run{command: r.command + helpers.String(memorySwap, bytes)}
+}
+
+// MemorySwappiness - Tune container memory swappiness (0 to 100) (default -1)
+func (r *Run) MemorySwappiness(value int) *Run {
+	result := " " + memorySwappiness + "=" + strconv.Itoa(value)
+
+	return &Run{command: r.command + result}
+}
+
+// Mount - Attach a filesystem mount to the container
+func (r *Run) Mount(value string) *Run {
+	return &Run{command: r.command + helpers.String(mount, value)}
 }
 
 // MacAddress - Container MAC address (e.g., 92:d0:c6:0a:29:33)
@@ -549,14 +674,60 @@ func (r *Run) Network(value string) *Run {
 	return &Run{command: r.command + helpers.String(network, value)}
 }
 
+// NetworkAlias - Add network-scoped alias for the container
+func (r *Run) NetworkAlias(value ...string) *Run {
+	return &Run{command: r.command + helpers.List(networkAlias, value...)}
+}
+
+// NoHealthcheck - Disable any container-specified HEALTHCHECK
+func (r *Run) NoHealthcheck() *Run {
+	return &Run{command: r.command + helpers.Option(noHealthcheck)}
+}
+
+// OomKillDisable - Disable OOM Killer
+func (r *Run) OomKillDisable() *Run {
+	return &Run{command: r.command + helpers.Option(oomKillDisable)}
+}
+
+// OomScoreAdj - Tune container memory swappiness (0 to 100) (default -1)
+func (r *Run) OomScoreAdj(value int) *Run {
+	result := " " + oomScoreAdj + "=" + strconv.Itoa(value)
+
+	return &Run{command: r.command + result}
+}
+
 // Pid - PID namespace to use
 func (r *Run) Pid(value string) *Run {
 	return &Run{command: r.command + helpers.String(pid, value)}
 }
 
+// PidsLimit - Tune container pids limit (set -1 for unlimited)
+func (r *Run) PidsLimit(value int) *Run {
+	result := " " + pidsLimit + "=" + strconv.Itoa(value)
+
+	return &Run{command: r.command + result}
+}
+
 // Platform - Set platform if server is multi-platform capable
 func (r *Run) Platform(value string) *Run {
 	return &Run{command: r.command + helpers.String(platform, value)}
+}
+
+// Privileged - Give extended privileges to this container
+func (r *Run) Privileged() *Run {
+	return &Run{command: r.command + helpers.Option(privileged)}
+}
+
+// Publish - Publish a container's port(s) to the host
+func (r *Run) Publish(list ...Publish) *Run {
+	var result []string
+
+	if len(list) > 0 {
+		for _, l := range list {
+			result = append(result, l.ExternalPort+":"+l.InternalPort)
+		}
+	}
+	return &Run{command: r.command + helpers.List(publish, result...)}
 }
 
 // PublishAll - Publish all exposed ports to random ports
@@ -587,6 +758,8 @@ func (r *Run) Rm() *Run { return &Run{command: r.command + helpers.Option(rm)} }
 func (r *Run) Runtime(value string) *Run {
 	return &Run{command: r.command + helpers.String(runtime, value)}
 }
+
+// TODO SecurityOpt
 
 // SigProxy - Proxy received signals to the process (default true)
 func (r *Run) SigProxy() *Run { return &Run{command: r.command + helpers.Option(sigProxy)} }
