@@ -103,7 +103,6 @@ const (
 	volumeDriver        = "--volume-driver"
 	volumesFrom         = "--volumes-from"
 	workdir             = "--workdir"
-	// Commands:
 )
 
 type Run struct {
@@ -173,6 +172,11 @@ type LogOpt struct {
 type Publish struct {
 	ExternalPort string
 	InternalPort string
+}
+
+type SecurityOpt struct {
+	Key   string
+	Value string
 }
 
 func New(cmd string) *Run {
@@ -759,7 +763,65 @@ func (r *Run) Runtime(value string) *Run {
 	return &Run{command: r.command + helpers.String(runtime, value)}
 }
 
-// TODO SecurityOpt
+// SecurityOpt - Security Options
+func (r *Run) SecurityOpt(list ...SecurityOpt) *Run {
+	var result []string
+
+	if len(list) > 0 {
+		for _, am := range list {
+			result = append(result, am.Key+"="+am.Value)
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(securityOpt, result...)}
+}
+
+// ShmSize - Size of /dev/shm
+func (r *Run) ShmSize(bytes string, unitByte common.UnitByte) *Run {
+	var result string
+	switch unitByte {
+	case common.Kilobytes, common.Megabytes, common.Gigabytes:
+		bytes += string(unitByte)
+	default:
+		bytes += string(common.Kilobytes)
+	}
+	result += " " + shmSize + "=" + bytes
+
+	return &Run{command: r.command + result}
+}
+
+// StopTimeout - Timeout (in seconds) to stop a container
+func (r *Run) StopTimeout(seconds int) *Run {
+	return &Run{command: r.command + helpers.Int(stopTimeout, seconds)}
+}
+
+// StorageOpt - Storage driver options for the container
+func (r *Run) StorageOpt(list ...SecurityOpt) *Run {
+	var result []string
+
+	if len(list) > 0 {
+		for _, am := range list {
+			result = append(result, am.Key+"="+am.Value)
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(storageOpt, result...)}
+}
+
+// Sysctl - Sysctl options (default map[])
+func (r *Run) Sysctl(list ...SecurityOpt) *Run {
+	var result []string
+
+	if len(list) > 0 {
+		for _, am := range list {
+			result = append(result, am.Key+"="+am.Value)
+		}
+	}
+
+	return &Run{command: r.command + helpers.List(sysctl, result...)}
+}
+
+// TODO tmpfs
 
 // SigProxy - Proxy received signals to the process (default true)
 func (r *Run) SigProxy() *Run { return &Run{command: r.command + helpers.Option(sigProxy)} }
@@ -771,6 +833,8 @@ func (r *Run) StopSignal(value string) *Run {
 
 // Tty - Allocate a pseudo-TTY
 func (r *Run) Tty() *Run { return &Run{command: r.command + helpers.Option(tty)} }
+
+// TODO ulimit
 
 // User - Username or UID (format: <name|uid>[:<group|gid>])
 func (r *Run) User(value string) *Run {
@@ -787,9 +851,16 @@ func (r *Run) Uts(value string) *Run {
 	return &Run{command: r.command + helpers.String(uts, value)}
 }
 
+// TODO volume
+
 // VolumeDriver - Optional volume driver for the container
 func (r *Run) VolumeDriver(value string) *Run {
 	return &Run{command: r.command + helpers.String(volumeDriver, value)}
+}
+
+// VolumeFrom - Mount volumes from the specified container(s)
+func (r *Run) VolumeFrom(containerName string) *Run {
+	return &Run{command: r.command + helpers.String(volumesFrom, containerName)}
 }
 
 // Workdir - Working directory inside the container
