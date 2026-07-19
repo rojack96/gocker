@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 	"strings"
 )
 
@@ -30,27 +31,27 @@ func NewRun(cmd string) *Run {
 
 // Build - Build image before starting container
 func (r *Run) Build() *Run {
-	return &Run{command: r.command + common.Build()}
+	return &Run{command: r.command + options.Build()}
 }
 
 // CapAdd - Add Linux capabilities
 func (r *Run) CapAdd(capabilities ...string) *Run {
-	return &Run{command: r.command + helpers.StringArray(capAdd, capabilities...)}
+	return &Run{command: r.command + helpers.List(capAdd, capabilities...)}
 }
 
 // CapDrop - Drop Linux capabilities
 func (r *Run) CapDrop(capabilities ...string) *Run {
-	return &Run{command: r.command + helpers.StringArray(capDrop, capabilities...)}
+	return &Run{command: r.command + helpers.List(capDrop, capabilities...)}
 }
 
 // Detach - Run container in background and print container ID
 func (r *Run) Detach() *Run {
-	return &Run{command: r.command + common.Detach()}
+	return &Run{command: r.command + options.Detach()}
 }
 
 // DryRun - Execute command in dry run mode
 func (r *Run) DryRun() *Run {
-	return &Run{command: r.command + common.DryRun()}
+	return &Run{command: r.command + options.DryRun()}
 }
 
 // Entrypoint - Override the entrypoint of the image
@@ -70,7 +71,7 @@ func (r *Run) Interactive() *Run {
 
 // Label - Add or override a label
 func (r *Run) Label(labels ...string) *Run {
-	return &Run{command: r.command + helpers.StringArray(label, labels...)}
+	return &Run{command: r.command + helpers.List(label, labels...)}
 }
 
 // Name - Assign a name to the container
@@ -80,27 +81,27 @@ func (r *Run) Name(value string) *Run {
 
 // NoTTY - Disable pseudo-TTY allocation (default: auto-detected)
 func (r *Run) NoTTY() *Run {
-	return &Run{command: r.command + common.NoTty()}
+	return &Run{command: r.command + options.NoTty()}
 }
 
 // NoDeps - Don't start linked services
 func (r *Run) NoDeps() *Run {
-	return &Run{command: r.command + common.NoDeps()}
+	return &Run{command: r.command + options.NoDeps()}
 }
 
 // Publish - Publish a container's port(s) to the host
 func (r *Run) Publish(ports ...string) *Run {
-	return &Run{command: r.command + helpers.StringArray(publish, ports...)}
+	return &Run{command: r.command + helpers.List(publish, ports...)}
 }
 
 // QuietPull - Pull without printing progress information
 func (r *Run) QuietPull() *Run {
-	return &Run{command: r.command + common.QuietPull()}
+	return &Run{command: r.command + options.QuietPull()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (r *Run) RemoveOrphans() *Run {
-	return &Run{command: r.command + common.RemoveOrphans()}
+	return &Run{command: r.command + options.RemoveOrphans()}
 }
 
 // RM - Automatically remove the container when it exits
@@ -125,7 +126,7 @@ func (r *Run) User(value string) *Run {
 
 // Volume - Bind mount a volume
 func (r *Run) Volume(volumes ...string) *Run {
-	return &Run{command: r.command + helpers.StringArray(volume, volumes...)}
+	return &Run{command: r.command + helpers.List(volume, volumes...)}
 }
 
 // Workdir - Working directory inside the container

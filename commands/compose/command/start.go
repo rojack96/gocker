@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 type Start struct {
@@ -15,7 +16,7 @@ func NewStart(cmd string) *Start {
 
 // DryRun - Execute command in dry run mode
 func (s *Start) DryRun() *Start {
-	return &Start{command: s.command + common.DryRun()}
+	return &Start{command: s.command + options.DryRun()}
 }
 
 // ServiceNames - Specify services to remove

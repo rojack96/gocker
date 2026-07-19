@@ -1,9 +1,9 @@
 package compose
 
 import (
-	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/commands/compose/command"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -84,17 +84,17 @@ func (c *Compose) Compatibility() *Compose {
 
 // DryRun - Execute command in dry run mode
 func (c *Compose) DryRun() *Compose {
-	return &Compose{command: c.command + common.DryRun()}
+	return &Compose{command: c.command + options.DryRun()}
 }
 
 // EnvFile - Specify an alternate environment file
 func (c *Compose) EnvFile(files ...string) *Compose {
-	return &Compose{command: c.command + helpers.StringArray(envFile, files...)}
+	return &Compose{command: c.command + helpers.List(envFile, files...)}
 }
 
 // FileName Compose - configuration files
 func (c *Compose) FileName(files ...string) *Compose {
-	return &Compose{command: c.command + helpers.StringArray(file, files...)}
+	return &Compose{command: c.command + helpers.List(file, files...)}
 }
 
 // Parallelism - Control max parallelism, -1 for unlimited (default -1)
@@ -104,7 +104,7 @@ func (c *Compose) Parallelism(parallelismValue int) *Compose {
 
 // Profile - Specify a profile to enable
 func (c *Compose) Profile(profiles ...string) *Compose {
-	return &Compose{command: c.command + helpers.StringArray(profile, profiles...)}
+	return &Compose{command: c.command + helpers.List(profile, profiles...)}
 }
 
 // Progress - Set type of progress output (auto, tty, plain, quiet) (default "auto")
@@ -252,6 +252,7 @@ func (c *Compose) Top() *command.Top {
 	return command.NewTop(c.command + helpers.Command(top))
 }
 
+// Unpause - Unpause services.
 func (c *Compose) Unpause() *command.Unpause {
 	return command.NewUnpause(c.command + helpers.Command(unpause))
 }

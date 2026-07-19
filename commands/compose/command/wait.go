@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -24,7 +25,7 @@ func (w *Wait) DownProject() *Wait {
 
 // DryRun - Execute command in dry run mode
 func (w *Wait) DryRun() *Wait {
-	return &Wait{command: w.command + common.DryRun()}
+	return &Wait{command: w.command + options.DryRun()}
 }
 
 // ServiceNames - Specify services to remove

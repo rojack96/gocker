@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -24,14 +25,6 @@ func NewBuild(cmd string) *Build {
 	return &Build{command: cmd}
 }
 
-type UnitByte string
-
-const (
-	Kilobytes UnitByte = "k"
-	Megabytes UnitByte = "m"
-	Gigabytes UnitByte = "g"
-)
-
 // Options
 
 // BuildArg - Set command-time variables for services
@@ -44,7 +37,7 @@ func (b *Build) BuildArg(args ...helpers.KeyValueParameters) *Build {
 		}
 	}
 
-	return &Build{command: b.command + helpers.StringArray(buildArg, arguments...)}
+	return &Build{command: b.command + helpers.List(buildArg, arguments...)}
 }
 
 // Builder - Set builder to use
@@ -54,17 +47,17 @@ func (b *Build) Builder(builderName string) *Build {
 
 // DryRun - Execute command in dry run mode
 func (b *Build) DryRun() *Build {
-	return &Build{command: b.command + common.DryRun()}
+	return &Build{command: b.command + options.DryRun()}
 }
 
 // Memory - Set memory limit for the command container. Not supported by BuildKit.
 // If unitByte is empty use Kilobytes by default
-func (b *Build) Memory(bytes string, unitByte UnitByte) *Build {
+func (b *Build) Memory(bytes string, unitByte common.UnitByte) *Build {
 	switch unitByte {
-	case Kilobytes, Megabytes, Gigabytes:
+	case common.Kilobytes, common.Megabytes, common.Gigabytes:
 		bytes += string(unitByte)
 	default:
-		bytes += string(Kilobytes)
+		bytes += string(common.Kilobytes)
 	}
 
 	return &Build{command: b.command + helpers.String(memory, bytes)}
@@ -87,7 +80,7 @@ func (b *Build) Push() *Build {
 
 // Quiet - Don't print anything to STDOUT
 func (b *Build) Quiet() *Build {
-	return &Build{command: b.command + common.Quiet()}
+	return &Build{command: b.command + options.Quiet()}
 }
 
 // Ssh - Set SSH authentications used when building service images.

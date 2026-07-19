@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -20,7 +21,7 @@ func NewRm(cmd string) *Rm {
 
 // DryRun - Execute command in dry run mode
 func (r *Rm) DryRun() *Rm {
-	return &Rm{command: r.command + common.DryRun()}
+	return &Rm{command: r.command + options.DryRun()}
 }
 
 // Force - Don't ask to confirm removal
@@ -35,7 +36,7 @@ func (r *Rm) Stop() *Rm {
 
 // Volumes - Remove any anonymous volumes attached to containers
 func (r *Rm) Volumes() *Rm {
-	return &Rm{command: r.command + common.Volumes()}
+	return &Rm{command: r.command + options.Volumes()}
 }
 
 // ServiceNames - Specify services to remove

@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 	"strings"
 )
 
@@ -20,12 +21,12 @@ func NewExec(cmd string) *Exec {
 
 // Detach - Detached mode: Run containers in the background
 func (e *Exec) Detach() *Exec {
-	return &Exec{command: e.command + common.Detach()}
+	return &Exec{command: e.command + options.Detach()}
 }
 
 // DryRun - Execute command in dry run mode
 func (e *Exec) DryRun() *Exec {
-	return &Exec{command: e.command + common.DryRun()}
+	return &Exec{command: e.command + options.DryRun()}
 }
 
 // Env - Set environment variables
@@ -40,7 +41,7 @@ func (e *Exec) Index(indexOfContainer int) *Exec {
 
 // NoTty - Disable pseudo-TTY allocation. By default, docker compose exec allocates a TTY.
 func (e *Exec) NoTty() *Exec {
-	return &Exec{command: e.command + common.NoTty()}
+	return &Exec{command: e.command + options.NoTty()}
 }
 
 // Privileged - Give extended privileges to the process

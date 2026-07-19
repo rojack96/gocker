@@ -1,4 +1,4 @@
-package common
+package options
 
 import (
 	"github.com/rojack96/gocker/helpers"
@@ -6,24 +6,25 @@ import (
 
 const (
 	all           = "--all"
+	Attach        = "--attach"
 	build         = "--build"
-	dryRun        = "--dry-run"
 	detach        = "--detach"
+	dryRun        = "--dry-run"
 	forceRecreate = "--force-recreate"
+	includeDeps   = "--include-deps"
 	noBuild       = "--no-build"
-	noRecreate    = "--no-recreate"
 	noColor       = "--no-color"
-	noLogPrefix   = "--no-log-prefix"
 	noDeps        = "--no-deps"
+	noLogPrefix   = "--no-log-prefix"
+	noRecreate    = "--no-recreate"
 	noTty         = "--no-tty"
 	noTrunc       = "--no-trunc"
-	timestamps    = "--timestamps"
 	quiet         = "--quiet"
 	quietPull     = "--quiet-pull"
 	removeOrphans = "--remove-orphans"
-	volumes       = "--volumes"
 	services      = "--services"
-	includeDeps   = "--include-deps"
+	timestamps    = "--timestamps"
+	volumes       = "--volumes"
 )
 
 func All() string {
@@ -78,9 +79,7 @@ func Volumes() string {
 	return helpers.Option(volumes)
 }
 
-func Detach() string {
-	return helpers.Option(detach)
-}
+func Detach() string { return helpers.Option(detach) }
 
 func ServicesOption() string {
 	return helpers.Option(services)

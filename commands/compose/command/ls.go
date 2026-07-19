@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 type Ls struct {
@@ -15,12 +16,12 @@ func NewLs(cmd string) *Ls {
 
 // All - Show all stopped Compose projects
 func (l *Ls) All() *Ls {
-	return &Ls{command: l.command + common.All()}
+	return &Ls{command: l.command + options.All()}
 }
 
 // DryRun - Execute command in dry run mode
 func (l *Ls) DryRun() *Ls {
-	return &Ls{command: l.command + common.DryRun()}
+	return &Ls{command: l.command + options.DryRun()}
 }
 
 // Filter - Filter output based on conditions provided
@@ -35,7 +36,7 @@ func (l *Ls) Format(value string) *Ls {
 
 // Quiet - Only display IDs
 func (l *Ls) Quiet() *Ls {
-	return &Ls{command: l.command + common.Quiet()}
+	return &Ls{command: l.command + options.Quiet()}
 }
 
 func (l *Ls) GetCommand() string {
