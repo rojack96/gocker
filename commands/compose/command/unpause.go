@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 type Unpause struct {
@@ -15,7 +16,7 @@ func NewUnpause(cmd string) *Unpause {
 
 // DryRun - Execute command in dry run mode
 func (u *Unpause) DryRun() *Unpause {
-	return &Unpause{command: u.command + common.DryRun()}
+	return &Unpause{command: u.command + options.DryRun()}
 }
 
 // ServiceNames - Specify services to remove

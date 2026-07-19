@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -22,7 +23,7 @@ func NewLogs(cmd string) *Logs {
 
 // DryRun - Execute command in dry run mode
 func (l *Logs) DryRun() *Logs {
-	return &Logs{command: l.command + common.DryRun()}
+	return &Logs{command: l.command + options.DryRun()}
 }
 
 // Follow - Follow log output
@@ -37,17 +38,17 @@ func (l *Logs) Index(indexOfContainer int) *Logs {
 
 // NoColor - Produce monochrome output
 func (l *Logs) NoColor() *Logs {
-	return &Logs{command: l.command + common.NoColor()}
+	return &Logs{command: l.command + options.NoColor()}
 }
 
 // NoLogPrefix - Don't print prefix in logs
 func (l *Logs) NoLogPrefix() *Logs {
-	return &Logs{command: l.command + common.NoLogPrefix()}
+	return &Logs{command: l.command + options.NoLogPrefix()}
 }
 
 // Timestamps - Show timestamps
 func (l *Logs) Timestamps() *Logs {
-	return &Logs{command: l.command + common.Timestamps()}
+	return &Logs{command: l.command + options.Timestamps()}
 }
 
 // Tail - Number of lines to show from the end of the logs for each container (default "all")

@@ -17,6 +17,14 @@ const (
 	workdir = "--workdir"
 )
 
+type UnitByte string
+
+const (
+	Kilobytes UnitByte = "k"
+	Megabytes UnitByte = "m"
+	Gigabytes UnitByte = "g"
+)
+
 type Service interface {
 	ServiceName(serviceName string) *CommandExecutor
 }
@@ -81,7 +89,7 @@ func Env(envs ...helpers.KeyValueParameters) string {
 		}
 	}
 
-	return helpers.StringArray(env, arguments...)
+	return helpers.List(env, arguments...)
 }
 
 func User(usr string) string {

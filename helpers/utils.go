@@ -5,12 +5,23 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
-	"strconv"
 )
+
+func appendString(cmd string) string {
+	return " " + cmd
+}
 
 type KeyValueParameters struct {
 	Key   string
 	Value string
+}
+
+func Option(cmd string) string {
+	return appendString(cmd)
+}
+
+func Command(cmd string) string {
+	return appendString(cmd)
 }
 
 func ServiceName(services ...string) string {
@@ -22,37 +33,6 @@ func ServiceName(services ...string) string {
 	}
 
 	return cmd
-}
-
-func appendString(cmd string) string {
-	return " " + cmd
-}
-
-func Option(cmd string) string {
-	return appendString(cmd)
-}
-
-func String(cmd, value string) string {
-	return appendString(cmd) + appendString(value)
-}
-
-func Int(cmd string, value int) string {
-	return appendString(cmd) + appendString(strconv.Itoa(value))
-}
-
-func StringArray(cmd string, array ...string) string {
-	var result string
-	if len(array) != 0 {
-		for _, arr := range array {
-			result += appendString(cmd) + appendString(arr)
-		}
-	}
-
-	return result
-}
-
-func Command(cmd string) string {
-	return appendString(cmd)
 }
 
 // TODO Test it on Windows and MacOs

@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -19,12 +20,12 @@ func NewScale(cmd string) *Scale {
 
 // DryRun - Execute command in dry run mode
 func (s *Scale) DryRun() *Scale {
-	return &Scale{command: s.command + common.DryRun()}
+	return &Scale{command: s.command + options.DryRun()}
 }
 
 // NoDeps - Don't start linked services
 func (s *Scale) NoDeps() *Scale {
-	return &Scale{command: s.command + common.NoDeps()}
+	return &Scale{command: s.command + options.NoDeps()}
 }
 
 // ServiceNames - Specify services to scale (SERVICE=REPLICAS...)
@@ -37,5 +38,5 @@ func (s *Scale) ServiceNames(serviceReplicas ...helpers.KeyValueParameters) *com
 		}
 	}
 
-	return common.SetCommand(s.command + helpers.StringArray(scale, arguments...))
+	return common.SetCommand(s.command + helpers.List(scale, arguments...))
 }

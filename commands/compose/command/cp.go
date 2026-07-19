@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 const (
@@ -32,7 +33,7 @@ func (cp *Cp) Archive() *Cp {
 
 // DryRun - Execute command in dry run mode
 func (cp *Cp) DryRun() *Cp {
-	return &Cp{command: cp.command + common.DryRun()}
+	return &Cp{command: cp.command + options.DryRun()}
 }
 
 // FollowLink - Always follow symbol link in SRC_PATH

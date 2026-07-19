@@ -3,6 +3,7 @@ package command
 import (
 	"github.com/rojack96/gocker/commands/common"
 	"github.com/rojack96/gocker/helpers"
+	"github.com/rojack96/gocker/options"
 )
 
 type Create struct {
@@ -15,27 +16,27 @@ func NewCreate(cmd string) *Create {
 
 // Build - Build images before starting containers
 func (c *Create) Build() *Create {
-	return &Create{command: c.command + common.Build()}
+	return &Create{command: c.command + options.Build()}
 }
 
 // DryRun - Execute command in dry run mode
 func (c *Create) DryRun() *Create {
-	return &Create{command: c.command + common.DryRun()}
+	return &Create{command: c.command + options.DryRun()}
 }
 
 // ForceRecreate - Recreate containers even if their configuration and image haven't changed
 func (c *Create) ForceRecreate() *Create {
-	return &Create{command: c.command + common.ForceRecreate()}
+	return &Create{command: c.command + options.ForceRecreate()}
 }
 
 // NoBuild - Don't build an image, even if it's policy
 func (c *Create) NoBuild() *Create {
-	return &Create{command: c.command + common.NoBuild()}
+	return &Create{command: c.command + options.NoBuild()}
 }
 
 // NoRecreate - If containers already exist, don't recreate them. Incompatible with --force-recreate.
 func (c *Create) NoRecreate() *Create {
-	return &Create{command: c.command + common.NoRecreate()}
+	return &Create{command: c.command + options.NoRecreate()}
 }
 
 // Pull - Pull image before running ("always"|"missing"|"never"|"build") (default "policy")
@@ -45,12 +46,12 @@ func (c *Create) Pull(pullPolicy string) *Create {
 
 // QuietPull - Pull without printing progress information
 func (c *Create) QuietPull() *Create {
-	return &Create{command: c.command + common.QuietPull()}
+	return &Create{command: c.command + options.QuietPull()}
 }
 
 // RemoveOrphans - Remove containers for services not defined in the Compose file
 func (c *Create) RemoveOrphans() *Create {
-	return &Create{command: c.command + common.RemoveOrphans()}
+	return &Create{command: c.command + options.RemoveOrphans()}
 }
 
 // Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
