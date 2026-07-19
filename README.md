@@ -27,7 +27,7 @@ import (
 func main() {
     compose := gocker.Compose()
 
-    result := compose.FileName("compose.yml").Up().Build().ServiceNames()
+    result := compose.FileName("compose.yml").Up().Build().ServiceNames("hello-world")
 
     fmt.Println(result.GetCommand())
     // output: "docker compose --file compose.yml up --build hello-world"
@@ -51,7 +51,7 @@ compose := gocker.Compose()
 result := compose.FileName("compose.yml"). //(optional) Docker file
                     Up(). // up command
                     Build(). // --build command
-                    ServiceNames() // service name to start, if empty, all services will be started
+                    ServiceNames("hello-world") // service name to start, if empty, all services will be started
 
 fmt.Println(result.GetCommand())
 // output: "docker compose --file compose.yml up --build hello-world"
@@ -66,7 +66,7 @@ compose := gocker.Compose()
 result := compose.FileName("compose.yml"). // Docker file, if empty it will not be included
                     Up(). // up command
                     Build(). // --build command
-                    ServiceNames() // service name to start, if empty, all services will be started
+                    ServiceNames("hello-world") // service name to start, if empty, all services will be started
 result.Exec(false) // if true, the command will be executed with administrator privileges
 ```
 

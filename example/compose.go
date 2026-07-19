@@ -8,7 +8,7 @@ import (
 func main() {
 	compose := gocker.Compose()
 
-	result := compose.FileName("compose.yml").Up().Build().ServiceNames()
+	result := compose.FileName("compose.yml").Up().Build().ServiceNames("hello-world")
 
 	fmt.Println(result.GetCommand())
 

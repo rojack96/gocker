@@ -24,6 +24,7 @@ func Compose() *compose.Compose {
 	return compose.New(docker + " compose")
 }
 
+// System - Manage Docker.
 func System() *system.System {
 	return system.New(docker + " system")
 }

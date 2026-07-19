@@ -252,6 +252,7 @@ func (c *Compose) Top() *command.Top {
 	return command.NewTop(c.command + helpers.Command(top))
 }
 
+// Unpause - Unpause services.
 func (c *Compose) Unpause() *command.Unpause {
 	return command.NewUnpause(c.command + helpers.Command(unpause))
 }

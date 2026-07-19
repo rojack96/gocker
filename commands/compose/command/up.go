@@ -52,7 +52,7 @@ func (up *Up) Attach(services []string) *Up {
 
 // AttachDependencies - Automatically attach to log output of dependent services
 func (up *Up) AttachDependencies() *Up {
-	return &Up{command: up.command + helpers.List(attachDependencies)}
+	return &Up{command: up.command + helpers.Option(attachDependencies)}
 }
 
 // Build - Build images before starting containers
@@ -139,7 +139,7 @@ func (up *Up) RenewAnonVolumes() *Up {
 // Scale - Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
 func (up *Up) Scale(service string, instances int) *Up {
 	serviceScale := service + "=" + strconv.Itoa(instances)
-	return &Up{command: up.command + serviceScale}
+	return &Up{command: up.command + helpers.String(scale, serviceScale)}
 }
 
 // Timeout - Use this timeout in seconds for container shutdown when attached or when containers are already running
